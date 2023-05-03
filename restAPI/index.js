@@ -1,8 +1,14 @@
 require('dotenv').config()
+const bodyParser = require('body-parser');
 const database = require('mongoose')
 const express = require("express")
 const app = express()
 
+const userRouter = require("./routes/user.router")
+
+app.use(bodyParser.json())
+
+app.use("/user", userRouter)
 
 app.use((req, res, next) => {
     res.on('finish', () => {
@@ -13,15 +19,7 @@ app.use((req, res, next) => {
 });
 
 
-app.get("/", (req, res) => {res.status(204)})
-
-
-app.get("/user", (req, res) => {
-    const schema = database.Schema({
-        field: { type: String, required: true },
-    })
-    database.model("users", schema).findById("64521d8db0e267ec82ebbd1f").then(user => res.send({ user }))
-})
+app.get("/", (req, res) => {res.status(204).send()})
 
 
 database.connect(process.env.DB_CONNECTION)
