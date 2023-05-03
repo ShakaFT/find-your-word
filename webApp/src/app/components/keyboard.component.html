@@ -1,0 +1,5 @@
+<div class="keyboard">
+    <div class="keyboard-row" *ngFor="let row of keyboard">
+        <div id="{{key}}" class="keyboard-key" *ngFor="let key of row">{{ key }}</div>
+    </div>
+</div>

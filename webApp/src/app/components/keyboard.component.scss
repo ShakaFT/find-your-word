@@ -1,0 +1,21 @@
+.keyboard {
+    margin: 0.5em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.keyboard-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.keyboard-key {
+    background-color: gray;
+    border-radius: 15%;
+    display: flex;
+    flex: 1 1;
+    justify-content: center;
+    margin: 0.1em;
+    padding: 0.3em;
+}
