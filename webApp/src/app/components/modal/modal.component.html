@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <p>{{data.content}}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="goToWordleList()">Go to the wordle list</button>
+  <button mat-button (click)="newGame()" cdkFocusInitial>New game</button>
+</div>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { KeyboardComponent } from './keyboard.component';
+import { WordleBoardComponent } from './wordle-board.component';
 
-describe('KeyboardComponent', () => {
-  let component: KeyboardComponent;
-  let fixture: ComponentFixture<KeyboardComponent>;
+describe('WordleBoardComponent', () => {
+  let component: WordleBoardComponent;
+  let fixture: ComponentFixture<WordleBoardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ KeyboardComponent ]
+      imports: [ WordleBoardComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(KeyboardComponent);
+    fixture = TestBed.createComponent(WordleBoardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

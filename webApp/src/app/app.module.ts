@@ -5,7 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
-import { KeyboardComponent } from './components/keyboard.component';
+import { WordleBoardComponent } from './components/wordle-board/wordle-board.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ModalComponent } from './components/modal/modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { KeyboardComponent } from './components/keyboard.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    KeyboardComponent
+    WordleBoardComponent,
+    MatSnackBarModule,
+    MatDialogModule,
+    ModalComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

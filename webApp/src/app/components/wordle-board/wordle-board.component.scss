@@ -1,0 +1,44 @@
+  .tools {
+    text-align: center;
+  }
+  
+  .keyboard {
+    margin: 0.5em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .keyboard-row {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .row_board_game {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .box {
+    background-color: #383a3e;
+    border: 2px solid white;
+    border-radius: 15%;
+    margin: 0.5em;
+    padding: 0.2em;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    color: white;
+  }
+  
+  .keyboard-key {
+    background-color: gray;
+    color: white;
+    border-radius: 15%;
+    display: flex;
+    flex: 1 1;
+    justify-content: center;
+    margin: 0.1em;
+    padding: 0.3em
+  }
+  
