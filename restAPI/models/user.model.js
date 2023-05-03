@@ -1,6 +1,6 @@
 const database = require("mongoose")
 
-const userSchema = database.Schema({
+const userSchema = new database.Schema({
     email: {
         type: String,
         required: true,
