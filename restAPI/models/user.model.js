@@ -6,17 +6,14 @@ const userSchema = new database.Schema({
         required: true,
         unique: true
     },
-    firstName: {
-        type: String,
-        required: true
-    },
-    lastName: {
-        type: String,
-        required: true
-    },
     password: {
         type: String,
         required: true
+    },
+    usernmae: {
+        type: String,
+        required: true,
+        unique: true
     }
 });
 
