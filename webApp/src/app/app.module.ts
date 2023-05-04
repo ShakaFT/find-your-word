@@ -7,8 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { WordleBoardComponent } from './components/wordle-board/wordle-board.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ModalComponent } from './components/modal/modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ModalComponent } from './components/modal/modal.component';
+import { NavComponent } from './components/nav/nav.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     WordleBoardComponent,
     MatSnackBarModule,
     MatDialogModule,
-    ModalComponent
+    ModalComponent,
+    NavComponent,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
