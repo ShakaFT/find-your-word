@@ -18,7 +18,7 @@ export class WordleBoardComponent {
 
   public currentRow: number = 0
   public nbLetters: number = 5
-  public nbTries: number = 6
+  public nbTries: number = 5
   public wordToFind: string = "HELLO"
 
   public gameMatrix: Array<Array<string>> = []

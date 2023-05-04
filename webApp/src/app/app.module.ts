@@ -16,6 +16,7 @@ import { MatCardModule } from '@angular/material/card'
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup/signup.component';
+import { NavComponent } from './components/nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SignupComponent } from './signup/signup.component';
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    NavComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

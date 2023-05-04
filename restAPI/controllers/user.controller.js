@@ -6,11 +6,11 @@ function login(req, res) {
 
     // Error handling
     if (typeof email !== "string") {
-        utils.bad_request(res, "email should be String")
+        utils.bad_request(res, "`email` should be String")
         return
     }
     if (typeof password !== "string") {
-        utils.bad_request(res, "password should be String")
+        utils.bad_request(res, "`password` should be String")
         return
     }
 
