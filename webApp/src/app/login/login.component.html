@@ -7,7 +7,7 @@
             <span>
                 <mat-form-field class="form-field" appearance="fill">
                     <mat-label>Email</mat-label>
-                    <input matInput required>
+                    <input matInput formControlName="email" required>
                 </mat-form-field>
             </span>
             <span>
@@ -16,6 +16,9 @@
                     <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
                     <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </mat-form-field>
+            </span>
+            <span>
+                <button class="form-button" mat-raised-button (click)="onClickLogin()">Login</button>
             </span>
         </form>
     </mat-card-content>
