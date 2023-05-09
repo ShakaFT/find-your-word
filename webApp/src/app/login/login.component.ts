@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../services/user.service';
 
 import { Router } from '@angular/router';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +14,11 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
 
-  constructor(private _snackBar: MatSnackBar, private _userService: UserService, private _router: Router) {
-
-  }
+  constructor(
+    private _snackBar: MatSnackBar,
+    private _userService: UserService,
+    private _apiService: ApiService,
+    private _router: Router) {}
 
   login: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
@@ -35,8 +38,17 @@ export class LoginComponent {
           })
           return
         }
-        this._userService.login(this.emailInput.value)
-        this._router.navigate(["/home"])
+        this._apiService.login(this.emailInput.value, this.passwordInput.value).subscribe(data => {
+
+          if(data.login) {
+            this._userService.login(data.user)
+            this._router.navigate(["/home"])
+          } else {
+            this._snackBar.open('Invalid email/password...', 'Close', {
+              duration: 3000
+            })
+          }
+        })
       } else {
         this._snackBar.open('Fill all fields...', 'Close', {
           duration: 3000

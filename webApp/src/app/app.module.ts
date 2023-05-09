@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup/signup.component';
 import { NavComponent } from './components/nav/nav.component';
 import { UserService } from './services/user.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { UserService } from './services/user.service';
     MatCardModule,
     NavComponent,
     MatButtonModule,
+    HttpClientModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

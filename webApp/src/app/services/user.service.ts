@@ -10,8 +10,8 @@ export class UserService {
 
   constructor() { }
 
-  login(email: String) {
-    this.user = {email: email}
+  login(user: User) {
+    this.user = user
   }
 
   logout() {
@@ -22,8 +22,8 @@ export class UserService {
     return this.user !== null;
   }
 
-  getEmail() {
-    return this.user!.email;
+  getUser() {
+    return this.user;
   }
 
 }
