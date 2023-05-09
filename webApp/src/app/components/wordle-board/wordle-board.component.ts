@@ -18,7 +18,7 @@ export class WordleBoardComponent {
 
   public currentRow: number = 0
   public nbLetters: number = 5
-  public nbTries: number = 2
+  public nbTries: number = 5
   public wordToFind: string = "HELLO"
 
   public gameMatrix: Array<Array<string>> = []
@@ -104,7 +104,7 @@ export class WordleBoardComponent {
         }
       }
 
-      this._setBackgroundColor(letter, "black")
+      this._setBackgroundColor(letter, "gray")
     });
   }
 
@@ -119,7 +119,6 @@ export class WordleBoardComponent {
 
     let currentWord: string = this._getWord()
 
-    console.log(`currentWord: ${currentWord} wordToFind ${this.wordToFind}`)
 
     // this.api.wordExists(this.lang, currentWord).subscribe(data => {
     //   if (!data.exists) {
@@ -130,11 +129,10 @@ export class WordleBoardComponent {
     this._checkLetterPosition(currentWord)
 
     if (currentWord == this.wordToFind) {
-      console.log("on rentre")
       this._dialog.open(ModalComponent, 
         { data: 
-          { title: "Vous avez gagné !!!",
-            content: `Le mot était ${this.wordToFind}` 
+          { title: "You win !!!",
+            content: `The word was ${this.wordToFind}` 
           },
           disableClose: true 
         })
@@ -144,8 +142,8 @@ export class WordleBoardComponent {
     if (this.currentRow == this.nbTries - 1) {
       this._dialog.open(ModalComponent,
         { data: 
-          { title: "Vous avez perdu ...",
-            content: `Le mot était ${this.wordToFind}` 
+          { title: "You lose ...",
+            content: `The word was ${this.wordToFind}` 
           },
           disableClose: true 
         })
@@ -165,7 +163,6 @@ export class WordleBoardComponent {
   }
 
   private _getWord(): string {
-    console.log("ok")
     return this.gameMatrix[this.currentRow].join("")
   }
 

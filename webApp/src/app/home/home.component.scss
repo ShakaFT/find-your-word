@@ -1,47 +1,5 @@
-#container {
-    text-align: center;
-
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-#container strong {
-    font-size: 20px;
-    line-height: 26px;
-}
-
-#container p {
-    font-size: 16px;
-    line-height: 22px;
-
-    color: #8c8c8c;
-
-    margin: 0;
-}
-
-#container a {
-    text-decoration: none;
-}
-
-.tools {
-    text-align: center;
-}
-
-.row_board_game {
-    display: flex;
-    justify-content: center;
-}
-
-.box {
-    background-color: #383a3e;
-    border: 2px solid white;
-    border-radius: 15%;
-    margin: 0.5em;
-    padding: 0.2em;
-    width: 30px;
-    height: 30px;
-    text-align: center;
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: #0b1120;
 }
