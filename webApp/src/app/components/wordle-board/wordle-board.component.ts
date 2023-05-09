@@ -104,7 +104,7 @@ export class WordleBoardComponent {
         }
       }
 
-      this._setBackgroundColor(letter, "black")
+      this._setBackgroundColor(letter, "gray")
     });
   }
 

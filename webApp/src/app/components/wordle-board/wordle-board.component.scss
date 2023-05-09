@@ -1,52 +1,77 @@
 .game {
+  max-width: 580px;
+  height: calc(100vh - 65px);
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
 
   .board_game {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    -webkit-box-flex: 1;
-    justify-content: center;
     align-items: center;
-    -webkit-box-align: center;
+    justify-content: center;
+    flex-grow: 1;
+
     .row_board_game {
       display: flex;
       justify-content: center;
       .box {
-        background-color: #383a3e;
-        border: 2px solid white;
-        border-radius: 15%;
-        margin: 0.5em;
-        padding: 0.2em;
-        width: 30px;
-        height: 30px;
-        text-align: center;
-        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 45px;
+        height: 45px;
+        color: #fff;
+        border: 1px solid white;
+        border-radius: 8px;
+        margin: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: bold;
       }
     }
   }
 
   .keyboard {
-    margin-left: auto;
-    box-sizing: border-box;
-    margin-right: auto;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 1rem 0;
+    width: 100%;
 
     .keyboard-row {
       display: flex;
-      flex-direction: row;
+      margin: 0 0 1rem 0;
+      width: 100%;
+
       .keyboard-key {
-        background-color: gray;
-        color: white;
-        border-radius: 15%;
+        font-family: "Roboto", sans-serif;
         display: flex;
-        flex: 1 1;
         justify-content: center;
-        margin: 0.1em;
-        padding: 0.3em;
+        align-items: center;
+        flex: 1;
+        transform: rotate(-4deg);
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        background: #fe82ae;
+        box-shadow: 0.25px 0.25px #fff, 0.5px 0.5px #fff, 0.75px 0.75px #fff,
+          1px 1px #fff, 1.25px 1.25px #fff, 1.5px 1.5px #fff, 1.75px 1.75px #fff,
+          2px 2px #fff, 2.25px 2.25px #fff, 2.5px 2.5px #fff, 2.75px 2.75px #fff,
+          3px 3px #fff, 3.25px 3.25px #fff, 3.5px 3.5px #fff, 3.75px 3.75px #fff,
+          4px 4px #fff, 4.25px 4.25px #fff, 4.5px 4.5px #fff, 4.75px 4.75px #fff,
+          5px 5px #fff;
+        box-sizing: border-box;
+        height: 50px;
+        border: 3px solid #fff;
+        border-radius: 8px;
+        margin: 0 0.5rem;
+        padding: 0 0.5rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.1);
+        }
       }
     }
-  } 
+  }
 }
