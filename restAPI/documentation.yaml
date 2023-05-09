@@ -3,9 +3,6 @@ info:
   version: 1.0.0
   title: Documentation rest API - Find Your Word
 
-servers:
-- url: https://find-your-word.onrender.com
-
 tags:
 - name: Users
   description: Endpoints related to users management
