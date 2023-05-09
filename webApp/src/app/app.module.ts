@@ -12,11 +12,13 @@ import { MatInputModule } from '@angular/material/input';
 import { ModalComponent } from './components/modal/modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card'
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup/signup.component';
 import { NavComponent } from './components/nav/nav.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -40,8 +42,9 @@ import { NavComponent } from './components/nav/nav.component';
     MatIconModule,
     MatCardModule,
     NavComponent,
+    MatButtonModule,
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
