@@ -22,18 +22,12 @@ function createUser(req, res) {
     User.findOne({ $or: [{ email: email }, { username: username }] })
         .then(user => {
             if (user) {
-                if (user.email === email) {
-                    res.send({ email_exists: true })
-                    return
-                } else {
-                    res.send({ username_exists: true })
-                    return
-                }
-            } else {
-                User.create({ email: email, password: password, username: username })
-                    .then(user => res.send({ id: user._id }))
-                    .catch(error => utils.internal_server(res, error))
+                res.send({ email_exists: user.email === email, username_exists: user.username === username })
+                return
             }
+            User.create({ email: email, password: password, username: username })
+                .then(user => res.send({ user_id: user._id, email_exists: false, username_exists: true }))
+                .catch(error => utils.internal_server(res, error))
         })
         .catch(error => utils.internal_server(res, error))
 }
@@ -128,7 +122,7 @@ function updatePasswordUser(req, res) {
                 return
             }
             User.findByIdAndUpdate(userId, { password: new_password })
-                .then(res.send({success: true}))
+                .then(res.send({ success: true }))
                 .catch(error => utils.internal_server(res, error))
         })
         .catch(error => utils.internal_server(res, error))
@@ -167,7 +161,7 @@ function updateProfileUser(req, res) {
                 return
             }
             User.findByIdAndUpdate(userId, { email: email, username: username })
-                .then(res.send({success: true}))
+                .then(res.send({ success: true }))
                 .catch(error => utils.internal_server(res, error))
         })
         .catch(error => utils.internal_server(res, error))

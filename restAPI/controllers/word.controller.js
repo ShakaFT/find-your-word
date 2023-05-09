@@ -3,7 +3,7 @@ const Word = require('../models/word.model')
 const utils = require('../utils')
 
 function existsWord(req, res) {
-    const { lang, word } = req.body;
+    const { lang, word } = req.query;
 
     // Error handling
     if (!iso.validate(lang)) {
@@ -24,15 +24,21 @@ function existsWord(req, res) {
 }
 
 function randomWord(req, res) {
-    const { lang, length } = req.body;
+    let { lang, length } = req.query;
 
     // Error handling
     if (!iso.validate(lang)) {
         utils.bad_request(res, "`lang` must follow ISO 3166-1 alpha-2 format.")
         return
     }
-    if (!Number.isInteger(length) || length < 4) {
-        utils.bad_request(res, "`length` should be integer and greater than 4.")
+    try {
+        length = parseInt(length)
+        if (length < 4) {
+            throw new Error();
+        }
+    } catch (error) {
+        console.log(error)
+        utils.bad_request(res, "`length` should be integer and greater than 3.")
         return
     }
 

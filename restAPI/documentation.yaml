@@ -1,0 +1,371 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Documentation rest API - Find Your Word
+
+servers:
+- url: https://find-your-word.onrender.com
+
+tags:
+- name: Users
+  description: Endpoints related to users management
+- name: Words
+  description: Endpoints related to words management
+
+paths:
+
+  #  ----- Users  ----------------------------------------
+
+  /user:
+    post:
+      summary: Create new user
+      description: This endpoint creates a new user.
+      tags:
+      - Users
+      requestBody:
+        description:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              - password
+              - username
+              properties:
+                email:
+                  type: string
+                  example: email@gmail.com
+                password:
+                  type: string
+                  example: example_password
+                username:
+                  type: string
+                  example: my_username
+      responses:
+        '200':
+          description: |-
+            - ```email_exists``` is set to ```true``` if email is already used by another user.
+
+            - ```username_exists``` is set to ```true``` if username is already used by another user.
+
+            - ```user_id``` is optional, it only appears if fields email_exists and username_exists are ```false```.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email_exists:
+                    type: boolean
+                    default: false
+                  username_exists:
+                    type: boolean
+                    default: false
+                  user_id:
+                    type: string
+                    example: 645a3411376ceb87800ab180
+        '400':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+
+  /user/login:
+    post:
+      summary: Login user
+      description: This endpoint logins user and retruns user data.
+      tags:
+      - Users
+      requestBody:
+        description:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              - password
+              properties:
+                email:
+                  type: string
+                  example: email@gmail.com
+                password:
+                  type: string
+                  example: example_password
+      responses:
+        '200':
+          description: |-
+            - ```login``` is set to ```false``` if email or password is invalid.
+
+            - ```user``` is optional, it only appears if field ```login``` is set to ```true```.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  login:
+                    type: boolean
+                    default: true
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 645a3411376ceb87800ab180a
+                      email:
+                        type: string
+                        example: email@gmail.com
+                      username:
+                        type: string
+                        example: my_username
+
+        '400':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+
+  /user/{user_id}:
+    delete:
+      summary: Delete user
+      description: This endpoint deletes user.
+      tags:
+      - Users
+      parameters:
+      - name: user_id
+        in: path
+        description: id of the user.
+        required: true
+        schema:
+          type: string
+          example: 645a3411376ceb87800ab180a
+      requestBody:
+        description:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - password
+              properties:
+                password:
+                  type: string
+                  example: my_password
+      responses:
+        '200':
+          description: |-
+            - ```success``` is set to ```false``` if password is invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+
+        '400':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+
+  /user/{user_id}/password:
+    put:
+      summary: Update user password
+      description: This endpoint updates user password.
+      tags:
+      - Users
+      parameters:
+      - name: user_id
+        in: path
+        description: id of the user.
+        required: true
+        schema:
+          type: string
+          example: 645a3411376ceb87800ab180a
+      requestBody:
+        description:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - old_password
+              - new_password
+              properties:
+                old_password:
+                  type: string
+                  example: old_password
+                new_password:
+                  type: string
+                  example: new_password
+      responses:
+        '200':
+          description: |-
+            - ```success``` is set to ```false``` if old_password is invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+
+        '400':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+
+  /user/{user_id}/profile:
+    put:
+      summary: Update user profile
+      description: This endpoint updates user profile.
+      tags:
+      - Users
+      parameters:
+      - name: user_id
+        in: path
+        description: id of the user.
+        required: true
+        schema:
+          type: string
+          example: 645a3411376ceb87800ab180a
+      requestBody:
+        description:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              - password
+              - username
+              properties:
+                email:
+                  type: string
+                  example: new.email@gmail.com
+                password:
+                  type: string
+                  example: new_password
+                username:
+                  type: string
+                  example: my_new_username
+      responses:
+        '200':
+          description: |-
+            - ```success``` is set to ```false``` if password is invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+
+        '400':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+
+  #  ----- Words  ----------------------------------------
+
+  /word/exists:
+    get:
+      summary: Check if word exists
+      description: This endpoint checks if word exists.
+      tags:
+      - Words
+      parameters:
+      - name: lang
+        in: query
+        description: lang must matches with **ISO 3166-1 alpha-2** format.
+        required: true
+        schema:
+          type: string
+          example: en
+      - name: word
+        in: query
+        required: true
+        schema:
+          type: string
+          example: HELLO
+      responses:
+        '200':
+          description: |-
+            - ```exists``` is set to ```true``` if this word exists.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exists:
+                    type: boolean
+                    default: true
+        '400':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+
+  /word/random:
+    get:
+      summary: Get random word
+      description: This endpoint returns random word.
+      tags:
+      - Words
+      parameters:
+      - name: lang
+        in: query
+        description: lang must matches with **ISO 3166-1 alpha-2** format.
+        required: true
+        schema:
+          type: string
+          example: en
+      - name: length
+        in: query
+        required: true
+        schema:
+          type: integer
+          example: 5
+      responses:
+        '200':
+          description: Successfully get random word.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  word:
+                    type: string
+                    default: HELLO
+        '400':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+
+components:
+  schemas:
+    errorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid payload
