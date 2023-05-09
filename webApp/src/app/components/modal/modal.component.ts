@@ -12,6 +12,7 @@ export interface DialogData {
     standalone: true,
     imports: [CommonModule],
     templateUrl: 'modal.component.html',
+    styleUrls: ['modal.component.scss']
 })
 export class ModalComponent {
     constructor(

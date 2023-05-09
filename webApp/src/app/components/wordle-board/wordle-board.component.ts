@@ -130,12 +130,14 @@ export class WordleBoardComponent {
 
     if (currentWord == this.wordToFind) {
       this._dialog.open(ModalComponent, 
-        { data: 
-          { title: "You win !!!",
+        { 
+          data: { 
+            title: "You win !!!",
             content: `The word was ${this.wordToFind}` 
           },
-          disableClose: true 
-        })
+          disableClose: true,
+        },
+        )
       return
     }
 

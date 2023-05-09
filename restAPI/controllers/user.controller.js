@@ -26,7 +26,7 @@ function createUser(req, res) {
                 return
             }
             User.create({ email: email, password: password, username: username })
-                .then(user => res.send({ user_id: user._id, email_exists: false, username_exists: true }))
+                .then(user => res.send({ user_id: user._id, email_exists: false, username_exists: false }))
                 .catch(error => utils.internal_server(res, error))
         })
         .catch(error => utils.internal_server(res, error))
