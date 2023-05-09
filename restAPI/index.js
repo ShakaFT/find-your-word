@@ -9,7 +9,7 @@ const wordRouter = require("./routes/word.router")
 
 app.use(bodyParser.json())
 
-app.get("/", (req, res) => {res.send()})
+app.get("/", (req, res) => { res.send() })
 
 app.use((req, res, next) => {
     res.on('finish', () => {

@@ -20,6 +20,7 @@ function existsWord(req, res) {
 
     Word.find(query)
         .then(words => res.send({exists: words.length > 0}))
+        .catch(error => utils.internal_server(res, error))
 }
 
 function randomWord(req, res) {
@@ -45,6 +46,7 @@ function randomWord(req, res) {
             console.log(randomWord.get(lang))
             res.send({word: randomWord.get(lang).text})
         })
+        .catch(error => utils.internal_server(res, error))
 }
 
 module.exports = { existsWord, randomWord }

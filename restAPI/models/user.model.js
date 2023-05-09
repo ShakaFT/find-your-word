@@ -10,7 +10,7 @@ const userSchema = new database.Schema({
         type: String,
         required: true
     },
-    usernmae: {
+    username: {
         type: String,
         required: true,
         unique: true

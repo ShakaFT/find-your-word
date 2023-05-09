@@ -1,8 +1,9 @@
+const database = require("mongoose")
 const User = require('../models/user.model')
 const utils = require('../utils')
 
 function createUser(req, res) {
-    const { email, password, username } = req.body;
+    const { email, password, username } = req.body
 
     // Error handling
     if (typeof email !== "string") {
@@ -18,33 +19,58 @@ function createUser(req, res) {
         return
     }
 
-    User.create({ email: email, password: password, username: username })
-        .then(user => res.send({ id: doc._id }))
+    User.findOne({ $or: [{ email: email }, { username: username }] })
+        .then(user => {
+            if (user) {
+                if (user.email === email) {
+                    res.send({ email_exists: true })
+                    return
+                } else {
+                    res.send({ username_exists: true })
+                    return
+                }
+            } else {
+                User.create({ email: email, password: password, username: username })
+                    .then(user => res.send({ id: user._id }))
+                    .catch(error => utils.internal_server(res, error))
+            }
+        })
+        .catch(error => utils.internal_server(res, error))
 }
 
 function deleteUser(req, res) {
+    const { password } = req.body
     const userId = req.params.id
-    const { password } = req.body;
 
     // Error handling
     if (typeof password !== "string") {
         utils.bad_request(res, "`password` should be String")
         return
     }
+    if (!database.Types.ObjectId.isValid(userId)) {
+        utils.bad_request(res, `Invalid user id : ${userId}`)
+        return
+    }
 
     User.findById(userId)
         .then(user => {
-            const success = user.password === password
+            if (!user) {
+                utils.bad_request(res, `There is no user with uid : ${userId}`)
+                return
+            }
             if (user.password !== password) {
                 res.send({ success: false })
+                return
             }
             User.findByIdAndDelete(userId)
                 .then(res.send({ success: true }))
+                .catch(error => utils.internal_server(res, error))
         })
+        .catch(error => utils.internal_server(res, error))
 }
 
-function getUser(req, res) {
-    const { email, password } = req.body;
+function loginUser(req, res) {
+    const { email, password } = req.body
 
     // Error handling
     if (typeof email !== "string") {
@@ -62,31 +88,67 @@ function getUser(req, res) {
             result = { "login": user ? user.password === password : false }
 
             if (result.login) {
-                result.user = user
+                result.user = {
+                    id: user._id,
+                    email: user.email,
+                    username: user.username
+                }
             }
             res.send(result)
         })
+        .catch(error => utils.internal_server(res, error))
 }
 
 function updatePasswordUser(req, res) {
-    const { password } = req.body;
+    const { old_password, new_password } = req.body
+    const userId = req.params.id
 
     // Error handling
-    if (typeof password !== "string") {
-        utils.bad_request(res, "`password` should be String")
+    if (!database.Types.ObjectId.isValid(userId)) {
+        utils.bad_request(res, `Invalid user id : ${userId}`)
+        return
+    }
+    if (typeof old_password !== "string") {
+        utils.bad_request(res, "`old_password` should be String")
+        return
+    }
+    if (typeof new_password !== "string") {
+        utils.bad_request(res, "`new_password` should be String")
         return
     }
 
-    User.findByIdAndUpdate(req.params.id, { password: password })
-        .then(res.status(204).send())
+    User.findById(userId)
+        .then(user => {
+            if (!user) {
+                utils.bad_request(res, `There is no user with uid : ${userId}`)
+                return
+            }
+            if (user.password !== old_password) {
+                res.send({ success: false })
+                return
+            }
+            User.findByIdAndUpdate(userId, { password: new_password })
+                .then(res.send({success: true}))
+                .catch(error => utils.internal_server(res, error))
+        })
+        .catch(error => utils.internal_server(res, error))
 }
 
 function updateProfileUser(req, res) {
-    const { email, username } = req.body;
+    const { email, password, username } = req.body
+    const userId = req.params.id
 
     // Error handling
+    if (!database.Types.ObjectId.isValid(userId)) {
+        utils.bad_request(res, `Invalid user id : ${userId}`)
+        return
+    }
     if (typeof email !== "string") {
         utils.bad_request(res, "`email` should be String")
+        return
+    }
+    if (typeof password !== "string") {
+        utils.bad_request(res, "`password` should be String")
         return
     }
     if (typeof username !== "string") {
@@ -94,8 +156,21 @@ function updateProfileUser(req, res) {
         return
     }
 
-    User.findByIdAndUpdate(req.params.id, { email: email, username: username })
-        .then(res.status(204).send())
+    User.findById(userId)
+        .then(user => {
+            if (!user) {
+                utils.bad_request(res, `There is no user with uid : ${userId}`)
+                return
+            }
+            if (user.password !== password) {
+                res.send({ success: false })
+                return
+            }
+            User.findByIdAndUpdate(userId, { email: email, username: username })
+                .then(res.send({success: true}))
+                .catch(error => utils.internal_server(res, error))
+        })
+        .catch(error => utils.internal_server(res, error))
 }
 
-module.exports = { createUser, deleteUser, getUser, updatePasswordUser, updateProfileUser }
+module.exports = { createUser, deleteUser, loginUser, updatePasswordUser, updateProfileUser }
