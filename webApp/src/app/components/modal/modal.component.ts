@@ -22,7 +22,7 @@ export class ModalComponent {
     ) { }
 
     goToWordleList(): void {
-        this.dialogRef.close("/wordleList")
+        this.dialogRef.close("/wordle-list")
     }
 
     newGame(): void {

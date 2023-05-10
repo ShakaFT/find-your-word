@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { InfiniteModeComponent } from './infinite-mode/infinite-mode.component';
+import { WordleListComponent } from './wordle-list/wordle-list.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,9 @@ const routes: Routes = [
   },
   {
     path: 'infinite', component: InfiniteModeComponent
+  },
+  {
+    path: 'wordle-list', component: WordleListComponent
   },
   {
     path: 'login', component: LoginComponent

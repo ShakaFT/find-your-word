@@ -21,6 +21,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { UserService } from './services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { InfiniteModeComponent } from './infinite-mode/infinite-mode.component';
+import { WordleListComponent } from './wordle-list/wordle-list.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { InfiniteModeComponent } from './infinite-mode/infinite-mode.component';
     HomeComponent,
     LoginComponent,
     SignupComponent,
-    InfiniteModeComponent
+    InfiniteModeComponent,
+    WordleListComponent
   ],
   imports: [
     BrowserModule,
