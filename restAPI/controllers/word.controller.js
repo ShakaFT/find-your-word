@@ -11,7 +11,7 @@ function existsWord(req, res) {
         utils.bad_request(res, "`lang` must follow ISO 3166-1 alpha-2 format.")
         return
     }
-    if (!wordRegex.test(word)) {
+    if (!wordRegex.test(word) || !word) {
         utils.bad_request(res, "`word` should be String.")
         return
     }
