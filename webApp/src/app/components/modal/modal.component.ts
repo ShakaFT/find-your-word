@@ -19,14 +19,13 @@ export class ModalComponent {
     constructor(
         public dialogRef: MatDialogRef<ModalComponent>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData,
-        private _router: Router
     ) { }
 
     goToWordleList(): void {
-        this.dialogRef.close();
+        this.dialogRef.close("/wordleList")
     }
 
     newGame(): void {
-        this.dialogRef.close();
+        this.dialogRef.close("/infinite")
     }
 }

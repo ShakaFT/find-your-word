@@ -6,6 +6,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { ModalComponent } from "../modal/modal.component";
 import { ApiService } from "src/app/services/api.service";
 import { UserService } from "src/app/services/user.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "wordle-board",
@@ -32,7 +33,8 @@ export class WordleBoardComponent {
     private _dialog: MatDialog,
     private renderer: Renderer2,
     private _apiService: ApiService,
-    private _userService: UserService
+    private _userService: UserService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
@@ -122,41 +124,51 @@ export class WordleBoardComponent {
 
     let currentWord: string = this._getWord();
 
-    this._apiService.wordExists(this._userService.getLang(), currentWord).subscribe(data => {
-      if (!data.exists) {
-        this._snackBar.open("The word doesn't exists...", "Close", {
-          duration: 3000,
-        });
-        return
-      }
+    this._apiService
+      .wordExists(this._userService.getLang(), currentWord)
+      .subscribe((data) => {
+        if (!data.exists) {
+          this._snackBar.open("The word doesn't exists...", "Close", {
+            duration: 3000,
+          });
+          return;
+        }
 
-    this._checkLetterPosition(currentWord);
+        this._checkLetterPosition(currentWord);
 
-    if (currentWord == this.wordToFind) {
-      this._dialog.open(ModalComponent, {
-        data: {
-          title: "You win !!!",
-          content: `The word was ${this.wordToFind}`,
-        },
-        disableClose: true,
-        panelClass: "modal-win",
+        if (currentWord == this.wordToFind) {
+          const dialogRef = this._dialog.open(ModalComponent, {
+            data: {
+              title: "You win !!!",
+              content: `The word was ${this.wordToFind}`,
+            },
+            disableClose: true,
+            panelClass: "modal-win",
+          });
+
+          dialogRef.afterClosed().subscribe((result) => {
+            this._router.navigate([result]);
+          });
+          return;
+        }
+
+        if (this.currentRow == this.nbTries - 1) {
+          const dialogRef = this._dialog.open(ModalComponent, {
+            data: {
+              title: "You lose ...",
+              content: `The word was ${this.wordToFind}`,
+            },
+            disableClose: true,
+          });
+
+          dialogRef.afterClosed().subscribe((result) => {
+            this._router.navigate([result]);
+          });
+          return;
+        }
+
+        this.currentRow++;
       });
-      return;
-    }
-
-    if (this.currentRow == this.nbTries - 1) {
-      this._dialog.open(ModalComponent, {
-        data: {
-          title: "You lose ...",
-          content: `The word was ${this.wordToFind}`,
-        },
-        disableClose: true,
-      });
-      return;
-    }
-
-    this.currentRow++;
-    })
   }
 
   private _getLastBox() {
