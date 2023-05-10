@@ -35,11 +35,14 @@ app.use((req, res, next) => {
 app.use("/user", userRouter)
 app.use("/word", wordRouter)
 
+if (require.main === module) {
+    database.connect(process.env.DB_CONNECTION)
+        .then(() => app.listen(process.env.PORT, () => {
+            console.log("REST API is ready !\n")
+        }))
+        .catch(err => {
+            console.error(`Error during database connection process : ${err}`)
+        })
+}
 
-database.connect(process.env.DB_CONNECTION)
-    .then(() => app.listen(process.env.PORT, () => {
-        console.log("REST API is ready !\n")
-    }))
-    .catch(err => {
-        console.error(`Error during database connection process : ${err}`)
-    })
+module.exports = app;
