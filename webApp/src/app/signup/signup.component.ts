@@ -1,18 +1,100 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { Router } from "@angular/router";
+import { ApiService } from "../services/api.service";
+import { UserService } from "../services/user.service";
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  selector: "app-signup",
+  templateUrl: "./signup.component.html",
+  styleUrls: ["./signup.component.scss"],
 })
 export class SignupComponent {
+  constructor(
+    private _snackBar: MatSnackBar,
+    private _userService: UserService,
+    private _apiService: ApiService,
+    private _router: Router
+  ) {}
+
   signup: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.email, Validators.required ]),
-    password: new FormControl('', [Validators.required, Validators.min(3) ])
+    username: new FormControl("", [Validators.required]),
+    email: new FormControl("", [Validators.email, Validators.required]),
+    password: new FormControl("", [Validators.required, Validators.min(3)]),
+    confirmPassword: new FormControl("", [
+      Validators.required,
+      Validators.min(3),
+    ]),
   });
-  hide = true;
-  get emailInput() { return this.signup.get('email'); }
-  get passwordInput() { return this.signup.get('password'); }  
-  get confirmPasswordInput() { return this.signup.get('confirm-password'); }  
+
+  hidePassword = true;
+  hideConfirmPassword = true;
+
+  get usernameInput() {
+    return this.signup.get("username");
+  }
+  get emailInput() {
+    return this.signup.get("email");
+  }
+  get passwordInput() {
+    return this.signup.get("password");
+  }
+  get confirmPasswordInput() {
+    return this.signup.get("confirmPassword");
+  }
+
+  onClickSignup() {
+    if (
+      this.emailInput != null &&
+      this.passwordInput != null &&
+      this.confirmPasswordInput != null &&
+      this.usernameInput != null
+    ) {
+      if (
+        this.emailInput.value &&
+        this.passwordInput.value &&
+        this.confirmPasswordInput.value &&
+        this.usernameInput.value
+      ) {
+        if (this.emailInput.invalid) {
+          this._snackBar.open("Enter a valid email...", "Close", {
+            duration: 3000,
+          });
+          return;
+        } else if (this.passwordInput.value !== this.confirmPasswordInput.value) {
+          this._snackBar.open("Password and confirm password are not the same...", "Close", {
+            duration: 3000,
+          });
+          return;
+        }
+        this._apiService
+          .signup(
+            this.emailInput.value,
+            this.passwordInput.value,
+            this.usernameInput.value
+          )
+          .subscribe((data) => {
+            if (data.email_exists) {
+              this._snackBar.open("Email already taken...", "Close", {
+                duration: 3000,
+              });
+              return;
+            } else if (data.username_exists) {
+              this._snackBar.open("Username already taken...", "Close", {
+                duration: 3000,
+              });
+              return;
+            }
+            this._userService.login(data.user);
+            this._router.navigate(["/home"]);
+          });
+      } else {
+        this._snackBar.open("Fill all fields...", "Close", {
+          duration: 3000,
+        });
+        return;
+      }
+    }
+  }
 }
