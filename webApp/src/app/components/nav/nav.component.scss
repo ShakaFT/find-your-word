@@ -21,7 +21,27 @@
       font-weight: bold;
       cursor: pointer;
       transition: transform 0.3s ease;
-      
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+  .nav-right {
+    display: flex;
+    place-items: center;
+    button {
+      display: flex;
+      place-items: center;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      &:hover {
+        transform: scale(1.2);
+      }
     }
   }
 }
