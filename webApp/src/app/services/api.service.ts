@@ -43,4 +43,32 @@ export class ApiService {
       }
     );
   }
+
+  public random(
+    lang: string,
+    length: number,
+  ): Observable<any> {
+    return this.http.get<any>(
+      `${environment.API_URL}/word/random?lang=${lang}&length=${length}`,
+      {
+        headers: new HttpHeaders({
+          api_key: environment.API_KEY,
+        }),
+      }
+    );
+  }
+
+  public wordExists(
+    lang: string,
+    word: string,
+  ): Observable<any> {
+    return this.http.get<any>(
+      `${environment.API_URL}/word/exists?lang=${lang}&word=${word}`,
+      {
+        headers: new HttpHeaders({
+          api_key: environment.API_KEY,
+        }),
+      }
+    );
+  }
 }

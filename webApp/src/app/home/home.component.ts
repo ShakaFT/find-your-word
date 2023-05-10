@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'home-component',
@@ -7,5 +6,8 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  
+  wordToFind: string = "HELLO"
+  nbLetters: number = 5
+
+  //TODO add the system to get the daily word and if the word is already found by user go to infinite mode
 }
