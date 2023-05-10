@@ -5,11 +5,28 @@
   align-items: center;
   padding: 1rem;
   margin: 0 auto;
+  background: #6366f1;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   .title {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 1rem;
   }
   .content {
+  }
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    button {
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
   }
 }
