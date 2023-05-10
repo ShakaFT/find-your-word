@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: Documentation rest API - Find Your Word
+  title: Documentation REST API - Find Your Word
 
 tags:
 - name: Users
