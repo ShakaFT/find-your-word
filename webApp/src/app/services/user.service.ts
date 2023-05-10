@@ -7,6 +7,7 @@ import { User } from '../interfaces/user';
 export class UserService {
 
   private user: User | null = null
+  private lang: string = "en"
 
   constructor() { }
 
@@ -24,6 +25,14 @@ export class UserService {
 
   getUser() {
     return this.user;
+  }
+
+  setLang(lang: string) {
+    this.lang = lang
+  }
+
+  getLang() {
+    return this.lang
   }
 
 }

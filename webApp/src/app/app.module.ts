@@ -20,13 +20,15 @@ import { SignupComponent } from './signup/signup.component';
 import { NavComponent } from './components/nav/nav.component';
 import { UserService } from './services/user.service';
 import { HttpClientModule } from '@angular/common/http';
+import { InfiniteModeComponent } from './infinite-mode/infinite-mode.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    InfiniteModeComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { Router } from "@angular/router";
 
 export interface DialogData {
     title: string;
@@ -18,6 +19,7 @@ export class ModalComponent {
     constructor(
         public dialogRef: MatDialogRef<ModalComponent>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData,
+        private _router: Router
     ) { }
 
     goToWordleList(): void {
