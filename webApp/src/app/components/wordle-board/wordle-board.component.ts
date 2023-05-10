@@ -136,6 +136,7 @@ export class WordleBoardComponent {
             content: `The word was ${this.wordToFind}` 
           },
           disableClose: true,
+          panelClass: "modal-win"
         },
         )
       return
