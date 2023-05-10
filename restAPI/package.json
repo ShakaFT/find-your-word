@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "node ./node_modules/mocha/bin/_mocha --timeout 60000 --exit || exit 0"
+    "test": "node ./node_modules/mocha/bin/_mocha --timeout 60000 --exit"
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +15,8 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "iso-639-1": "^2.1.15",
-    "mongoose": "^7.1.0"
+    "mongoose": "^7.1.0",
+    "nodemon": "^2.0.22"
   },
   "devDependencies": {
     "chai": "^4.3.7",
