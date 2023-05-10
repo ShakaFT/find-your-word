@@ -43,6 +43,7 @@ export class LoginComponent {
         this._apiService
           .login(this.emailInput.value, this.passwordInput.value)
           .subscribe((data) => {
+            console.log(data);
             if (data.login) {
               this._userService.login(data.user);
               this._router.navigate(["/home"]);
