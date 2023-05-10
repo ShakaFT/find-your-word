@@ -1,5 +1,5 @@
 const iso = require('iso-639-1')
-const Word = require('../models/word.model')
+const { getWordModel } = require('../models/word.model')
 const utils = require('../utils')
 
 function existsWord(req, res) {
@@ -16,10 +16,9 @@ function existsWord(req, res) {
         return
     }
 
-    const query = {}
-    query[`${lang}.text`] = word.toUpperCase()
+    const Word = getWordModel(lang)
 
-    Word.find(query)
+    Word.find({ text: word.toUpperCase() })
         .then(words => res.send({ exists: words.length > 0 }))
         .catch(error => utils.internal_server(res, error))
 }
@@ -38,15 +37,12 @@ function randomWord(req, res) {
         return
     }
 
-    const query = {}
-    query[`${lang}.length`] = length
-    const projection = { [`${lang}.text`]: 1 }
+    const Word = getWordModel(lang)
 
-    Word.find(query, projection)
+    Word.find({ length: length })
         .then(words => {
             const randomWord = words[Math.floor(Math.random() * words.length)]
-            console.log(randomWord.get(lang))
-            res.send({ word: randomWord.get(lang).text })
+            res.send({ word: randomWord.get("text") })
         })
         .catch(error => utils.internal_server(res, error))
 }
