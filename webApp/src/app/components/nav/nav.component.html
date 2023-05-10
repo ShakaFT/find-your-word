@@ -1,11 +1,23 @@
 <div class="container">
   <div class="nav-left">
-    <mat-icon matSufix >menu</mat-icon>
+    <button type="button" [matMenuTriggerFor]="settingsMenu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #settingsMenu>
+      <menu mat-menu-item>Infinite mode</menu>
+    </mat-menu>
   </div>
   <div class="nav-center">
     <h1>FIND-YOUR-WORD</h1>
   </div>
   <div class="nav-right">
-    <mat-icon matSufix >account_circle</mat-icon>
+    <button type="button" [matMenuTriggerFor]="accountMenu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #accountMenu>
+      <menu mat-menu-item *ngIf="!isLogged" (click)="login()">Login</menu>
+      <menu mat-menu-item>Settings</menu>
+      <menu mat-menu-item *ngIf="isLogged">Logout</menu>
+    </mat-menu>
   </div>
 </div>

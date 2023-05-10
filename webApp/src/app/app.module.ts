@@ -22,6 +22,7 @@ import { UserService } from './services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { InfiniteModeComponent } from './infinite-mode/infinite-mode.component';
 import { WordleListComponent } from './wordle-list/wordle-list.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { WordleListComponent } from './wordle-list/wordle-list.component';
     MatCardModule,
     NavComponent,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatMenuModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

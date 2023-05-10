@@ -1,11 +1,47 @@
 .container {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0 0 0;
+  margin: 0 auto;
+  max-width: 580px;
+  color: #fff;
+  h1 {
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  }
+  .nav-left {
     display: flex;
-    justify-content: space-between;
-    padding: 1rem 0 0 0;
-    margin: 0 auto;
-    max-width: 580px;
-    color: #fff;
-    h1 {
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    place-items: center;
+    button {
+      display: flex;
+      place-items: center;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      &:hover {
+        transform: scale(1.2);
+      }
     }
+  }
+  .nav-right {
+    display: flex;
+    place-items: center;
+    button {
+      display: flex;
+      place-items: center;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
 }
