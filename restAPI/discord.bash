@@ -4,6 +4,7 @@
 # First parameter : Description
 # First parameter : Message
 
+echo debug2
 curl -H "Content-Type: application/json" -X POST -d '{
     "embeds": [{
         "title": "'"$2"'",

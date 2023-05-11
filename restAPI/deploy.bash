@@ -37,7 +37,9 @@ fi
 echo "\nDocumentation has been deployed!\n"
 echo "\nWill deploy REST API\n"
 
+echo debug1
 ./discord.bash "$DEPLOYMENT_DISCORD_WEBHOOK" "$TITLE" "$SUCCESS_DESCRIPTION"
+echo debug1
 
 npm run start
 exit `echo $?`
