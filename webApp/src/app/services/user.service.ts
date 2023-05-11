@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user';
+import { LANG } from '../constants';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { User } from '../interfaces/user';
 export class UserService {
 
   private user: User | null = null
-  private lang: string = "en"
+  private lang: string = LANG[0]
 
   constructor() { }
 

@@ -7,7 +7,7 @@
       <mat-icon>calendar_today</mat-icon>
     </button>
     <mat-menu #settingsMenu>
-      <menu mat-menu-item>Infinite mode</menu>
+      <menu mat-menu-item (click)="infinite()">Infinite mode</menu>
       <menu mat-menu-item (click)="scores()">Scores</menu>
     </mat-menu>
   </div>
@@ -16,7 +16,8 @@
   </div>
   <div class="nav-right">
     <button>
-      <span class="fi fi-fr fis"></span>
+      <span *ngIf="lang === 'fr'" (click)="onLangClick()" class="fi fi-fr fis"></span>
+      <span *ngIf="lang === 'en'" (click)="onLangClick()" class="fi fi-en fis"></span>
     </button>
     <button type="button" [matMenuTriggerFor]="accountMenu">
       <mat-icon>account_circle</mat-icon>
