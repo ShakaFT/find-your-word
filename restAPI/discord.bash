@@ -3,10 +3,6 @@
 # Second parameter : Description
 # Third parameter : Message
 
-if [ -f "DEPLOYMENT_DISCORD_MESSAGE.txt" ]; then
-    exit 0
-fi
-
 curl -H "Content-Type: application/json" -X POST -d '{
     "embeds": [{
         "title": "'"$1"'",
@@ -23,5 +19,3 @@ curl -H "Content-Type: application/json" -X POST -d '{
         ]
     }]
 }' $DEPLOYMENT_DISCORD_WEBHOOK
-
-touch DEPLOYMENT_DISCORD_MESSAGE.txt
