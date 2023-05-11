@@ -76,9 +76,8 @@ function loginUser(req, res) {
         return
     }
 
-    User.find({ email: email })
-        .then(users => {
-            const user = users[0]
+    User.findOne({ email: email })
+        .then(user => {
             result = { "login": user ? user.password === password : false }
 
             if (result.login) {
