@@ -1,18 +1,20 @@
 # This script send a message on Discord webhook
-# First parameter : Discord webhook url
-# Second parameter : Title
-# First parameter : Description
-# First parameter : Message
+# First parameter : Title
+# Second parameter : Description
+# Third parameter : Message
 
-echo debug2
+if [ $DEPLOYMENT_DISCORD_MESSAGE == true ]; then
+    exit 0
+fi
+
 curl -H "Content-Type: application/json" -X POST -d '{
     "embeds": [{
-        "title": "'"$2"'",
-        "description": "'"$3"'",
+        "title": "'"$1"'",
+        "description": "'"$2"'",
         "fields": [
         {
             "name": "",
-            "value": "'"$4"'" 
+            "value": "'"$3"'" 
         },
         {
             "name": "",
@@ -20,4 +22,6 @@ curl -H "Content-Type: application/json" -X POST -d '{
         }
         ]
     }]
-}' $1
+}' $DEPLOYMENT_DISCORD_WEBHOOK
+
+export DEPLOYMENT_DISCORD_MESSAGE=true
