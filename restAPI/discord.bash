@@ -3,7 +3,7 @@
 # Second parameter : Description
 # Third parameter : Message
 
-if [ !$PRODUCTION ]; then
+if [ "$PRODUCTION" != true ]; then
     exit 0
 fi
 
