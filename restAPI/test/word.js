@@ -11,6 +11,15 @@ const apiKey = process.env.API_KEY
 
 
 describe('-----Test word with no API Key-----\n', () => {
+    it('GET /word/daily => No API Key\n', (done) => {
+        chai.request(app)
+            .get('/word/daily')
+            .end((err, res) => {
+                test_unauthorized(res)
+                done()
+            })
+    })
+
     it('GET /word/exists => No API Key\n', (done) => {
         chai.request(app)
             .get('/word/exists')
@@ -31,6 +40,16 @@ describe('-----Test word with no API Key-----\n', () => {
 })
 
 describe('-----Test word with bad parameters-----\n', () => {
+    it('GET /word/daily => Bad timestamp\n', (done) => {
+        chai.request(app)
+            .get('/word/daily?daily_timestamp=bad_timestamp')
+            .set("api_key", apiKey)
+            .end((err, res) => {
+                test_bad_request(res)
+                done()
+            })
+    })
+
     it('GET /word/exists => Bad lang\n', (done) => {
         chai.request(app)
             .get('/word/exists?lang=bad_lang&word=HELLO')
@@ -93,6 +112,28 @@ describe('-----Test word with bad parameters-----\n', () => {
 })
 
 describe('-----Test to handle word-----\n', () => {
+    it('GET /word/daily => Fail with unexisting daily_timestamp\n', (done) => {
+        chai.request(app)
+            .get('/word/daily?daily_timestamp=1683756000')
+            .set("api_key", apiKey)
+            .end((err, res) => {
+                expect(res).to.have.status(200)
+                assert.deepStrictEqual(res.body.daily_word, {})
+                done()
+            })
+    })
+
+    it('GET /word/daily => Get daily word\n', (done) => {
+        chai.request(app)
+            .get('/word/daily?daily_timestamp=1683756000000')
+            .set("api_key", apiKey)
+            .end((err, res) => {
+                expect(res).to.have.status(200)
+                assert.equal(typeof res.body.daily_word.en, "string")
+                done()
+            })
+    })
+
     it('GET /word/exists => Fail with unexisting word\n', (done) => {
         chai.request(app)
             .get('/word/exists?lang=en&word=HELLP')

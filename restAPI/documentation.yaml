@@ -4,6 +4,8 @@ info:
   title: Documentation REST API - Find Your Word
 
 tags:
+- name: Lifecycle
+  description: Endpoints related to lifecycle of app
 - name: Users
   description: Endpoints related to users management
 - name: Words
@@ -12,6 +14,38 @@ tags:
 paths:
 
   #  ----- Users  ----------------------------------------
+
+  /start:
+    get:
+      summary: Get start data
+      description: Get data when app is launched
+      tags:
+      - Lifecycle
+      responses:
+        '200':
+          description: |-
+            - `minimum_daily_timestamp` corresponds to the first day available for the daily words.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  allowed_langs:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - en
+                    - en
+                  maximum_word_length:
+                    type: integer
+                    example: 11
+                  minimum_daily_timestamp:
+                    type: integer
+                    example: 1683756000000
+                  minimum_word_length:
+                    type: integer
+                    example: 4
 
   /user:
     post:
@@ -43,11 +77,11 @@ paths:
       responses:
         '200':
           description: |-
-            - ```email_exists``` is set to ```true``` if email is already used by another user.
+            - `email_exists` is set to `true` if email is already used by another user.
 
-            - ```username_exists``` is set to ```true``` if username is already used by another user.
+            - `username_exists` is set to `true` if username is already used by another user.
 
-            - ```user_id``` is optional, it only appears if fields email_exists and username_exists are ```false```.
+            - `user_id` is optional, it only appears if fields email_exists and username_exists are `false`.
           content:
             application/json:
               schema:
@@ -95,9 +129,9 @@ paths:
       responses:
         '200':
           description: |-
-            - ```login``` is set to ```false``` if email or password is invalid.
+            - `login` is set to `false` if email or password is invalid.
 
-            - ```user``` is optional, it only appears if field ```login``` is set to ```true```.
+            - `user` is optional, it only appears if field `login` is set to `true`.
           content:
             application/json:
               schema:
@@ -156,7 +190,7 @@ paths:
       responses:
         '200':
           description: |-
-            - ```success``` is set to ```false``` if password is invalid.
+            - `success` is set to `false` if password is invalid.
           content:
             application/json:
               schema:
@@ -207,7 +241,7 @@ paths:
       responses:
         '200':
           description: |-
-            - ```success``` is set to ```false``` if old_password is invalid.
+            - `success` is set to `false` if old_password is invalid.
           content:
             application/json:
               schema:
@@ -262,7 +296,7 @@ paths:
       responses:
         '200':
           description: |-
-            - ```success``` is set to ```false``` if password is invalid.
+            - `success` is set to `false` if password is invalid.
           content:
             application/json:
               schema:
@@ -280,6 +314,44 @@ paths:
                 $ref: '#/components/schemas/errorResponse'
 
   #  ----- Words  ----------------------------------------
+
+  /word/daily:
+    get:
+      summary: Get daily word
+      description: This endpoint returns daily word
+      tags:
+      - Words
+      parameters:
+      - name: daily_timestamp
+        in: query
+        description: timestamp in milliseconds at midnight of the desired day.
+        required: true
+        schema:
+          type: integer
+          example: 1683756000
+      responses:
+        '200':
+          description: Successfully get daily word!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  daily_word:
+                    type: object
+                    properties:
+                      en:
+                        type: string
+                        example: HELLO
+                      fr:
+                        type: string
+                        example: BONJOUR
+        '400':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
 
   /word/exists:
     get:
@@ -304,7 +376,7 @@ paths:
       responses:
         '200':
           description: |-
-            - ```exists``` is set to ```true``` if this word exists.
+            - `exists` is set to `true` if this word exists.
           content:
             application/json:
               schema:

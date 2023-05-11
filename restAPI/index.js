@@ -4,6 +4,7 @@ const cors = require('cors')
 const database = require('mongoose')
 const express = require("express")
 const app = express()
+const { ALLOWED_LANGS, MAXIMUM_WORD_LENGTH, MINIMUM_DAILY_TIMESTAMP, MINIMUM_WORD_LENGTH } = require("./constants")
 
 const userRouter = require("./routes/user.router")
 const wordRouter = require("./routes/word.router")
@@ -13,7 +14,9 @@ app.use(cors({
     origin: '*'
 }))
 
+
 app.get("/", (req, res) => { res.send() })
+
 
 app.use((req, res, next) => {
     res.on('finish', () => {
@@ -32,6 +35,14 @@ app.use((req, res, next) => {
     next()
 });
 
+app.get("/start", (req, res) => {
+    res.send({
+        allowed_langs: ALLOWED_LANGS,
+        maximum_word_length: MAXIMUM_WORD_LENGTH,
+        minimum_daily_timestamp: MINIMUM_DAILY_TIMESTAMP,
+        minimum_word_length: MINIMUM_WORD_LENGTH
+    })
+})
 app.use("/user", userRouter)
 app.use("/word", wordRouter)
 

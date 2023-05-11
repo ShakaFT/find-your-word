@@ -60,9 +60,11 @@ function getDailyWord(req, res) {
     Promise.all(ALLOWED_LANGS.map(async lang => {
         const Word = getWordModel(lang)
         const word = await Word.findOne({ dailyTimestamp: dailyTimestamp })
-        result[lang] = word.text
+        if (word) {
+            result[lang] = word.text
+        }
     }))
-        .then(() => res.send(result))
+        .then(() => res.send({daily_word: result}))
         .catch(error => utils.internal_server(res, error))
 }
 
