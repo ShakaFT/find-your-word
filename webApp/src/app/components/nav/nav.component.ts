@@ -4,6 +4,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { UserService } from "src/app/services/user.service";
 import { Router } from "@angular/router";
+import { LANG } from "src/app/constants";
 
 @Component({
   selector: "app-nav",
@@ -15,40 +16,55 @@ import { Router } from "@angular/router";
 export class NavComponent {
   // @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   isLogged = false;
+  lang = this._userService.getLang()
 
-  constructor(private userService: UserService, private router: Router) {
-    this.isLogged = this.userService.isLogin();
+  constructor(private _userService: UserService, private _router: Router) {
+    this.isLogged = this._userService.isLogin();
   }
 
   ngOnInit(): void {
-    this.isLogged = this.userService.isLogin();
+    this.isLogged = this._userService.isLogin();
   }
 
   ngOnChanges(): void {
-    this.isLogged = this.userService.isLogin();
+    this.isLogged = this._userService.isLogin();
+  }
+
+  infinite() {
+    this._router.navigate(["/infinite"]);
   }
 
   login() {
-    this.router.navigate(["/login"]);
+    this._router.navigate(["/login"]);
   }
 
   goToAccount() {
-    this.router.navigate(["/account"]);
+    this._router.navigate(["/account"]);
   }
 
   logout() {
     console.log("logout");
-    this.userService.logout();
-    this.isLogged = this.userService.isLogin();
-    this.router.navigate(["/home"]);
+    this._userService.logout();
+    this.isLogged = this._userService.isLogin();
+    this._router.navigate(["/home"]);
   }
 
   wordleList() {
-    this.router.navigate(["/wordle-list"]);
+    this._router.navigate(["/wordle-list"]);
   }
 
   scores() {
-    this.router.navigate(["/scores"]);
+    this._router.navigate(["/scores"]);
+  }
+
+  onLangClick() {
+    if(this._userService.getLang() === LANG[0]) {
+      this._userService.setLang(LANG[1])
+    } else {
+      this._userService.setLang(LANG[0])
+    }
+    this.lang = this._userService.getLang()
+    this._router.navigate(["/home"])
   }
 
   // openMenu() {
