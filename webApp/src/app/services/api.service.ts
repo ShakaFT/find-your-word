@@ -79,6 +79,25 @@ export class ApiService {
     );
   }
 
+  public resetPassword(
+    oldPassword: string,
+    newPassword: string,
+    userId: string
+  ): Observable<any> {
+    return this.http.put<any>(
+      `${environment.API_URL}/user/${userId}/password`,
+      {
+        old_password: oldPassword,
+        new_password: newPassword,
+      },
+      {
+        headers: new HttpHeaders({
+          api_key: environment.API_KEY,
+        }),
+      }
+    );
+  }
+
   public wordExists(
     lang: string,
     word: string,

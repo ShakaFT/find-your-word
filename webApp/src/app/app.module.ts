@@ -25,6 +25,7 @@ import { WordleListComponent } from './wordle-list/wordle-list.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { ScoresComponent } from './scores/scores.component';
 import { AccountComponent } from './account/account.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AccountComponent } from './account/account.component';
     InfiniteModeComponent,
     WordleListComponent,
     ScoresComponent,
-    AccountComponent
+    AccountComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

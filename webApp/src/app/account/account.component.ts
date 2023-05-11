@@ -80,4 +80,8 @@ export class AccountComponent {
       }
     }
   }
+  
+  onClickReset() {
+    this._router.navigate(["/reset-password"])
+  }
 }
