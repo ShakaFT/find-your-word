@@ -39,6 +39,10 @@ export class NavComponent {
     this.router.navigate(["/home"]);
   }
 
+  wordleList() {
+    this.router.navigate(["/wordle-list"]);
+  }
+
   // openMenu() {
   //   this.trigger.openMenu();
   // }
