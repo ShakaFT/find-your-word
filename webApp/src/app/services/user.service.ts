@@ -31,6 +31,18 @@ export class UserService {
     this.lang = lang
   }
 
+  setUsername(username: string) {
+    if(this.user) {
+      this.user.username = username
+    }
+  }
+
+  setEmail(email: string) {
+    if(this.user) {
+      this.user.email = email
+    }
+  }
+
   getLang() {
     return this.lang
   }

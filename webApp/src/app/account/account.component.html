@@ -1,0 +1,34 @@
+<mat-card class="account-card">
+    <mat-card-header>
+        <mat-card-title>Account</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="account" class="form">
+            <span>
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Username</mat-label>
+                    <input matInput formControlName="username" required>
+                </mat-form-field>
+            </span>
+            <span>
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" required>
+                </mat-form-field>
+            </span>
+            <span>
+                <mat-form-field class="form-field" appearance="fill">
+                    <mat-label>Password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </mat-form-field>
+            </span>
+            <span>
+                <button class="form-button" mat-raised-button (click)="onClickModify()">Modify</button>
+            </span>
+        </form>
+    </mat-card-content>
+    <mat-card-footer class="footer">
+        <a href="/reset-password">I wan't to reset my password</a>
+    </mat-card-footer>
+</mat-card>

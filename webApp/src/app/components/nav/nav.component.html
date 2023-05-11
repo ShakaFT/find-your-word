@@ -23,7 +23,7 @@
     </button>
     <mat-menu #accountMenu>
       <menu mat-menu-item *ngIf="!isLogged" (click)="login()">Login</menu>
-      <menu mat-menu-item *ngIf="isLogged">Account</menu>
+      <menu mat-menu-item *ngIf="isLogged" (click)="goToAccount()">Account</menu>
       <menu mat-menu-item *ngIf="isLogged" (click)="logout()">Logout</menu>
     </mat-menu>
   </div>

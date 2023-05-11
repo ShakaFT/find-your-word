@@ -6,6 +6,7 @@ import { SignupComponent } from './signup/signup.component';
 import { InfiniteModeComponent } from './infinite-mode/infinite-mode.component';
 import { WordleListComponent } from './wordle-list/wordle-list.component';
 import { ScoresComponent } from './scores/scores.component';
+import { AccountComponent } from './account/account.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,9 @@ const routes: Routes = [
   },
   {
     path: 'login', component: LoginComponent
+  },
+  {
+    path: 'account', component: AccountComponent
   },
   {
     path: 'signup', component: SignupComponent

@@ -2,16 +2,16 @@ const database = require("mongoose")
 
 const userSchema = new database.Schema({
     email: {
-        type: String,
+        type: string,
         required: true,
         unique: true
     },
     password: {
-        type: String,
+        type: string,
         required: true
     },
     username: {
-        type: String,
+        type: string,
         required: true,
         unique: true
     }
