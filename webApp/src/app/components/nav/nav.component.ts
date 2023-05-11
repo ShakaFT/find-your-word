@@ -14,7 +14,6 @@ import { LANG } from "src/app/constants";
   styleUrls: ["./nav.component.scss"],
 })
 export class NavComponent {
-  // @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   isLogged = false;
   lang = this._userService.getLang()
 
@@ -43,7 +42,6 @@ export class NavComponent {
   }
 
   logout() {
-    console.log("logout");
     this._userService.logout();
     this.isLogged = this._userService.isLogin();
     this._router.navigate(["/home"]);
@@ -66,8 +64,4 @@ export class NavComponent {
     this.lang = this._userService.getLang()
     this._router.navigate(["/home"])
   }
-
-  // openMenu() {
-  //   this.trigger.openMenu();
-  // }
 }

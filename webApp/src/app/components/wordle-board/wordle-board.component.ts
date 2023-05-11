@@ -1,4 +1,10 @@
-import { Component, HostListener, Input, Renderer2 } from "@angular/core";
+import {
+  Component,
+  HostListener,
+  Input,
+  Renderer2,
+  ElementRef,
+} from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { KEYBOARD } from "src/app/constants";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -7,6 +13,7 @@ import { ModalComponent } from "../modal/modal.component";
 import { ApiService } from "src/app/services/api.service";
 import { UserService } from "src/app/services/user.service";
 import { Router } from "@angular/router";
+import * as confetti from "canvas-confetti";
 
 @Component({
   selector: "wordle-board",
@@ -28,13 +35,16 @@ export class WordleBoardComponent {
 
   public gameMatrix: Array<Array<string>> = [];
 
+  public clicked = false;
+
   constructor(
     private _snackBar: MatSnackBar,
     private _dialog: MatDialog,
     private renderer: Renderer2,
     private _apiService: ApiService,
     private _userService: UserService,
-    private _router: Router
+    private _router: Router,
+    private _elementRef: ElementRef
   ) {}
 
   ngOnInit() {
@@ -55,11 +65,7 @@ export class WordleBoardComponent {
 
   // register keyboard event listener
   @HostListener("window:keydown", ["$event"])
-
   public onKeydown(event: KeyboardEvent) {
-    console.log(event.key);
-    // not register if the key is not a letter
-    if (!/[a-zA-Z]/.test(event.key)) return;
     if (event.key === "Backspace") {
       this._removeLastLetter();
       return;
@@ -68,11 +74,11 @@ export class WordleBoardComponent {
       this._checkWord();
       return;
     }
-    if(this.isLetter(event.key)){
+    if (this.isLetter(event.key)) {
       this._addLetter(event.key.toUpperCase());
     }
   }
-  
+
   public isLetter(key: string) {
     return key.length === 1 && /[a-z]/i.test(key);
   }
@@ -138,6 +144,20 @@ export class WordleBoardComponent {
     });
   }
 
+  public surprise(): void {
+    const canvas = this.renderer.createElement("canvas");
+
+    this.renderer.appendChild(this._elementRef.nativeElement, canvas);
+
+    const myConfetti = confetti.create(canvas, {
+      resize: true, // will fit all screen sizes
+    });
+
+    myConfetti();
+
+    this.clicked = true;
+  }
+
   private _checkWord() {
     if (this._getLastBox() !== this.nbLetters - 1) {
       this._snackBar.open("The word is too short...", "Close", {
@@ -169,7 +189,7 @@ export class WordleBoardComponent {
             disableClose: true,
             panelClass: "modal-win",
           });
-
+          this.surprise();
           dialogRef.afterClosed().subscribe((result) => {
             this._router.navigate([result]);
           });
