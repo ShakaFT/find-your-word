@@ -20,8 +20,8 @@ echo "\nWill deploy REST API Documentation\n"
 DOCUMENTATION_STATUS=`curl --write-out %{http_code} --silent --output /dev/null \
     -H "Authorization: Bearer $SWAGGER_TOKEN" -H "Content-Type: application/yaml" \
     --data-binary @documentation.yaml $SWAGGER_URL`
-
-if [ $DOCUMENTATION_STATUS < 200 || 299 < $DOCUMENTATION_STATUS ]; then
+echo $DOCUMENTATION_STATUS
+if [ $DOCUMENTATION_STATUS -lt 200 ] || [ 299 -lt $DOCUMENTATION_STATUS ]; then
     echo "\nAn error occured during documentation deployment...\n"
     exit 1
 fi
