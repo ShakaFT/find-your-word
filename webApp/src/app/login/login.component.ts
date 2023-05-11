@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { UserService } from "../services/user.service";
+import { PrefsService } from "../services/prefs.service";
 
 import { Router } from "@angular/router";
 import { ApiService } from "../services/api.service";
@@ -14,7 +14,7 @@ import { ApiService } from "../services/api.service";
 export class LoginComponent {
   constructor(
     private _snackBar: MatSnackBar,
-    private _userService: UserService,
+    public prefsService: PrefsService,
     private _apiService: ApiService,
     private _router: Router
   ) {}
@@ -40,18 +40,21 @@ export class LoginComponent {
           });
           return;
         }
+        this.prefsService.setIsLoading(true);
         this._apiService
           .login(this.emailInput.value, this.passwordInput.value)
           .subscribe((data) => {
             console.log(data);
             if (data.login) {
-              this._userService.login(data.user);
+              this.prefsService.login(data.user);
+              this.prefsService.setIsLoading(false);
               this._router.navigate(["/home"]);
             } else {
               this._snackBar.open("Invalid email/password...", "Close", {
                 duration: 3000,
               });
-              return
+              this.prefsService.setIsLoading(false);
+              return;
             }
           });
       } else {

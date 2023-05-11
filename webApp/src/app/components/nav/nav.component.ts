@@ -2,7 +2,7 @@ import { Component, ViewChild } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
-import { UserService } from "src/app/services/user.service";
+import { PrefsService } from "src/app/services/prefs.service";
 import { Router } from "@angular/router";
 import { LANG } from "src/app/constants";
 
@@ -16,18 +16,18 @@ import { LANG } from "src/app/constants";
 export class NavComponent {
   // @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   isLogged = false;
-  lang = this._userService.getLang()
+  lang = this.prefsService.getLang()
 
-  constructor(private _userService: UserService, private _router: Router) {
-    this.isLogged = this._userService.isLogin();
+  constructor(public prefsService: PrefsService, private _router: Router) {
+    this.isLogged = this.prefsService.isLogin();
   }
 
   ngOnInit(): void {
-    this.isLogged = this._userService.isLogin();
+    this.isLogged = this.prefsService.isLogin();
   }
 
   ngOnChanges(): void {
-    this.isLogged = this._userService.isLogin();
+    this.isLogged = this.prefsService.isLogin();
   }
 
   infinite() {
@@ -44,8 +44,8 @@ export class NavComponent {
 
   logout() {
     console.log("logout");
-    this._userService.logout();
-    this.isLogged = this._userService.isLogin();
+    this.prefsService.logout();
+    this.isLogged = this.prefsService.isLogin();
     this._router.navigate(["/home"]);
   }
 
@@ -58,12 +58,12 @@ export class NavComponent {
   }
 
   onLangClick() {
-    if(this._userService.getLang() === LANG[0]) {
-      this._userService.setLang(LANG[1])
+    if(this.prefsService.getLang() === LANG[0]) {
+      this.prefsService.setLang(LANG[1])
     } else {
-      this._userService.setLang(LANG[0])
+      this.prefsService.setLang(LANG[0])
     }
-    this.lang = this._userService.getLang()
+    this.lang = this.prefsService.getLang()
     this._router.navigate(["/home"])
   }
 

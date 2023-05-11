@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { ApiService } from "../services/api.service";
-import { UserService } from "../services/user.service";
+import { PrefsService } from "../services/prefs.service";
 
 @Component({
   selector: "app-reset-password",
@@ -13,7 +13,7 @@ import { UserService } from "../services/user.service";
 export class ResetPasswordComponent {
   constructor(
     private _snackBar: MatSnackBar,
-    private _userService: UserService,
+    public prefsService: PrefsService,
     private _apiService: ApiService,
     private _router: Router
   ) {}
@@ -64,22 +64,25 @@ export class ResetPasswordComponent {
           );
           return;
         }
+        this.prefsService.setIsLoading(true);
         this._apiService
           .resetPassword(
             this.oldPasswordInput.value,
             this.newPasswordInput.value,
-            this._userService.getUser()!.id
+            this.prefsService.getUser()!.id
           )
           .subscribe((data) => {
             if (data.success) {
               this._snackBar.open("Password updated !", "Close", {
                 duration: 3000,
               });
+              this.prefsService.setIsLoading(false);
               this._router.navigate(["/home"]);
             } else {
               this._snackBar.open("Wrong password...", "Close", {
                 duration: 3000,
               });
+              this.prefsService.setIsLoading(false);
               return;
             }
           });
