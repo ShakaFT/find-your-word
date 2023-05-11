@@ -3,11 +3,12 @@ const bodyParser = require('body-parser');
 const cors = require('cors')
 const database = require('mongoose')
 const express = require("express")
+const utils = require('./utils')
 const app = express()
 const { ALLOWED_LANGS, MAXIMUM_WORD_LENGTH, MINIMUM_DAILY_TIMESTAMP, MINIMUM_WORD_LENGTH } = require("./constants")
 
 const userRouter = require("./routes/user.router")
-const wordRouter = require("./routes/word.router")
+const wordRouter = require("./routes/word.router");
 
 app.use(bodyParser.json())
 app.use(cors({
@@ -29,7 +30,7 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
     // Check API KEY
     if (req.headers.api_key !== process.env.API_KEY) {
-        res.status(401).send({ error: "You are not authorized to use this endpoint" })
+        utils.unauthorized(res)
         return
     }
     next()

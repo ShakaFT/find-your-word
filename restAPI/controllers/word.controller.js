@@ -26,6 +26,10 @@ function existsWord(req, res) {
 }
 
 function generateDailyWord(req, res) {
+    if (req.headers['x-cloud-scheduler'] !== "true") {
+        utils.unauthorized(res)
+        return
+    }
     const todayTimestamp = utils.todayTimestamp()
 
     ALLOWED_LANGS.forEach(lang => {

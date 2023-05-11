@@ -2,6 +2,7 @@ const { expect } = require('chai')
 
 // Functions used by REST API
 function bad_request(res, error) { res.status(400).send({ error: error.toString() }) }
+function unauthorized(res) { res.status(401).send({ error: "You are not authorized to use this endpoint" }) }
 function internal_server(res, error) { res.status(500).send({ error: error.toString() }) }
 
 // Functions used by tests
@@ -20,4 +21,4 @@ function todayTimestamp() {
     return today.getTime()
 }
 
-module.exports = { bad_request, internal_server, test_bad_request, test_unauthorized, todayTimestamp }
+module.exports = { bad_request, internal_server, test_bad_request, test_unauthorized, todayTimestamp, unauthorized }
