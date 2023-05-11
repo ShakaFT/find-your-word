@@ -1,8 +1,8 @@
 const { expect } = require('chai')
 
 // Functions used by REST API
-function bad_request(res, error) { res.status(400).send({ error: error.tostring() }) }
-function internal_server(res, error) { res.status(500).send({ error: error.tostring() }) }
+function bad_request(res, error) { res.status(400).send({ error: error.toString() }) }
+function internal_server(res, error) { res.status(500).send({ error: error.toString() }) }
 
 // Functions used by tests
 function test_bad_request(response) {

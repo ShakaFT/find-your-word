@@ -6,7 +6,7 @@ const wordSchema = new database.Schema({
         required: true
     },
     text: {
-        type: string,
+        type: String,
         required: true,
         unique: true
     },
