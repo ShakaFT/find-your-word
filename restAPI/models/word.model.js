@@ -9,6 +9,9 @@ const wordSchema = new database.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    dailyTimestamp: {
+        type: Number
     }
 });
 

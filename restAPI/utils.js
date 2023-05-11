@@ -14,4 +14,10 @@ function test_unauthorized(response) {
     expect(response.body).to.have.property('error')
 }
 
-module.exports = { bad_request, internal_server, test_bad_request, test_unauthorized }
+function todayTimestamp() {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    return today.getTime()
+}
+
+module.exports = { bad_request, internal_server, test_bad_request, test_unauthorized, todayTimestamp }
