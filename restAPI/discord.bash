@@ -3,6 +3,10 @@
 # Second parameter : Description
 # Third parameter : Message
 
+if [ !$PRODUCTION ]; then
+    exit 0
+fi
+
 curl -H "Content-Type: application/json" -X POST -d '{
     "embeds": [{
         "title": "'"$1"'",
