@@ -43,6 +43,10 @@ export class NavComponent {
     this.router.navigate(["/wordle-list"]);
   }
 
+  scores() {
+    this.router.navigate(["/scores"]);
+  }
+
   // openMenu() {
   //   this.trigger.openMenu();
   // }

@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { InfiniteModeComponent } from './infinite-mode/infinite-mode.component';
 import { WordleListComponent } from './wordle-list/wordle-list.component';
+import { ScoresComponent } from './scores/scores.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,9 @@ const routes: Routes = [
   },
   {
     path: 'wordle-list', component: WordleListComponent
+  },
+  {
+    path: 'scores', component: ScoresComponent
   },
   {
     path: 'login', component: LoginComponent
