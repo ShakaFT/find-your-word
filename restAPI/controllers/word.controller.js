@@ -12,7 +12,7 @@ function existsWord(req, res) {
         return
     }
     if (!wordRegex.test(word) || !word) {
-        utils.bad_request(res, "`word` should be String.")
+        utils.bad_request(res, "`word` should be string.")
         return
     }
 

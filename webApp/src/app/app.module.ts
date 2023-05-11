@@ -23,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { InfiniteModeComponent } from './infinite-mode/infinite-mode.component';
 import { WordleListComponent } from './wordle-list/wordle-list.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MatMenuModule } from '@angular/material/menu';
     LoginComponent,
     SignupComponent,
     InfiniteModeComponent,
-    WordleListComponent
+    WordleListComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

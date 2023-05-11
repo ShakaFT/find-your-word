@@ -7,15 +7,15 @@ function createUser(req, res) {
 
     // Error handling
     if (typeof email !== "string") {
-        utils.bad_request(res, "`email` should be String")
+        utils.bad_request(res, "`email` should be string")
         return
     }
     if (typeof password !== "string") {
-        utils.bad_request(res, "`password` should be String")
+        utils.bad_request(res, "`password` should be string")
         return
     }
     if (typeof username !== "string") {
-        utils.bad_request(res, "`username` should be String")
+        utils.bad_request(res, "`username` should be string")
         return
     }
 
@@ -38,7 +38,7 @@ function deleteUser(req, res) {
 
     // Error handling
     if (typeof password !== "string") {
-        utils.bad_request(res, "`password` should be String")
+        utils.bad_request(res, "`password` should be string")
         return
     }
     if (!database.Types.ObjectId.isValid(userId)) {
@@ -68,11 +68,11 @@ function loginUser(req, res) {
 
     // Error handling
     if (typeof email !== "string") {
-        utils.bad_request(res, "`email` should be String")
+        utils.bad_request(res, "`email` should be string")
         return
     }
     if (typeof password !== "string") {
-        utils.bad_request(res, "`password` should be String")
+        utils.bad_request(res, "`password` should be string")
         return
     }
 
@@ -103,11 +103,11 @@ function updatePasswordUser(req, res) {
         return
     }
     if (typeof old_password !== "string") {
-        utils.bad_request(res, "`old_password` should be String")
+        utils.bad_request(res, "`old_password` should be string")
         return
     }
     if (typeof new_password !== "string") {
-        utils.bad_request(res, "`new_password` should be String")
+        utils.bad_request(res, "`new_password` should be string")
         return
     }
 
@@ -138,15 +138,15 @@ function updateProfileUser(req, res) {
         return
     }
     if (typeof email !== "string") {
-        utils.bad_request(res, "`email` should be String")
+        utils.bad_request(res, "`email` should be string")
         return
     }
     if (typeof password !== "string") {
-        utils.bad_request(res, "`password` should be String")
+        utils.bad_request(res, "`password` should be string")
         return
     }
     if (typeof username !== "string") {
-        utils.bad_request(res, "`username` should be String")
+        utils.bad_request(res, "`username` should be string")
         return
     }
 

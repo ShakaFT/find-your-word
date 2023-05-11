@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  wordToFind: string = "HELLO"
+  wordToFind: string = "CHELA"
   nbLetters: number = 5
 
   //TODO add the system to get the daily word and if the word is already found by user go to infinite mode

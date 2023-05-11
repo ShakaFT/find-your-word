@@ -32,6 +32,10 @@ export class NavComponent {
     this.router.navigate(["/login"]);
   }
 
+  goToAccount() {
+    this.router.navigate(["/account"]);
+  }
+
   logout() {
     console.log("logout");
     this.userService.logout();

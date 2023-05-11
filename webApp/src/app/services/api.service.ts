@@ -44,6 +44,27 @@ export class ApiService {
     );
   }
 
+  public updateUserProfile(
+    email: string,
+    password: string,
+    username: string,
+    userId: string,
+  ): Observable<any> {
+    return this.http.put<any>(
+      `${environment.API_URL}/user/${userId}/profile`,
+      {
+        email: email,
+        password: password,
+        username: username,
+      },
+      {
+        headers: new HttpHeaders({
+          api_key: environment.API_KEY,
+        }),
+      }
+    );
+  }
+
   public random(
     lang: string,
     length: number,
