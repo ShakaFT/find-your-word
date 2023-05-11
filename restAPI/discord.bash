@@ -3,7 +3,7 @@
 # Second parameter : Description
 # Third parameter : Message
 
-if [ $DEPLOYMENT_DISCORD_MESSAGE == true ]; then
+if [ -f "DEPLOYMENT_DISCORD_MESSAGE.txt" ]; then
     exit 0
 fi
 
@@ -24,4 +24,4 @@ curl -H "Content-Type: application/json" -X POST -d '{
     }]
 }' $DEPLOYMENT_DISCORD_WEBHOOK
 
-export DEPLOYMENT_DISCORD_MESSAGE=true
+touch DEPLOYMENT_DISCORD_MESSAGE.txt
