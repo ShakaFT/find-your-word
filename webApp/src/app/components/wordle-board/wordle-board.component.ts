@@ -1,4 +1,4 @@
-import { Component, Input, Renderer2 } from "@angular/core";
+import { Component, HostListener, Input, Renderer2 } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { KEYBOARD } from "src/app/constants";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -51,6 +51,30 @@ export class WordleBoardComponent {
       return;
     }
     this._addLetter(key);
+  }
+
+  // register keyboard event listener
+  @HostListener("window:keydown", ["$event"])
+
+  public onKeydown(event: KeyboardEvent) {
+    console.log(event.key);
+    // not register if the key is not a letter
+    if (!/[a-zA-Z]/.test(event.key)) return;
+    if (event.key === "Backspace") {
+      this._removeLastLetter();
+      return;
+    }
+    if (event.key === "Enter") {
+      this._checkWord();
+      return;
+    }
+    if(this.isLetter(event.key)){
+      this._addLetter(event.key.toUpperCase());
+    }
+  }
+  
+  public isLetter(key: string) {
+    return key.length === 1 && /[a-z]/i.test(key);
   }
 
   public refresh() {
