@@ -24,9 +24,19 @@ export class NavComponent {
     this.isLogged = this.userService.isLogin();
   }
 
+  ngOnChanges(): void {
+    this.isLogged = this.userService.isLogin();
+  }
+
   login() {
     this.router.navigate(["/login"]);
-    console.log("login");
+  }
+
+  logout() {
+    console.log("logout");
+    this.userService.logout();
+    this.isLogged = this.userService.isLogin();
+    this.router.navigate(["/home"]);
   }
 
   // openMenu() {
