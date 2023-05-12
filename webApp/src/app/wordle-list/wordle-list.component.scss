@@ -1,6 +1,11 @@
 .daily-wordle-card {
     width: fit-content;
     margin: auto;
-    position: relative;
-    top: 35%;
 }
+
+.container {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    width: 100vw;
+  }
