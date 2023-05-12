@@ -23,8 +23,7 @@ paths:
       - Lifecycle
       responses:
         '200':
-          description: |-
-            - `minimum_daily_timestamp` corresponds to the first day available for the daily words.
+          description:
           content:
             application/json:
               schema:
@@ -40,9 +39,6 @@ paths:
                   maximum_word_length:
                     type: integer
                     example: 11
-                  minimum_daily_timestamp:
-                    type: integer
-                    example: 1683756000000
                   minimum_word_length:
                     type: integer
                     example: 4
@@ -318,34 +314,38 @@ paths:
   /word/daily:
     get:
       summary: Get daily word
-      description: This endpoint returns daily word
+      description: This endpoint returns all daily words.
       tags:
       - Words
-      parameters:
-      - name: daily_timestamp
-        in: query
-        description: timestamp in milliseconds at midnight of the desired day.
-        required: true
-        schema:
-          type: integer
-          example: 1683756000
       responses:
         '200':
-          description: Successfully get daily word!
+          description: Successfully get daily words!
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  daily_word:
+                  daily_words:
                     type: object
                     properties:
                       en:
-                        type: string
-                        example: HELLO
+                        type: object
+                        properties:
+                          timestamp:
+                            type: integer
+                            example: 1683756000000
+                          word:
+                            type: string
+                            example: SAMPLE
                       fr:
-                        type: string
-                        example: BONJOUR
+                        type: object
+                        properties:
+                          timestamp:
+                            type: integer
+                            example: 1683756000000
+                          word:
+                            type: string
+                            example: CONTRECOURBES
         '400':
           description: Invalid payload
           content:

@@ -40,16 +40,6 @@ describe('-----Test word with no API Key-----\n', () => {
 })
 
 describe('-----Test word with bad parameters-----\n', () => {
-    it('GET /word/daily => Bad timestamp\n', (done) => {
-        chai.request(app)
-            .get('/word/daily?daily_timestamp=bad_timestamp')
-            .set("api-key", apiKey)
-            .end((err, res) => {
-                test_bad_request(res)
-                done()
-            })
-    })
-
     it('GET /word/exists => Bad lang\n', (done) => {
         chai.request(app)
             .get('/word/exists?lang=bad_lang&word=HELLO')
@@ -112,24 +102,15 @@ describe('-----Test word with bad parameters-----\n', () => {
 })
 
 describe('-----Test to handle word-----\n', () => {
-    it('GET /word/daily => Fail with unexisting daily_timestamp\n', (done) => {
+    it('GET /word/daily => Get daily words\n', (done) => {
         chai.request(app)
-            .get('/word/daily?daily_timestamp=1683756000')
+            .get('/word/daily')
             .set("api-key", apiKey)
             .end((err, res) => {
                 expect(res).to.have.status(200)
-                assert.deepStrictEqual(res.body.daily_word, {})
-                done()
-            })
-    })
-
-    it('GET /word/daily => Get daily word\n', (done) => {
-        chai.request(app)
-            .get('/word/daily?daily_timestamp=1683756000000')
-            .set("api-key", apiKey)
-            .end((err, res) => {
-                expect(res).to.have.status(200)
-                assert.equal(typeof res.body.daily_word.en, "string")
+                const dailyWord = res.body.daily_words.en[0]
+                assert.equal(typeof dailyWord.timestamp, "number")
+                assert.equal(typeof dailyWord.word, "string")
                 done()
             })
     })

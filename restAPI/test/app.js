@@ -46,7 +46,6 @@ describe('------Test app-----\n', () => {
                 expect(res).to.have.status(200)
                 assert.equal(res.body.allowed_langs instanceof Array, true)
                 assert.equal(typeof res.body.maximum_word_length, "number")
-                assert.equal(typeof res.body.minimum_daily_timestamp, "number")
                 assert.equal(typeof res.body.minimum_word_length, "number")
                 done()
             })

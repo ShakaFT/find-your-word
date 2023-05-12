@@ -43,7 +43,6 @@ app.get("/start", (req, res) => {
     res.send({
         allowed_langs: constants.ALLOWED_LANGS,
         maximum_word_length: constants.MAXIMUM_WORD_LENGTH,
-        minimum_daily_timestamp: constants.MINIMUM_DAILY_TIMESTAMP,
         minimum_word_length: constants.MINIMUM_WORD_LENGTH
     })
 })

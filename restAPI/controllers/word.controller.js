@@ -36,7 +36,12 @@ function generateDailyWord(req, res) {
     ALLOWED_LANGS.forEach(lang => {
         const Word = getWordModel(lang)
 
-        Word.countDocuments({ dailyTimestamp: { $exists: false } })
+        Word.countDocuments({
+            $and: [
+                { dailyTimestamp: { $exists: false } },
+                { length: { $gte: MINIMUM_WORD_LENGTH, $lte: MAXIMUM_WORD_LENGTH } }
+            ]
+        })
             .then(count => {
                 Word.findOne({ dailyTimestamp: { $exists: false } })
                     .skip(randomIndex = Math.floor(Math.random() * count))
@@ -52,24 +57,23 @@ function generateDailyWord(req, res) {
     res.status(204).send()
 }
 
-function getDailyWord(req, res) {
-    const { daily_timestamp } = req.query
-    const dailyTimestamp = parseInt(daily_timestamp)
+function getDailyWords(req, res) {
     const result = {}
-
-    if (isNaN(dailyTimestamp)) {
-        utils.bad_request(res, "`daily_timestamp` should be integer")
-        return
-    }
+    ALLOWED_LANGS.forEach(lang => result[lang] = [])
 
     Promise.all(ALLOWED_LANGS.map(async lang => {
         const Word = getWordModel(lang)
-        const word = await Word.findOne({ dailyTimestamp: dailyTimestamp })
-        if (word) {
-            result[lang] = word.text
-        }
+        return Word.find({ dailyTimestamp: { $exists: true } })
+            .sort({ dailyTimestamp: 1 })
+            .then(words => words.forEach(word => {
+                result[lang].push({
+                    timestamp: word.dailyTimestamp,
+                    word: word.text
+                })
+            }))
+            .then(_ => console.log(result))
     }))
-        .then(() => res.send({daily_word: result}))
+        .then(() => res.send({ daily_words: result }))
         .catch(error => utils.internal_server(res, error))
 }
 
@@ -98,4 +102,4 @@ function randomWord(req, res) {
         .catch(error => utils.internal_server(res, error))
 }
 
-module.exports = { existsWord, generateDailyWord, getDailyWord, randomWord }
+module.exports = { existsWord, generateDailyWord, getDailyWords, randomWord }
