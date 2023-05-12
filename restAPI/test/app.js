@@ -41,7 +41,7 @@ describe('------Test app-----\n', () => {
     it('GET /start => Get data when app is launched\n', (done) => {
         chai.request(app)
             .get('/start')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .end((err, res) => {
                 expect(res).to.have.status(200)
                 assert.equal(res.body.allowed_langs instanceof Array, true)

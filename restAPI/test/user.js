@@ -63,7 +63,7 @@ describe('-----Test user with bad parameters-----\n', () => {
     it('POST /user => Bad email', (done) => {
         chai.request(app)
             .post('/user')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: 0, password: "unittest", username: "unittest" })
             .end((err, res) => {
                 test_bad_request(res)
@@ -74,7 +74,7 @@ describe('-----Test user with bad parameters-----\n', () => {
     it('POST /user => Bad password\n', (done) => {
         chai.request(app)
             .post('/user')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: "unittest@gmail.com", password: 0, username: "unittest" })
             .end((err, res) => {
                 test_bad_request(res)
@@ -85,7 +85,7 @@ describe('-----Test user with bad parameters-----\n', () => {
     it('POST /user => Bad username\n', (done) => {
         chai.request(app)
             .post('/user')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: "unittest@gmail.com", password: "unittest", username: 0 })
             .end((err, res) => {
                 test_bad_request(res)
@@ -96,7 +96,7 @@ describe('-----Test user with bad parameters-----\n', () => {
     it('POST /user/login => Bad email\n', (done) => {
         chai.request(app)
             .post('/user/login')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: 0, password: "unittest" })
             .end((err, res) => {
                 test_bad_request(res)
@@ -107,7 +107,7 @@ describe('-----Test user with bad parameters-----\n', () => {
     it('POST /user/login => Bad password\n', (done) => {
         chai.request(app)
             .post('/user/login')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: "unittest@gmail.com", password: 0 })
             .end((err, res) => {
                 test_bad_request(res)
@@ -118,7 +118,7 @@ describe('-----Test user with bad parameters-----\n', () => {
     it('DELETE /user/:id => Bad id\n', (done) => {
         chai.request(app)
             .delete('/user/1234')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ password: "unittest" })
             .end((err, res) => {
                 test_bad_request(res)
@@ -129,7 +129,7 @@ describe('-----Test user with bad parameters-----\n', () => {
     it('DELETE /user/:id => Bad password\n', (done) => {
         chai.request(app)
             .delete('/user/1234')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ password: 0 })
             .end((err, res) => {
                 test_bad_request(res)
@@ -140,7 +140,7 @@ describe('-----Test user with bad parameters-----\n', () => {
     it('PUT /user/:id/password => Bad id\n', (done) => {
         chai.request(app)
             .delete('/user/1234')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ old_password: "unittest", new_password: "unittest" })
             .end((err, res) => {
                 test_bad_request(res)
@@ -151,7 +151,7 @@ describe('-----Test user with bad parameters-----\n', () => {
     it('PUT /user/:id/password => Bad old_password\n', (done) => {
         chai.request(app)
             .delete('/user/1234')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ old_password: 0, new_password: "unittest" })
             .end((err, res) => {
                 test_bad_request(res)
@@ -162,7 +162,7 @@ describe('-----Test user with bad parameters-----\n', () => {
     it('PUT /user/:id/password => Bad new_password\n', (done) => {
         chai.request(app)
             .delete('/user/1234')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ old_password: "unittest", new_password: 0 })
             .end((err, res) => {
                 test_bad_request(res)
@@ -173,7 +173,7 @@ describe('-----Test user with bad parameters-----\n', () => {
     it('PUT /user/:id/profile => Bad id\n', (done) => {
         chai.request(app)
             .delete('/user/1234')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: "unittest@gmail.com", password: "unittest", username: "unittest" })
             .end((err, res) => {
                 test_bad_request(res)
@@ -184,7 +184,7 @@ describe('-----Test user with bad parameters-----\n', () => {
     it('PUT /user/:id/profile => Bad email\n', (done) => {
         chai.request(app)
             .delete('/user/1234')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: 0, password: "unittest", username: "unittest" })
             .end((err, res) => {
                 test_bad_request(res)
@@ -195,7 +195,7 @@ describe('-----Test user with bad parameters-----\n', () => {
     it('PUT /user/:id/profile => Bad password\n', (done) => {
         chai.request(app)
             .delete('/user/1234')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: "unittest@gmail.com", password: 0, username: "unittest" })
             .end((err, res) => {
                 test_bad_request(res)
@@ -206,7 +206,7 @@ describe('-----Test user with bad parameters-----\n', () => {
     it('PUT /user/:id/profile => Bad username\n', (done) => {
         chai.request(app)
             .delete('/user/1234')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: "unittest@gmail.com", password: "unittest", username: 0 })
             .end((err, res) => {
                 test_bad_request(res)
@@ -219,7 +219,7 @@ describe('-----Test to handle user-----\n', () => {
     it('POST /user => Create user', (done) => {
         chai.request(app)
             .post('/user')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: "unittest@gmail.com", password: "unittest", username: "unittest" })
             .end((err, res) => {
                 expect(res).to.have.status(200)
@@ -234,7 +234,7 @@ describe('-----Test to handle user-----\n', () => {
     it('POST /user => Existing email and username\n', (done) => {
         chai.request(app)
             .post('/user')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: "unittest@gmail.com", password: "unittest", username: "unittest" })
             .end((err, res) => {
                 expect(res).to.have.status(200)
@@ -247,7 +247,7 @@ describe('-----Test to handle user-----\n', () => {
     it('POST /user/login => Login user\n', (done) => {
         chai.request(app)
             .post('/user/login')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: "unittest@gmail.com", password: "unittest" })
             .end((err, res) => {
                 expect(res).to.have.status(200)
@@ -262,7 +262,7 @@ describe('-----Test to handle user-----\n', () => {
     it('POST /user/login => Fail login with bad email\n', (done) => {
         chai.request(app)
             .post('/user/login')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: "bad_email@gmail.com", password: "unittest" })
             .end((err, res) => {
                 expect(res).to.have.status(200)
@@ -274,7 +274,7 @@ describe('-----Test to handle user-----\n', () => {
     it('POST /user/login => Fail login with bad password\n', (done) => {
         chai.request(app)
             .post('/user/login')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: "unittest@gmail.com", password: "bad_password" })
             .end((err, res) => {
                 expect(res).to.have.status(200)
@@ -286,7 +286,7 @@ describe('-----Test to handle user-----\n', () => {
     it('PUT /user/:id/profile => Update user profile\n', (done) => {
         chai.request(app)
             .put(`/user/${userId}/profile`)
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: "unittest2@gmail.com", password: "unittest", username: "unittest2" })
             .end((err, res) => {
                 expect(res).to.have.status(200)
@@ -298,7 +298,7 @@ describe('-----Test to handle user-----\n', () => {
     it('PUT /user/:id/profile => Fail update user profile with bad password\n', (done) => {
         chai.request(app)
             .put(`/user/${userId}/profile`)
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: "unittest2@gmail.com", password: "bad_password", username: "unittest2" })
             .end((err, res) => {
                 expect(res).to.have.status(200)
@@ -310,7 +310,7 @@ describe('-----Test to handle user-----\n', () => {
     it('PUT /user/:id/password => Update user password\n', (done) => {
         chai.request(app)
             .put(`/user/${userId}/password`)
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ old_password: "unittest", new_password: "unittest2" })
             .end((err, res) => {
                 expect(res).to.have.status(200)
@@ -322,7 +322,7 @@ describe('-----Test to handle user-----\n', () => {
     it('PUT /user/:id/password => Fail update password with bad old_password\n', (done) => {
         chai.request(app)
             .put(`/user/${userId}/password`)
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ old_password: "bad_password", new_password: "unittest2" })
             .end((err, res) => {
                 expect(res).to.have.status(200)
@@ -334,7 +334,7 @@ describe('-----Test to handle user-----\n', () => {
     it('POST /user/login => Login user\n', (done) => {
         chai.request(app)
             .post('/user/login')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ email: "unittest2@gmail.com", password: "unittest2" })
             .end((err, res) => {
                 expect(res).to.have.status(200)
@@ -349,7 +349,7 @@ describe('-----Test to handle user-----\n', () => {
     it('DELETE /user/:id => Fail to delete user with bad password\n', (done) => {
         chai.request(app)
             .delete(`/user/${userId}`)
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ password: "bad_password" })
             .end((err, res) => {
                 expect(res).to.have.status(200)
@@ -361,7 +361,7 @@ describe('-----Test to handle user-----\n', () => {
     it('DELETE /user/:id => Delete user\n', (done) => {
         chai.request(app)
             .delete(`/user/${userId}`)
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .send({ password: "unittest2" })
             .end((err, res) => {
                 expect(res).to.have.status(200)

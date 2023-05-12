@@ -43,7 +43,7 @@ describe('-----Test word with bad parameters-----\n', () => {
     it('GET /word/daily => Bad timestamp\n', (done) => {
         chai.request(app)
             .get('/word/daily?daily_timestamp=bad_timestamp')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .end((err, res) => {
                 test_bad_request(res)
                 done()
@@ -53,7 +53,7 @@ describe('-----Test word with bad parameters-----\n', () => {
     it('GET /word/exists => Bad lang\n', (done) => {
         chai.request(app)
             .get('/word/exists?lang=bad_lang&word=HELLO')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .end((err, res) => {
                 test_bad_request(res)
                 done()
@@ -63,7 +63,7 @@ describe('-----Test word with bad parameters-----\n', () => {
     it('GET /word/exists => Bad word\n', (done) => {
         chai.request(app)
             .get('/word/exists?lang=fr&word=0')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .end((err, res) => {
                 test_bad_request(res)
                 done()
@@ -73,7 +73,7 @@ describe('-----Test word with bad parameters-----\n', () => {
     it('GET /word/random => Bad lang\n', (done) => {
         chai.request(app)
             .get('/word/random?lang=bad_lang&length=5')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .end((err, res) => {
                 test_bad_request(res)
                 done()
@@ -83,7 +83,7 @@ describe('-----Test word with bad parameters-----\n', () => {
     it('GET /word/random => Bad length\n', (done) => {
         chai.request(app)
             .get('/word/random?lang=fr&length=bad_length')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .end((err, res) => {
                 test_bad_request(res)
                 done()
@@ -93,7 +93,7 @@ describe('-----Test word with bad parameters-----\n', () => {
     it(`GET /word/random => length < ${MINIMUM_WORD_LENGTH}\n`, (done) => {
         chai.request(app)
             .get(`/word/random?lang=fr&length=${MINIMUM_WORD_LENGTH - 1}`)
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .end((err, res) => {
                 test_bad_request(res)
                 done()
@@ -103,7 +103,7 @@ describe('-----Test word with bad parameters-----\n', () => {
     it(`GET /word/random => length > ${MAXIMUM_WORD_LENGTH}\n`, (done) => {
         chai.request(app)
             .get(`/word/random?lang=fr&length=${MAXIMUM_WORD_LENGTH + 1}`)
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .end((err, res) => {
                 test_bad_request(res)
                 done()
@@ -115,7 +115,7 @@ describe('-----Test to handle word-----\n', () => {
     it('GET /word/daily => Fail with unexisting daily_timestamp\n', (done) => {
         chai.request(app)
             .get('/word/daily?daily_timestamp=1683756000')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .end((err, res) => {
                 expect(res).to.have.status(200)
                 assert.deepStrictEqual(res.body.daily_word, {})
@@ -126,7 +126,7 @@ describe('-----Test to handle word-----\n', () => {
     it('GET /word/daily => Get daily word\n', (done) => {
         chai.request(app)
             .get('/word/daily?daily_timestamp=1683756000000')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .end((err, res) => {
                 expect(res).to.have.status(200)
                 assert.equal(typeof res.body.daily_word.en, "string")
@@ -137,7 +137,7 @@ describe('-----Test to handle word-----\n', () => {
     it('GET /word/exists => Fail with unexisting word\n', (done) => {
         chai.request(app)
             .get('/word/exists?lang=en&word=HELLP')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .end((err, res) => {
                 expect(res).to.have.status(200)
                 assert.equal(res.body.exists, false)
@@ -148,7 +148,7 @@ describe('-----Test to handle word-----\n', () => {
     it('GET /word/exists => Check existing word\n', (done) => {
         chai.request(app)
             .get('/word/exists?lang=en&word=HELLO')
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .end((err, res) => {
                 expect(res).to.have.status(200)
                 assert.equal(res.body.exists, true)
@@ -159,7 +159,7 @@ describe('-----Test to handle word-----\n', () => {
     it('GET /word/random => Get random word\n', (done) => {
         chai.request(app)
             .get(`/word/random?lang=en&length=${MINIMUM_WORD_LENGTH}`)
-            .set("api_key", apiKey)
+            .set("api-key", apiKey)
             .end((err, res) => {
                 expect(res).to.have.status(200)
                 assert.equal(typeof res.body.word, "string")
