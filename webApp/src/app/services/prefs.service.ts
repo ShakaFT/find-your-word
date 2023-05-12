@@ -8,9 +8,9 @@ import { ApiService } from "./api.service";
 export class PrefsService {
   private user: User | null = null;
   private lang: string = "en";
-  private maximumWordLength!: number;
-  private minimumDailyTimestamp!: number;
-  private minimumWordLength!: number;
+  private maximumWordLength: number = 11;
+  private minimumDailyTimestamp: number = 1683756000000;
+  private minimumWordLength: number = 4;
   private langs!: string[];
   private isLoading: boolean = false;
 
@@ -78,7 +78,7 @@ export class PrefsService {
     return this.maximumWordLength;
   }
 
-  getMinimumDailyTimestamph() {
+  getMinimumDailyTimestamp() {
     return this.minimumDailyTimestamp;
   }
 

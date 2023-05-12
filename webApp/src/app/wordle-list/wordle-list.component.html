@@ -1,4 +1,8 @@
-<button (click)="onWordleClick()">go to wordle</button>
+<mat-card (click)='onWordleClick(dailyWordle)' *ngFor="let dailyWordle of dailyWordles" class="daily-wordle-card">
+    <mat-card-content>
+        {{dailyWordle.get('number')}}
+    </mat-card-content>
+</mat-card>
 
 <div class="spinner-container" *ngIf="prefsService.getIsLoading()">
     <mat-spinner></mat-spinner>

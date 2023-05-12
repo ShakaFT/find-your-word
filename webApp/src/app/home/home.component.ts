@@ -1,8 +1,4 @@
-import {
-  Component,
-  HostListener,
-  Renderer2,
-} from "@angular/core";
+import { Component, HostListener, Renderer2 } from "@angular/core";
 import { KEYBOARD } from "../constants";
 import { ModalComponent } from "../components/modal/modal.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -103,6 +99,7 @@ export class HomeComponent {
       });
     });
 
+    this.prefsService.setIsLoading(true);
     this._apiService.dailyWordle(this.wordleTimestamp).subscribe((data) => {
       this.wordToFind = data.daily_word[this.prefsService.getLang()];
       this.nbLetters = this.wordToFind.length;
@@ -115,6 +112,7 @@ export class HomeComponent {
           this.gameMatrix[y].push("");
         }
       }
+      this.prefsService.setIsLoading(false);
     });
   }
 
