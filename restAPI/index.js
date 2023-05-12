@@ -24,7 +24,7 @@ app.use((req, res, next) => {
     res.on('finish', () => {
         console.log(`${res.statusCode} ${req.method} ${req.baseUrl}${req.url}`);
         if (res.statusCode >= 500 && res.statusCode <= 599 && process.env.PRODUCTION) {
-            utils.discordMessage(res.statusCode)
+            utils.discordMessage(req.method, req.originalUrl, res.statusCode)
         }
     })
     next()
