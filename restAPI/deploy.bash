@@ -1,5 +1,19 @@
 # This script is used to deploy REST API by Render
 
+function reset {
+    git reset --hard
+    exit 1
+}
+
+# Reset git if user use CTRL+C
+trap reset SIGINT
+
+# Check if repo has been committed
+if [[ -n $(git status --porcelain) ]]; then
+    echo "Exit, you didn't commit your files"
+    exit 1
+fi
+
 # Active environment variables in .env file (useful if we run the script locally)
 if [ -f ".env" ]; then
     export $(cat .env | xargs) >/dev/null 2>&1
@@ -50,13 +64,13 @@ sed -i '' 's;env_variables:;&\n  PRODUCTION: true;' app.yaml
 gcloud config set project $PROJECT_ID
 gcloud app deploy --quiet
 
+git reset --hard
+
 if [ `echo $?` != 0 ]; then
     ./discord.bash fail "Failed to deploy REST API documentation... [Click here](https://console.cloud.google.com/logs/query?hl=fr&project='$PROJECT_ID') to see logs."
-    git reset --hard
     exit 0
 fi
 
 
 ./discord.bash success
-git reset --hard
 exit 1

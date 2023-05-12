@@ -26,7 +26,8 @@ function existsWord(req, res) {
 }
 
 function generateDailyWord(req, res) {
-    if (req.headers['x-cloud-scheduler'] !== "true") {
+    console.log(req.headers)
+    if (req.headers['x-cloudscheduler'] !== "true") {
         utils.unauthorized(res)
         return
     }
