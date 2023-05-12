@@ -39,7 +39,6 @@ function debug(req, res) {
 }
 
 function generateDailyWord(req, res) {
-    console.log(req.headers)
     if (req.headers['x-cloudscheduler'] !== "true") {
         utils.unauthorized(res)
         return
@@ -84,7 +83,6 @@ function getDailyWords(req, res) {
                     word: word.text
                 })
             }))
-            .then(_ => console.log(result))
     }))
         .then(() => res.send({ daily_words: result }))
         .catch(error => utils.internal_server(res, error))
