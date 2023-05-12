@@ -1,8 +1,9 @@
 <div class="container">
     <app-nav></app-nav>
-    <mat-card (click)='onWordleClick(dailyWordle)' *ngFor="let dailyWordle of dailyWordles" class="daily-wordle-card">
+    <mat-card (click)='onWordleClick(dailyWordle)' *ngFor="let dailyWordle of dailyWordles; let indexWordle = index"
+        class="daily-wordle-card">
         <mat-card-content>
-            {{dailyWordle.get('number')}}
+            {{totalWordles-indexWordle}}
         </mat-card-content>
     </mat-card>
 </div>

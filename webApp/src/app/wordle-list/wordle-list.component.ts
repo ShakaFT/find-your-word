@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { PrefsService } from "../services/prefs.service";
 import { Router } from "@angular/router";
+import { ApiService } from "../services/api.service";
 
 @Component({
   selector: "app-wordle-list",
@@ -8,50 +9,25 @@ import { Router } from "@angular/router";
   styleUrls: ["./wordle-list.component.scss"],
 })
 export class WordleListComponent {
-  dailyWordles: Map<string, number>[] = [];
-  todayTimestamp!: number;
-  minimumTimestamp!: number;
+  dailyWordles: any;
+  totalWordles: number = 0;
 
-  constructor(public prefsService: PrefsService, private _router: Router) {}
+  constructor(
+    public prefsService: PrefsService,
+    private _router: Router,
+    private _apiService: ApiService
+  ) {}
 
   ngOnInit() {
-    const now = new Date();
-    this.todayTimestamp = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate()
-    ).getTime();
-
-    this.minimumTimestamp = this.prefsService.getMinimumDailyTimestamp();
-
-    let count: number = 1;
-
-    for (
-      let index = this.todayTimestamp;
-      index >= this.minimumTimestamp;
-      index -= 86400000
-    ) {
-      count++;
-    }
-
-    for (
-      let index = this.todayTimestamp;
-      index >= this.minimumTimestamp;
-      index -= 86400000
-    ) {
-      count--;
-      this.dailyWordles.push(
-        new Map<string, number>([
-          ["number", count],
-          ["timestamp", index],
-        ])
-      );
-    }
+    this._apiService.dailyWordle().subscribe((data) => {
+      this.dailyWordles = data.daily_words[this.prefsService.getLang()];
+      this.totalWordles = this.dailyWordles.length;
+    });
   }
-  onWordleClick(dailyWordle: Map<string, number>) {
+  onWordleClick(dailyWordle: any) {
     this._router.navigate([
       "/home",
-      { timestamp: dailyWordle.get("timestamp") },
+      { timestamp: dailyWordle.timestamp, word: dailyWordle.word },
     ]);
   }
 }
