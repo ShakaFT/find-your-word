@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "Brice";
+  src: local("Brice Bold Condensed"), local("Brice-Bold-Condensed"),
+    url("Brice-BoldCondensed.woff2") format("woff2"),
+    url("Brice-BoldCondensed.woff") format("woff"),
+    url("Brice-BoldCondensed.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}

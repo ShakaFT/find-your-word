@@ -1,31 +1,44 @@
-<mat-card class="login-card">
-    <mat-card-header>
-        <mat-card-title>Login</mat-card-title>
+<div class="container">
+  <mat-card class="login-card">
+    <mat-card-header class="header">
+      <mat-card-title>
+        <h1>Login</h1>
+      </mat-card-title>
     </mat-card-header>
-    <mat-card-content>
-        <form [formGroup]="login" class="form">
-            <span>
-                <mat-form-field class="form-field" appearance="fill">
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" required>
-                </mat-form-field>
-            </span>
-            <span>
-                <mat-form-field class="form-field" appearance="fill">
-                    <mat-label>Password</mat-label>
-                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
-                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </mat-form-field>
-            </span>
-            <span>
-                <button class="form-button" mat-raised-button (click)="onClickLogin()">Login</button>
-            </span>
-        </form>
+    <mat-card-content class="content">
+      <form [formGroup]="login" class="form">
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required />
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+            required
+          />
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </mat-form-field>
+        <span>
+          <button
+            class="form-button"
+            mat-raised-button
+            (click)="onClickLogin()"
+          >
+            GO ! 🚀
+          </button>
+        </span>
+      </form>
     </mat-card-content>
     <mat-card-footer class="footer">
-        <a href="/signup">I didn't have account</a>
+      <a href="/signup">I don't have an account 😥</a>
     </mat-card-footer>
-</mat-card>
-<div class="spinner-container" *ngIf="prefsService.getIsLoading()">
+  </mat-card>
+  <div class="spinner-container" *ngIf="prefsService.getIsLoading()">
     <mat-spinner></mat-spinner>
+  </div>
 </div>

@@ -1,20 +1,26 @@
+.container {
+  display: flex;
+  place-items: center;
+  width: 100vw;
+}
+
 .signup-card {
-    width: fit-content;
-    margin: auto;
-    position: relative;
-    top: 15%;
+  width: fit-content;
+  margin: auto;
+  position: relative;
+  top: 15%;
 }
 
 span {
-    margin-top: 1em ;
-    display: block;
+  margin-top: 1em;
+  display: block;
 }
 
 .form-field {
-    width: 15em;
+  width: 15em;
 }
 
-.footer{
-    text-align: center;
-    padding-bottom: 1em;
+.footer {
+  text-align: center;
+  padding-bottom: 1em;
 }
