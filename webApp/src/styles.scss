@@ -72,3 +72,27 @@ body {
 .spinner-container * {
   pointer-events: none;
 }
+
+// .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+//   color: variables.$accent-color !important
+// }
+
+// .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-floating-label {
+//   color: variables.$accent-color !important
+// }
+
+// .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple {
+//   background-color: variables.$accent-color !important
+// }
+
+// .mdc-text-field--filled {
+//   box-shadow: 0.25px 0.25px #fff, 0.5px 0.5px #fff, 0.75px 0.75px #fff,
+//     1px 1px #fff, 1.25px 1.25px #fff, 1.5px 1.5px #fff, 1.75px 1.75px #fff,
+//     2px 2px #fff, 2.25px 2.25px #fff, 2.5px 2.5px #fff, 2.75px 2.75px #fff,
+//     3px 3px #fff, 3.25px 3.25px #fff, 3.5px 3.5px #fff, 3.75px 3.75px #fff,
+//     4px 4px #fff, 4.25px 4.25px #fff, 4.5px 4.5px #fff, 4.75px 4.75px #fff,
+//     5px 5px #fff;
+//   box-sizing: border-box;
+//   border: 3px solid #fff;
+//   border-radius: 8px;
+// }

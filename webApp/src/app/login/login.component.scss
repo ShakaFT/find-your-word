@@ -56,11 +56,8 @@
     width: 100%;
   }
 
-  mat-form-field {
+  .form-field {
     width: 100%;
-    div {
-      background: variables.$accent-color;
-    }
   }
 
   .footer {
