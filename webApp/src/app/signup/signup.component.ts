@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { ApiService } from "../services/api.service";
-import { UserService } from "../services/user.service";
+import { PrefsService } from "../services/prefs.service";
 
 @Component({
   selector: "app-signup",
@@ -13,7 +13,7 @@ import { UserService } from "../services/user.service";
 export class SignupComponent {
   constructor(
     private _snackBar: MatSnackBar,
-    private _userService: UserService,
+    public prefsService: PrefsService,
     private _apiService: ApiService,
     private _router: Router
   ) {}
@@ -62,12 +62,19 @@ export class SignupComponent {
             duration: 3000,
           });
           return;
-        } else if (this.passwordInput.value !== this.confirmPasswordInput.value) {
-          this._snackBar.open("Password and confirm password are not the same...", "Close", {
-            duration: 3000,
-          });
+        } else if (
+          this.passwordInput.value !== this.confirmPasswordInput.value
+        ) {
+          this._snackBar.open(
+            "Password and confirm password are not the same...",
+            "Close",
+            {
+              duration: 3000,
+            }
+          );
           return;
         }
+        this.prefsService.setIsLoading(true);
         this._apiService
           .signup(
             this.emailInput.value,
@@ -79,14 +86,17 @@ export class SignupComponent {
               this._snackBar.open("Email already taken...", "Close", {
                 duration: 3000,
               });
+              this.prefsService.setIsLoading(false);
               return;
             } else if (data.username_exists) {
               this._snackBar.open("Username already taken...", "Close", {
                 duration: 3000,
               });
+              this.prefsService.setIsLoading(false);
               return;
             }
-            this._userService.login(data.user);
+            this.prefsService.login(data.user);
+            this.prefsService.setIsLoading(false);
             this._router.navigate(["/home"]);
           });
       } else {

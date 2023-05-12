@@ -1,13 +1,15 @@
 require('dotenv').config()
 const bodyParser = require('body-parser');
+const constants = require("./constants")
 const cors = require('cors')
 const database = require('mongoose')
 const express = require("express")
+const utils = require('./utils')
+
 const app = express()
-const { ALLOWED_LANGS, MAXIMUM_WORD_LENGTH, MINIMUM_DAILY_TIMESTAMP, MINIMUM_WORD_LENGTH } = require("./constants")
 
 const userRouter = require("./routes/user.router")
-const wordRouter = require("./routes/word.router")
+const wordRouter = require("./routes/word.router");
 
 app.use(bodyParser.json())
 app.use(cors({
@@ -21,7 +23,9 @@ app.get("/", (req, res) => { res.send() })
 app.use((req, res, next) => {
     res.on('finish', () => {
         console.log(`${res.statusCode} ${req.method} ${req.baseUrl}${req.url}`);
-        console.log(`    => ${res.statusMessage}\n`)
+        if (res.statusCode >= 500 && res.statusCode <= 599 && process.env.PRODUCTION) {
+            utils.discordMessage(res.statusCode)
+        }
     })
     next()
 });
@@ -29,7 +33,7 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
     // Check API KEY
     if (req.headers.api_key !== process.env.API_KEY) {
-        res.status(401).send({ error: "You are not authorized to use this endpoint" })
+        utils.unauthorized(res)
         return
     }
     next()
@@ -37,11 +41,14 @@ app.use((req, res, next) => {
 
 app.get("/start", (req, res) => {
     res.send({
-        allowed_langs: ALLOWED_LANGS,
-        maximum_word_length: MAXIMUM_WORD_LENGTH,
-        minimum_daily_timestamp: MINIMUM_DAILY_TIMESTAMP,
-        minimum_word_length: MINIMUM_WORD_LENGTH
+        allowed_langs: constants.ALLOWED_LANGS,
+        maximum_word_length: constants.MAXIMUM_WORD_LENGTH,
+        minimum_daily_timestamp: constants.MINIMUM_DAILY_TIMESTAMP,
+        minimum_word_length: constants.MINIMUM_WORD_LENGTH
     })
+})
+app.get("/error", (req, res) => {
+    res.status(500).send()
 })
 app.use("/user", userRouter)
 app.use("/word", wordRouter)

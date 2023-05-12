@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { UserService } from "../services/user.service";
+import { PrefsService } from "../services/prefs.service";
 import { ApiService } from "../services/api.service";
 import { Router } from "@angular/router";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
@@ -13,17 +13,17 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 export class AccountComponent {
   constructor(
     private _snackBar: MatSnackBar,
-    private _userService: UserService,
+    public prefsService: PrefsService,
     private _apiService: ApiService,
     private _router: Router
   ) {}
 
   account: FormGroup = new FormGroup({
-    email: new FormControl(this._userService.getUser()?.email, [
+    email: new FormControl(this.prefsService.getUser()?.email, [
       Validators.email,
       Validators.required,
     ]),
-    username: new FormControl(this._userService.getUser()?.username, [
+    username: new FormControl(this.prefsService.getUser()?.username, [
       Validators.required,
       Validators.min(3),
     ]),
@@ -41,7 +41,11 @@ export class AccountComponent {
   }
 
   onClickModify() {
-    if (this.emailInput != null && this.usernameInput != null && this.passwordInput != null) {
+    if (
+      this.emailInput != null &&
+      this.usernameInput != null &&
+      this.passwordInput != null
+    ) {
       if (this.emailInput.value && this.usernameInput.value) {
         if (this.emailInput.invalid) {
           this._snackBar.open("Enter a valid email...", "Close", {
@@ -49,26 +53,29 @@ export class AccountComponent {
           });
           return;
         }
+        this.prefsService.setIsLoading(true);
         this._apiService
           .updateUserProfile(
             this.emailInput.value,
             this.passwordInput.value,
             this.usernameInput.value,
-            this._userService.getUser()!.id
+            this.prefsService.getUser()!.id
           )
           .subscribe((data) => {
             if (data.success) {
-              this._userService.setEmail(this.emailInput?.value)
-              this._userService.setUsername(this.usernameInput?.value)
+              this.prefsService.setEmail(this.emailInput?.value);
+              this.prefsService.setUsername(this.usernameInput?.value);
 
               this._snackBar.open("Account updated !", "Close", {
                 duration: 3000,
               });
+              this.prefsService.setIsLoading(false);
               this._router.navigate(["/home"]);
             } else {
               this._snackBar.open("Invalid password...", "Close", {
                 duration: 3000,
               });
+              this.prefsService.setIsLoading(false);
               return;
             }
           });
@@ -80,8 +87,8 @@ export class AccountComponent {
       }
     }
   }
-  
+
   onClickReset() {
-    this._router.navigate(["/reset-password"])
+    this._router.navigate(["/reset-password"]);
   }
 }

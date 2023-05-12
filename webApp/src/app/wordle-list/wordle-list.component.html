@@ -1,1 +1,3 @@
-<p>wordle-list works!</p>
+<div class="spinner-container" *ngIf="prefsService.getIsLoading()">
+    <mat-spinner></mat-spinner>
+</div>

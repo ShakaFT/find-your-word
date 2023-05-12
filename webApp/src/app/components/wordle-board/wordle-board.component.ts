@@ -11,14 +11,15 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialog } from "@angular/material/dialog";
 import { ModalComponent } from "../modal/modal.component";
 import { ApiService } from "src/app/services/api.service";
-import { UserService } from "src/app/services/user.service";
+import { PrefsService } from "src/app/services/prefs.service";
 import { Router } from "@angular/router";
 import * as confetti from "canvas-confetti";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @Component({
   selector: "wordle-board",
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatProgressSpinnerModule],
   templateUrl: "./wordle-board.component.html",
   styleUrls: ["./wordle-board.component.scss"],
 })
@@ -42,9 +43,9 @@ export class WordleBoardComponent {
     private _dialog: MatDialog,
     private renderer: Renderer2,
     private _apiService: ApiService,
-    private _userService: UserService,
-    private _router: Router,
-    private _elementRef: ElementRef
+    private _elementRef: ElementRef,
+    public prefsService: PrefsService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
@@ -66,6 +67,7 @@ export class WordleBoardComponent {
   // register keyboard event listener
   @HostListener("window:keydown", ["$event"])
   public onKeydown(event: KeyboardEvent) {
+    if (this.prefsService.getIsLoading()) return;
     if (event.key === "Backspace") {
       this._removeLastLetter();
       return;
@@ -168,13 +170,15 @@ export class WordleBoardComponent {
 
     let currentWord: string = this._getWord();
 
+    this.prefsService.setIsLoading(true);
     this._apiService
-      .wordExists(this._userService.getLang(), currentWord)
+      .wordExists(this.prefsService.getLang(), currentWord)
       .subscribe((data) => {
         if (!data.exists) {
           this._snackBar.open("The word doesn't exists...", "Close", {
             duration: 3000,
           });
+          this.prefsService.setIsLoading(false);
           return;
         }
 
@@ -190,6 +194,9 @@ export class WordleBoardComponent {
             panelClass: "modal-win",
           });
           this.surprise();
+
+          this.prefsService.setIsLoading(false);
+
           dialogRef.afterClosed().subscribe((result) => {
             this._router.navigate([result]);
           });
@@ -205,6 +212,8 @@ export class WordleBoardComponent {
             disableClose: true,
           });
 
+          this.prefsService.setIsLoading(false);
+
           dialogRef.afterClosed().subscribe((result) => {
             this._router.navigate([result]);
           });
@@ -212,6 +221,7 @@ export class WordleBoardComponent {
         }
 
         this.currentRow++;
+        this.prefsService.setIsLoading(false);
       });
   }
 
