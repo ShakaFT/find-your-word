@@ -40,10 +40,10 @@ if ! grep -q "env_variables:" app.yaml; then
 env_variables:' app.yaml
 fi
 
-sed -i '' 's/env_variables:/&\n  API_KEY: '$API_KEY'/' app.yaml
-sed -i '' 's/env_variables:/&\n  DB_CONNECTION: '$DB_CONNECTION'/' app.yaml
-sed -i '' 's/env_variables:/&\n  MONITORING_DISCORD_WEBHOOK: '$MONITORING_DISCORD_WEBHOOK'/' app.yaml
-sed -i '' 's/env_variables:/&\n  PRODUCTION: true/' app.yaml
+sed -i '' 's;env_variables:;&\n  API_KEY: '"$API_KEY"';' app.yaml
+sed -i '' 's;env_variables:;&\n  DB_CONNECTION: '"$DB_CONNECTION"';' app.yaml
+sed -i '' 's;env_variables:;&\n  MONITORING_DISCORD_WEBHOOK: '"$MONITORING_DISCORD_WEBHOOK"';' app.yaml
+sed -i '' 's;env_variables:;&\n  PRODUCTION: true;' app.yaml
 
 # REST API Deployment
 

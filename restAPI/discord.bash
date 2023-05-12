@@ -2,10 +2,6 @@
 # First parameter : 'success' or 'fail'
 # Second parameter : Message
 
-if [ "$PRODUCTION" != true ]; then
-    exit 0
-fi
-
 TITLE="Find Your Word - REST API Deployment"
 if [ $1 == "success" ]; then
     COLOR=65280 # green
