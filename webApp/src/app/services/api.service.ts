@@ -18,7 +18,7 @@ export class ApiService {
       },
       {
         headers: new HttpHeaders({
-          api_key: environment.API_KEY,
+          'api-key': environment.API_KEY,
         }),
       }
     );
@@ -38,7 +38,7 @@ export class ApiService {
       },
       {
         headers: new HttpHeaders({
-          api_key: environment.API_KEY,
+          'api-key': environment.API_KEY,
         }),
       }
     );
@@ -59,7 +59,7 @@ export class ApiService {
       },
       {
         headers: new HttpHeaders({
-          api_key: environment.API_KEY,
+          'api-key': environment.API_KEY,
         }),
       }
     );
@@ -73,7 +73,7 @@ export class ApiService {
       `${environment.API_URL}/word/random?lang=${lang}&length=${length}`,
       {
         headers: new HttpHeaders({
-          api_key: environment.API_KEY,
+          'api-key': environment.API_KEY,
         }),
       }
     );
@@ -92,7 +92,7 @@ export class ApiService {
       },
       {
         headers: new HttpHeaders({
-          api_key: environment.API_KEY,
+          'api-key': environment.API_KEY,
         }),
       }
     );
@@ -106,7 +106,7 @@ export class ApiService {
       `${environment.API_URL}/word/exists?lang=${lang}&word=${word}`,
       {
         headers: new HttpHeaders({
-          api_key: environment.API_KEY,
+          'api-key': environment.API_KEY,
         }),
       }
     );
@@ -119,7 +119,7 @@ export class ApiService {
       `${environment.API_URL}/word/daily?daily_timestamp=${dailyTimestamp}`,
       {
         headers: new HttpHeaders({
-          api_key: environment.API_KEY,
+          'api-key': environment.API_KEY,
         }),
       }
     );
@@ -129,7 +129,7 @@ export class ApiService {
       `${environment.API_URL}/start`,
       {
         headers: new HttpHeaders({
-          api_key: environment.API_KEY,
+          'api-key': environment.API_KEY,
         }),
       }
     );
