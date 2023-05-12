@@ -5,7 +5,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HomeComponent } from "./home/home.component";
-import { WordleBoardComponent } from "./components/wordle-board/wordle-board.component";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
@@ -44,7 +43,6 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    WordleBoardComponent,
     MatSnackBarModule,
     MatDialogModule,
     MatFormFieldModule,
