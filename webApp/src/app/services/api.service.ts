@@ -111,4 +111,27 @@ export class ApiService {
       }
     );
   }
+
+  public dailyWordle(
+    dailyTimestamp: number,
+  ): Observable<any> {
+    return this.http.get<any>(
+      `${environment.API_URL}/word/daily?daily_timestamp=${dailyTimestamp}`,
+      {
+        headers: new HttpHeaders({
+          api_key: environment.API_KEY,
+        }),
+      }
+    );
+  }
+  public start(): Observable<any> {
+    return this.http.get<any>(
+      `${environment.API_URL}/start`,
+      {
+        headers: new HttpHeaders({
+          api_key: environment.API_KEY,
+        }),
+      }
+    );
+  }
 }

@@ -4,7 +4,6 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { PrefsService } from "src/app/services/prefs.service";
 import { Router } from "@angular/router";
-import { LANG } from "src/app/constants";
 
 @Component({
   selector: "app-nav",
@@ -15,7 +14,7 @@ import { LANG } from "src/app/constants";
 })
 export class NavComponent {
   isLogged = false;
-  lang = this.prefsService.getLang()
+  lang = this.prefsService.getLang();
 
   constructor(public prefsService: PrefsService, private _router: Router) {
     this.isLogged = this.prefsService.isLogin();
@@ -56,12 +55,12 @@ export class NavComponent {
   }
 
   onLangClick() {
-    if(this.prefsService.getLang() === LANG[0]) {
-      this.prefsService.setLang(LANG[1])
+    if (this.prefsService.getLang() === this.prefsService.getLangs()[0]) {
+      this.prefsService.setLang(this.prefsService.getLangs()[1]);
     } else {
-      this.prefsService.setLang(LANG[0])
+      this.prefsService.setLang(this.prefsService.getLangs()[0]);
     }
-    this.lang = this.prefsService.getLang()
-    this._router.navigate(["/home"])
+    this.lang = this.prefsService.getLang();
+    this._router.navigate(["/home"]);
   }
 }

@@ -87,7 +87,10 @@ export class InfiniteModeComponent {
     });
 
     // Get Word
-    this.nbLetters = Utils.randomIntFromInterval(4, 11);
+    this.nbLetters = Utils.randomIntFromInterval(
+      this.prefsService.getMinimumWordLength(),
+      this.prefsService.getMaximumWordLength()
+    );
     this.prefsService.setIsLoading(true);
     this._apiService
       .random(this.prefsService.getLang(), this.nbLetters)
