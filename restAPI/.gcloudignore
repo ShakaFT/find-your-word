@@ -1,0 +1,17 @@
+# .gcloudignore
+
+.env
+.env.tofill
+.gcloudignore
+.git
+.gitignore
+deploy.bash
+discord.bash
+documentation.yaml
+README.md
+start.bash
+test.bash
+
+.vscode/
+node_modules/
+test/

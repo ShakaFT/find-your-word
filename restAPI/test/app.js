@@ -2,7 +2,7 @@ const app = require('../index')
 const chai = require('chai')
 const chaiHttp = require('chai-http')
 const database = require('mongoose')
-const { test_unauthorized } = require('../utils')
+const { test_unauthorized } = require('./utils')
 
 chai.use(chaiHttp)
 const { assert, expect } = chai

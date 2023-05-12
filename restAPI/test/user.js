@@ -1,7 +1,7 @@
 const app = require('../index')
 const chai = require('chai')
 const chaiHttp = require('chai-http')
-const { test_bad_request, test_unauthorized } = require('../utils')
+const { test_bad_request, test_unauthorized } = require('./utils')
 
 chai.use(chaiHttp)
 const { assert, expect } = chai
