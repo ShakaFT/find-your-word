@@ -44,7 +44,7 @@ export class LoginComponent {
         this._apiService
           .login(this.emailInput.value, this.passwordInput.value)
           .subscribe((data) => {
-            console.log(data);
+            console.log(this.prefsService.getIsLoading());
             if (data.login) {
               this.prefsService.login(data.user);
               this.prefsService.setIsLoading(false);
@@ -54,6 +54,7 @@ export class LoginComponent {
                 duration: 3000,
               });
               this.prefsService.setIsLoading(false);
+              console.log(this.prefsService.getIsLoading());
               return;
             }
           });

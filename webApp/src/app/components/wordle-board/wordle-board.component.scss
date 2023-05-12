@@ -1,3 +1,5 @@
+@use "../../../variables";
+
 .game {
   max-width: 580px;
   height: calc(100vh - 65px);
@@ -6,7 +8,8 @@
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, transform 333ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    transform 333ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
   .board_game {
     display: flex;
@@ -14,6 +17,7 @@
     align-items: center;
     justify-content: center;
     flex-grow: 1;
+    font-family: "Brice", sans-serif;
 
     .row_board_game {
       display: flex;
@@ -46,18 +50,20 @@
       width: 100%;
 
       .keyboard-key {
-        font-family: "Roboto", sans-serif;
+        font-family: "Brice", sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
         flex: 1;
         transform: rotate(-4deg);
         transition: transform 0.3s ease, opacity 0.3s ease;
-        background: #6366f1;
-        box-shadow: 0.25px 0.25px #fff, 0.5px 0.5px #fff, 0.75px 0.75px #fff, 1px 1px #fff, 1.25px 1.25px #fff,
-          1.5px 1.5px #fff, 1.75px 1.75px #fff, 2px 2px #fff, 2.25px 2.25px #fff, 2.5px 2.5px #fff, 2.75px 2.75px #fff,
-          3px 3px #fff, 3.25px 3.25px #fff, 3.5px 3.5px #fff, 3.75px 3.75px #fff, 4px 4px #fff, 4.25px 4.25px #fff,
-          4.5px 4.5px #fff, 4.75px 4.75px #fff, 5px 5px #fff;
+        background: variables.$accent-color;
+        box-shadow: 0.25px 0.25px #fff, 0.5px 0.5px #fff, 0.75px 0.75px #fff,
+          1px 1px #fff, 1.25px 1.25px #fff, 1.5px 1.5px #fff, 1.75px 1.75px #fff,
+          2px 2px #fff, 2.25px 2.25px #fff, 2.5px 2.5px #fff, 2.75px 2.75px #fff,
+          3px 3px #fff, 3.25px 3.25px #fff, 3.5px 3.5px #fff, 3.75px 3.75px #fff,
+          4px 4px #fff, 4.25px 4.25px #fff, 4.5px 4.5px #fff, 4.75px 4.75px #fff,
+          5px 5px #fff;
         box-sizing: border-box;
         border: 3px solid #fff;
         border-radius: 8px;
@@ -75,24 +81,11 @@
   }
 }
 
-.animated {
-  animation: flip 0.5s ease;
-}
-
-@keyframes flip {
-  0% {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(0);
-  }
-  100% {
-    transform: scaleY(1);
-  }
-}
-
 canvas {
   height: 100%; /* we need these for full-screen effect */
   width: 100%;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
 }

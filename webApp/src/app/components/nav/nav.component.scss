@@ -6,7 +6,7 @@
   max-width: 580px;
   color: #fff;
   h1 {
-    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    font-family: "Brice", sans-serif;
   }
   .nav-left {
     display: flex;
@@ -24,6 +24,14 @@
       &:hover {
         transform: scale(1.2);
       }
+    }
+  }
+  .nav-center {
+    display: flex;
+    place-items: center;
+    h1 {
+      font-size: 2rem;
+      margin: 0 1rem;
     }
   }
   .nav-right {
