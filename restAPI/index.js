@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
     // Check API KEY
-    if (req.headers.api-key !== process.env.API_KEY) {
+    if (req.headers["api-key"] !== process.env.API_KEY) {
         utils.unauthorized(res)
         return
     }

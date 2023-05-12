@@ -12,7 +12,7 @@ npm run test
 
 if [ `echo $?` != 0 ]; then
     echo "\nAn error occured during tests...\n"
-    ./discord.bash fail "Unit tests failed. [Click here]() to see logs."
+    ./discord.bash fail "Unit tests failed..."
     exit 1
 fi
 
