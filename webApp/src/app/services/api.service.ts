@@ -113,10 +113,9 @@ export class ApiService {
   }
 
   public dailyWordle(
-    dailyTimestamp: number,
   ): Observable<any> {
     return this.http.get<any>(
-      `${environment.API_URL}/word/daily?daily_timestamp=${dailyTimestamp}`,
+      `${environment.API_URL}/word/daily`,
       {
         headers: new HttpHeaders({
           'api-key': environment.API_KEY,
