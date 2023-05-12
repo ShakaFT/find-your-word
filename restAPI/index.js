@@ -8,13 +8,12 @@ const utils = require('./utils')
 
 const app = express()
 
+const scoreRouter = require("./routes/score.router")
 const userRouter = require("./routes/user.router")
 const wordRouter = require("./routes/word.router");
 
 app.use(bodyParser.json())
-app.use(cors({
-    origin: '*'
-}))
+app.use(cors())
 
 
 app.get("/", (req, res) => { res.send() })
@@ -49,6 +48,7 @@ app.get("/start", (req, res) => {
 app.get("/error", (req, res) => {
     res.status(500).send()
 })
+app.use("/score", scoreRouter)
 app.use("/user", userRouter)
 app.use("/word", wordRouter)
 

@@ -6,5 +6,6 @@ wordRouter.get('/daily', wordController.getDailyWords)
 wordRouter.post('/daily', wordController.generateDailyWord)
 wordRouter.get('/exists', wordController.existsWord)
 wordRouter.get('/random', wordController.randomWord)
+wordRouter.post('/debug', wordController.debug)
 
 module.exports = wordRouter

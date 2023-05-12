@@ -25,6 +25,19 @@ function existsWord(req, res) {
         .catch(error => utils.internal_server(res, error))
 }
 
+function debug(req, res) {
+    getWordModel("fr").updateMany(
+        { dailyTimestamp: 1683756000000 },
+        { $unset: { dailyTimestamp: "" } }
+    )
+        .then(result => {
+            console.log("nice");
+        })
+        .catch(error => {
+            console.log("shit");
+        });
+}
+
 function generateDailyWord(req, res) {
     console.log(req.headers)
     if (req.headers['x-cloudscheduler'] !== "true") {
@@ -64,7 +77,7 @@ function getDailyWords(req, res) {
     Promise.all(ALLOWED_LANGS.map(async lang => {
         const Word = getWordModel(lang)
         return Word.find({ dailyTimestamp: { $exists: true } })
-            .sort({ dailyTimestamp: 1 })
+            .sort({ dailyTimestamp: -1 })
             .then(words => words.forEach(word => {
                 result[lang].push({
                     timestamp: word.dailyTimestamp,
@@ -102,4 +115,4 @@ function randomWord(req, res) {
         .catch(error => utils.internal_server(res, error))
 }
 
-module.exports = { existsWord, generateDailyWord, getDailyWords, randomWord }
+module.exports = { debug, existsWord, generateDailyWord, getDailyWords, randomWord }
