@@ -19,7 +19,7 @@ export class HomeComponent {
 
   public nbLetters: number = 0;
 
-  public nbTries: number = 5;
+  public nbTries: number = 6;
 
   public wordToFind: string = "";
 
@@ -40,6 +40,7 @@ export class HomeComponent {
   ngOnInit() {
     this._route.params.subscribe((params) => {
       this.wordleTimestamp = params["timestamp"];
+      this.wordToFind = params["word"];
     });
 
     if (this.wordleTimestamp == undefined) {
@@ -100,8 +101,23 @@ export class HomeComponent {
     });
 
     this.prefsService.setIsLoading(true);
-    this._apiService.dailyWordle(this.wordleTimestamp).subscribe((data) => {
-      this.wordToFind = data.daily_word[this.prefsService.getLang()];
+    if (this.wordToFind != undefined) {
+      this.nbLetters = this.wordToFind.length;
+
+      // Refresh matrix
+      this.gameMatrix = [];
+      for (let y = 0; y < this.nbTries; y++) {
+        this.gameMatrix.push([]);
+        for (let x = 0; x < this.nbLetters; x++) {
+          this.gameMatrix[y].push("");
+        }
+      }
+      this.prefsService.setIsLoading(false);
+      return;
+    }
+    this._apiService.dailyWordle().subscribe((data) => {
+      this.wordToFind =
+        data.daily_words[this.prefsService.getLang()][0].word;
       this.nbLetters = this.wordToFind.length;
 
       // Refresh matrix
