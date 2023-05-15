@@ -10,7 +10,7 @@ function discordMessage(method, endpoint, statusCode) {
     const webhook = new Discord.WebhookClient({ url: 'https://discord.com/api/webhooks/1106192666603036782/wsp-XN_EQStiWuHXLBngjnJiYhQMDaaf3lAVFWX1xPir8fvJw4wybLqIbsLrA4Me_FzU' });
     const embed = new Discord.EmbedBuilder()
         .setTitle('Find Your Word - REST API Deployment')
-        .setDescription(`Unexpected error : **${method} ${statusCode} ${endpoint}**... [Click here](https://dashboard.render.com/web/srv-ch95d16kobicv5rntc80/logs) to see error details.`)
+        .setDescription(`Unexpected error : **${method} ${statusCode} ${endpoint}**... [Click here](https://console.cloud.google.com/logs/query?project=${process.env.PROJECT_ID}) to see error details.`)
         .setColor('#FF0000')
         .setTimestamp()
     webhook.send({ embeds: [embed] })
