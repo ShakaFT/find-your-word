@@ -1,7 +1,7 @@
 const app = require('../index')
 const chai = require('chai')
 const chaiHttp = require('chai-http')
-const { MAXIMUM_WORD_LENGTH, MINIMUM_WORD_LENGTH } = require("../constants")
+const constants = require("../constants")
 const { test_bad_request, test_unauthorized } = require('./utils')
 
 chai.use(chaiHttp)
@@ -80,9 +80,9 @@ describe('-----Test word with bad parameters-----\n', () => {
             })
     })
 
-    it(`GET /word/random => length < ${MINIMUM_WORD_LENGTH}\n`, (done) => {
+    it(`GET /word/random => length < ${constants.MINIMUM_WORD_LENGTH}\n`, (done) => {
         chai.request(app)
-            .get(`/word/random?lang=fr&length=${MINIMUM_WORD_LENGTH - 1}`)
+            .get(`/word/random?lang=fr&length=${constants.MINIMUM_WORD_LENGTH - 1}`)
             .set("api-key", apiKey)
             .end((err, res) => {
                 test_bad_request(res)
@@ -90,9 +90,9 @@ describe('-----Test word with bad parameters-----\n', () => {
             })
     })
 
-    it(`GET /word/random => length > ${MAXIMUM_WORD_LENGTH}\n`, (done) => {
+    it(`GET /word/random => length > ${constants.MAXIMUM_WORD_LENGTH}\n`, (done) => {
         chai.request(app)
-            .get(`/word/random?lang=fr&length=${MAXIMUM_WORD_LENGTH + 1}`)
+            .get(`/word/random?lang=fr&length=${constants.MAXIMUM_WORD_LENGTH + 1}`)
             .set("api-key", apiKey)
             .end((err, res) => {
                 test_bad_request(res)
@@ -139,7 +139,7 @@ describe('-----Test to handle word-----\n', () => {
 
     it('GET /word/random => Get random word\n', (done) => {
         chai.request(app)
-            .get(`/word/random?lang=en&length=${MINIMUM_WORD_LENGTH}`)
+            .get(`/word/random?lang=en&length=${constants.MINIMUM_WORD_LENGTH}`)
             .set("api-key", apiKey)
             .end((err, res) => {
                 expect(res).to.have.status(200)

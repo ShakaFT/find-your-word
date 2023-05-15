@@ -1,4 +1,4 @@
-const { ALLOWED_LANGS, MAXIMUM_WORD_LENGTH, MINIMUM_WORD_LENGTH } = require("../constants")
+const constants = require("../constants")
 const iso = require('iso-639-1')
 const { getWordModel } = require('../models/word.model')
 const utils = require('../utils')
@@ -9,7 +9,7 @@ function existsWord(req, res) {
     lang = lang.toLowerCase()
 
     // Error handling
-    if (!iso.validate(lang) || !ALLOWED_LANGS.includes(lang)) {
+    if (!iso.validate(lang) || !constants.ALLOWED_LANGS.includes(lang)) {
         utils.bad_request(res, "`lang` must follow ISO 3166-1 alpha-2 format.")
         return
     }
@@ -45,13 +45,13 @@ function generateDailyWord(req, res) {
     }
     const todayTimestamp = utils.todayTimestamp()
 
-    ALLOWED_LANGS.forEach(lang => {
+    constants.ALLOWED_LANGS.forEach(lang => {
         const Word = getWordModel(lang)
 
         Word.countDocuments({
             $and: [
                 { dailyTimestamp: { $exists: false } },
-                { length: { $gte: MINIMUM_WORD_LENGTH, $lte: MAXIMUM_WORD_LENGTH } }
+                { length: { $gte: constants.MINIMUM_WORD_LENGTH, $lte: constants.MAXIMUM_WORD_LENGTH } }
             ]
         })
             .then(count => {
@@ -71,9 +71,9 @@ function generateDailyWord(req, res) {
 
 function getDailyWords(req, res) {
     const result = {}
-    ALLOWED_LANGS.forEach(lang => result[lang] = [])
+    constants.ALLOWED_LANGS.forEach(lang => result[lang] = [])
 
-    Promise.all(ALLOWED_LANGS.map(async lang => {
+    Promise.all(constants.ALLOWED_LANGS.map(async lang => {
         const Word = getWordModel(lang)
         return Word.find({ dailyTimestamp: { $exists: true } })
             .sort({ dailyTimestamp: -1 })
@@ -94,12 +94,12 @@ function randomWord(req, res) {
     length = parseInt(length)
 
     // Error handling
-    if (!iso.validate(lang) || !ALLOWED_LANGS.includes(lang)) {
+    if (!iso.validate(lang) || !constants.ALLOWED_LANGS.includes(lang)) {
         utils.bad_request(res, "`lang` must follow ISO 3166-1 alpha-2 format.")
         return
     }
-    if (isNaN(length) || length < MINIMUM_WORD_LENGTH || length > MAXIMUM_WORD_LENGTH) {
-        utils.bad_request(res, `length should be integer, greater than ${MINIMUM_WORD_LENGTH} and lesser than ${MAXIMUM_WORD_LENGTH}.`)
+    if (isNaN(length) || length < constants.MINIMUM_WORD_LENGTH || length > constants.MAXIMUM_WORD_LENGTH) {
+        utils.bad_request(res, `length should be integer, greater than ${constants.MINIMUM_WORD_LENGTH} and lesser than ${constants.MAXIMUM_WORD_LENGTH}.`)
         return
     }
 

@@ -1,3 +1,4 @@
+const constants = require('../constants')
 const Score = require('../models/score.model')
 const utils = require('../utils')
 
@@ -54,13 +55,16 @@ function getScore(req, res) {
 
     Score.find({ dailyTimestamp: timestamp }, { _id: 0, tries: 1, username: 1 })
         .sort({ tries: 1 })
-        .limit(10)
+        .limit(constants.NB_BEST_SCORES)
         .then(bestScores => {
             Score.findOne({ dailyTimestamp: timestamp, username: username }, { _id: 0, tries: 1, username: 1 })
-                .then(score => res.send({
-                    best_scores: bestScores,
-                    personal_score: score
-                }))
+                .then(score => {
+                    const result = { best_scores: bestScores }
+                    if (score) {
+                        result["personal_score"] = score
+                    }
+                    res.send(result)
+                })
                 .catch(error => utils.internal_server(res, error))
         })
         .catch(error => utils.internal_server(res, error))

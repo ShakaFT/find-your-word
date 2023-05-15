@@ -6,6 +6,8 @@ info:
 tags:
 - name: Lifecycle
   description: Endpoints related to lifecycle of app
+- name: Scores
+  description: Endpoints related to scores management
 - name: Users
   description: Endpoints related to users management
 - name: Words
@@ -13,7 +15,7 @@ tags:
 
 paths:
 
-  #  ----- Users  ----------------------------------------
+  #  ----- Lifecycle  ----------------------------------------
 
   /start:
     get:
@@ -42,6 +44,105 @@ paths:
                   minimum_word_length:
                     type: integer
                     example: 4
+
+  #  ----- Scores  ----------------------------------------
+
+  /score:
+    get:
+      summary: Get score
+      description: This endpoint returns score for a daily word.
+      tags:
+      - Scores
+      parameters:
+      - name: timestamp
+        in: query
+        description: timestamp of daily word.
+        required: true
+        schema:
+          type: integer
+          example: 1683756000000
+      - name: username
+        in: query
+        description: username of current user.
+        required: true
+        schema:
+          type: string
+          example: my_username
+      responses:
+        '200':
+          description: |-
+            - `best_scores` is the top 10 scores for the selected daily word.
+
+            - `personal_score` exists only if user has register a score.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  best_scores:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        tries:
+                          type: integer
+                          example: 3
+                        username:
+                          type: string
+                          example: my_username
+                  personal_score:
+                    type: object
+                    properties:
+                      tries:
+                        type: integer
+                        example: 3
+                      username:
+                        type: string
+                        example: my_username
+        '400':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+    post:
+      summary: Add score
+      description: This endpoint adds a new score for a user's daily word.
+      tags:
+      - Scores
+      requestBody:
+        description: |-
+          - `timestamp` of daily word.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - timestamp
+              - tries
+              - username
+              properties:
+                timestamp:
+                  type: integer
+                  example: 1683756000000
+                tries:
+                  type: integer
+                  example: 3
+                username:
+                  type: string
+                  example: my_username
+      responses:
+        '204':
+          description: Score added successfully !
+        '400':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+
+  #  ----- Users  ----------------------------------------
 
   /user:
     post:
