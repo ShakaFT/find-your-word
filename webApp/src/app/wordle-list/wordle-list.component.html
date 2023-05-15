@@ -1,13 +1,18 @@
 <div class="container">
-    <app-nav></app-nav>
-    <mat-card (click)='onWordleClick(dailyWordle)' *ngFor="let dailyWordle of dailyWordles; let indexWordle = index"
-        class="daily-wordle-card">
-        <mat-card-content>
-            {{totalWordles-indexWordle}}
-        </mat-card-content>
+  <app-nav></app-nav>
+  <div class="cards">
+    <mat-card
+      (click)="onWordleClick(dailyWordle)"
+      *ngFor="let dailyWordle of dailyWordles; let indexWordle = index"
+      class="daily-wordle-card"
+    >
+      <mat-card-content>
+        {{ totalWordles - indexWordle }}
+      </mat-card-content>
     </mat-card>
+  </div>
 </div>
 
 <div class="spinner-container" *ngIf="prefsService.getIsLoading()">
-    <mat-spinner></mat-spinner>
+  <mat-spinner></mat-spinner>
 </div>
