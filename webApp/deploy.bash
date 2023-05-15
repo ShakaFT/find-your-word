@@ -20,13 +20,16 @@ if [ -f '.env' ]; then
 fi
 
 # Replace dev API url by prod url
-sed -i '' 's;API_URL:.*;API_URL: "'$API_URL'";' src/environments/environment.ts
+sed -i '' 's;PRODUCTION:.*;PRODUCTION: true;' src/environments/environment.ts
 
 # Build app
 ng build --configuration=production
 
 # deploy app
 firebase deploy
+
+# Replace dev API url by prod url
+sed -i '' 's;PRODUCTION:.*;PRODUCTION: false;' src/environments/environment.ts
 
 if [ `echo $?` != 0 ]; then
     echo 'An error occured during deployment of application...'
