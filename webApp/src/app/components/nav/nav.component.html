@@ -7,7 +7,7 @@
       <mat-icon>calendar_today</mat-icon>
     </button>
     <mat-menu #settingsMenu>
-      <menu *ngIf="timestamp != undefined" mat-menu-item (click)="infinite()">Infinite mode</menu>
+      <menu mat-menu-item (click)="infinite()">Infinite wordle</menu>
       <menu *ngIf="timestamp == undefined" mat-menu-item (click)="home()">Daily wordle</menu>
       <menu *ngIf="timestamp != undefined" mat-menu-item (click)="scores()">Scores</menu>
     </mat-menu>
@@ -28,7 +28,7 @@
       <menu mat-menu-item *ngIf="isLogged" (click)="goToAccount()">Account</menu>
       <menu mat-menu-item *ngIf="isLogged" (click)="logout()">Logout</menu>
     </mat-menu>
-    <p *ngIf="!isLogged">Not Logged</p>
+    <p *ngIf="!isLogged">not logged</p>
     <p *ngIf="isLogged">{{prefsService.getUser().username}}</p>
   </div>
 </div>

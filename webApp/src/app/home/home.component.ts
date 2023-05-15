@@ -52,8 +52,11 @@ export class HomeComponent {
         this.wordToFind = this.prefsService.getSelectedWordle().word;
         this.wordleTimestamp = this.prefsService.getSelectedWordle().timestamp;
       }
-      this.refresh();
     });
+  }
+
+  ngOnInit() {
+    this.refresh();
   }
 
   public onClickKeyboard(key: string) {
