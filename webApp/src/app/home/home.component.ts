@@ -113,7 +113,13 @@ export class HomeComponent {
     if (this.wordToFind) {
       this.goToScoreIfAlreadyDid();
 
-      this.wordleDate = new Date(this.wordleTimestamp).toLocaleDateString();
+      // Set a number for each wordle date, the Wordle number "1" was the 11/05/2023
+      let firstWordle = new Date("2023-05-11").getTime();
+      let currentWordle = new Date(this.wordleTimestamp).getTime();
+      let diff = currentWordle - firstWordle;
+      let diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+      this.wordleDate = `Wordle #${diffDays}`;
 
       this.nbLetters = this.wordToFind.length;
 
@@ -133,7 +139,13 @@ export class HomeComponent {
       this.wordToFind = data.daily_words[this.prefsService.getLang()][0].word;
       this.wordleTimestamp =
         data.daily_words[this.prefsService.getLang()][0].timestamp;
-      this.wordleDate = new Date(this.wordleTimestamp).toLocaleDateString();
+      // Set a number for each wordle date, the Wordle number "1" was the 11/05/2023
+      let firstWordle = new Date("2023-05-11").getTime();
+      let currentWordle = new Date(this.wordleTimestamp).getTime();
+      let diff = currentWordle - firstWordle;
+      let diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
+      this.wordleDate = `Wordle #${diffDays}`;
 
       this.nbLetters = this.wordToFind.length;
 

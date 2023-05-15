@@ -37,6 +37,7 @@
   .nav-right {
     display: flex;
     place-items: center;
+    vertical-align: middle;
     button {
       display: flex;
       place-items: center;
@@ -50,6 +51,9 @@
       &:hover {
         transform: scale(1.2);
       }
+    }
+    .logged-p {
+      margin: 0;
     }
   }
 }

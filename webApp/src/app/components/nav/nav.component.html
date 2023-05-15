@@ -8,27 +8,56 @@
     </button>
     <mat-menu #settingsMenu>
       <menu mat-menu-item (click)="infinite()">Infinite wordle</menu>
-      <menu *ngIf="timestamp == undefined" mat-menu-item (click)="home()">Daily wordle</menu>
-      <menu *ngIf="timestamp != undefined" mat-menu-item (click)="scores()">Scores</menu>
+      <menu *ngIf="timestamp == undefined" mat-menu-item (click)="home()"
+        >Daily wordle</menu
+      >
+      <menu *ngIf="timestamp != undefined" mat-menu-item (click)="scores()"
+        >Scores</menu
+      >
     </mat-menu>
   </div>
   <div class="nav-center">
-    <h1>FIND-YOUR-WORD</h1>
+    <button
+      type="button"
+      (click)="home()"
+      style="
+        background: none;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        color: #fff;
+      "
+    >
+      <h1>FIND-YOUR-WORD</h1>
+    </button>
   </div>
   <div class="nav-right">
     <button>
-      <span *ngIf="lang === 'fr'" (click)="onLangClick()" class="fi fi-fr fis"></span>
-      <span *ngIf="lang === 'en'" (click)="onLangClick()" class="fi fi-gb fis"></span>
+      <span
+        *ngIf="lang === 'fr'"
+        (click)="onLangClick()"
+        class="fi fi-fr fis"
+      ></span>
+      <span
+        *ngIf="lang === 'en'"
+        (click)="onLangClick()"
+        class="fi fi-gb fis"
+      ></span>
     </button>
     <button type="button" [matMenuTriggerFor]="accountMenu">
       <mat-icon>account_circle</mat-icon>
     </button>
     <mat-menu #accountMenu>
       <menu mat-menu-item *ngIf="!isLogged" (click)="login()">Login</menu>
-      <menu mat-menu-item *ngIf="isLogged" (click)="goToAccount()">Account</menu>
+      <menu mat-menu-item *ngIf="isLogged" (click)="goToAccount()"
+        >Account</menu
+      >
       <menu mat-menu-item *ngIf="isLogged" (click)="logout()">Logout</menu>
     </mat-menu>
-    <p *ngIf="!isLogged">not logged</p>
-    <p *ngIf="isLogged">{{prefsService.getUser().username}}</p>
+    <p *ngIf="!isLogged" class="logged-p">not logged</p>
+    <p *ngIf="isLogged" class="logged-p">{{ prefsService.getUser().username }}</p>
   </div>
 </div>
