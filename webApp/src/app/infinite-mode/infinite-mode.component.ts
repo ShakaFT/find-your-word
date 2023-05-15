@@ -87,7 +87,8 @@ export class InfiniteModeComponent {
     this.currentRow = 0;
 
     // select keyboard
-    this.keyboard = this.prefsService.getLang() === "fr" ? this.frKeyboard : this.enKeyboard;
+    this.keyboard =
+      this.prefsService.getLang() === "fr" ? this.frKeyboard : this.enKeyboard;
 
     // Refresh keyboard background color
     this.keyboard.forEach((row) => {
@@ -144,19 +145,27 @@ export class InfiniteModeComponent {
         return;
       }
 
+      let found = false;
       for (let findIndex = 0; findIndex < this.wordToFind.length; findIndex++) {
         if (letter == this.wordToFind[findIndex] && !attribution[findIndex]) {
-          if (
-            document.getElementById(letter)?.style.backgroundColor != "green"
-          ) {
-            this._setBackgroundColor(letter, "orange"); // keyboard
+          if (!found) {
+            if (
+              document.getElementById(letter)?.style.backgroundColor != "green"
+            ) {
+              this._setBackgroundColor(letter, "orange"); // keyboard
+            }
+            found = true;
+            attribution[findIndex] = true;
           }
           this._setBackgroundColor(id, "orange"); // box
-          return;
         }
       }
 
-      this._setBackgroundColor(letter, "gray");
+      if (!found && this.wordToFind.indexOf(letter) > -1) {
+        this._setBackgroundColor(letter, "gray"); // keyboard
+      } else if (!found) {
+        this._setBackgroundColor(letter, "gray"); // keyboard
+      }
     });
   }
 

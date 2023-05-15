@@ -14,7 +14,9 @@ export class PrefsService {
     this.isLoading = true;
     this.apiService.start().subscribe((data) => {
       this.langs = data.allowed_langs;
-      localStorage.setItem("lang", "en");
+      if (!localStorage.getItem("lang")) {
+        localStorage.setItem("lang", "en");
+      }
       localStorage.setItem("maximumWordLength", data.maximum_word_length);
       localStorage.setItem(
         "minimumDailyTimestamp",
@@ -62,7 +64,7 @@ export class PrefsService {
   }
 
   getLang() {
-    return localStorage.getItem("lang") || "en";
+    return localStorage.getItem("lang")!;
   }
 
   getLangs() {
