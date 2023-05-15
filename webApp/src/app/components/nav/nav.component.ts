@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
@@ -62,9 +62,8 @@ export class NavComponent {
 
   scores() {
     if (this.isLogged) {
-      console.log(this.timestamp)
-      this._router.navigate(["/scores", {timestamp: this.timestamp}]
-        // queryParams: {timestamp: this.timestamp },
+      this._router.navigate(
+        ["/scores", { timestamp: this.timestamp }]
       );
     } else {
       this._router.navigate(["/login"]);
@@ -77,11 +76,11 @@ export class NavComponent {
   refreshPage(): void {
     const currentUrl = this._router.url;
     const navigationExtras: NavigationExtras = {
-      queryParamsHandling: 'preserve',
-      preserveFragment: true
+      queryParamsHandling: "preserve",
+      preserveFragment: true,
     };
-  
-    this._router.navigateByUrl('/', navigationExtras)
+    this._router
+      .navigateByUrl("/", navigationExtras)
       .then(() => this._router.navigateByUrl(currentUrl, navigationExtras));
   }
 

@@ -290,18 +290,20 @@ export class HomeComponent {
   }
 
   goToScoreIfAlreadyDid() {
-    if (this.prefsService.isLogin()) {
-      this._apiService
-        .getScore(this.prefsService.getUser()!.username, this.wordleTimestamp)
-        .subscribe((data) => {
-          if (data["personal_score"]) {
-            this.prefsService.setIsLoading(false);
-            this._router.navigate([
-              "/scores",
-              { timestamp: this.wordleTimestamp },
-            ]);
-          }
-        });
+    if(this.wordleTimestamp) {
+      if (this.prefsService.isLogin()) {
+        this._apiService
+          .getScore(this.prefsService.getUser()!.username, this.wordleTimestamp)
+          .subscribe((data) => {
+            if (data["personal_score"]) {
+              this.prefsService.setIsLoading(false);
+              this._router.navigate([
+                "/scores",
+                { timestamp: this.wordleTimestamp },
+              ]);
+            }
+          });
+      }
     }
   }
 

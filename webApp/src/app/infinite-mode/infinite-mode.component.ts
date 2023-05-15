@@ -207,8 +207,6 @@ export class InfiniteModeComponent {
             panelClass: "modal-win",
           });
 
-          this.surprise();
-
           this.prefsService.setIsLoading(false);
 
           dialogRef.afterClosed().subscribe((result) => {
