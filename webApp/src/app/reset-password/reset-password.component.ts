@@ -77,7 +77,7 @@ export class ResetPasswordComponent {
                 duration: 3000,
               });
               this.prefsService.setIsLoading(false);
-              this._router.navigate(["/home"]);
+              this._router.navigate(["/"]);
             } else {
               this._snackBar.open("Wrong password...", "Close", {
                 duration: 3000,

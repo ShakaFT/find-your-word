@@ -48,7 +48,7 @@ export class LoginComponent {
             if (data.login) {
               this.prefsService.login(data.user);
               this.prefsService.setIsLoading(false);
-              this._router.navigate(["/home"]);
+              this._router.navigate(["/"]);
             } else {
               this._snackBar.open("Invalid email/password...", "Close", {
                 duration: 3000,

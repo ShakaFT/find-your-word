@@ -97,7 +97,7 @@ export class SignupComponent {
             }
             this.prefsService.login(data.user);
             this.prefsService.setIsLoading(false);
-            this._router.navigate(["/home"]);
+            this._router.navigate(["/"]);
           });
       } else {
         this._snackBar.open("Fill all fields...", "Close", {

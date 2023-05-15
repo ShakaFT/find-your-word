@@ -11,7 +11,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 
 const routes: Routes = [
   {
-    path: 'home', component: HomeComponent
+    path: '', component: HomeComponent
   },
   {
     path: 'infinite', component: InfiniteModeComponent
@@ -33,11 +33,6 @@ const routes: Routes = [
   },
   {
     path: 'signup', component: SignupComponent
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
   },
 ];
 

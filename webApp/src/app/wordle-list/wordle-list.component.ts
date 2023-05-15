@@ -25,12 +25,11 @@ export class WordleListComponent {
     });
   }
   onWordleClick(dailyWordle: any) {
-    this._router.navigate([
-      "/home",
-      {
+    this._router.navigate(["/"], {
+      queryParams: {
         timestamp: dailyWordle.timestamp,
         word: dailyWordle.word,
       },
-    ]);
+    });
   }
 }

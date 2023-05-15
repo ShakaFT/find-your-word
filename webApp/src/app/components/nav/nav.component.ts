@@ -39,7 +39,7 @@ export class NavComponent {
   }
 
   home() {
-    this._router.navigate(["/home"]);
+    this._router.navigate(["/"]);
   }
 
   login() {
@@ -53,7 +53,7 @@ export class NavComponent {
   logout() {
     this.prefsService.logout();
     this.isLogged = this.prefsService.isLogin();
-    this._router.navigate(["/home"]);
+    this._router.navigate(["/"]);
   }
 
   wordleList() {
