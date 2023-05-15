@@ -91,4 +91,8 @@ export class AccountComponent {
   onClickReset() {
     this._router.navigate(["/reset-password"]);
   }
+
+  onClickDelete() {
+    this._router.navigate(["/delete-account"]);
+  }
 }

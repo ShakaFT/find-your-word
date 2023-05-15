@@ -27,6 +27,7 @@ import { AccountComponent } from "./account/account.component";
 import { ResetPasswordComponent } from "./reset-password/reset-password.component";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatListModule } from "@angular/material/list";
+import { DeleteAccountComponent } from './delete-account/delete-account.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MatListModule } from "@angular/material/list";
     ScoresComponent,
     AccountComponent,
     ResetPasswordComponent,
+    DeleteAccountComponent,
   ],
   imports: [
     BrowserModule,

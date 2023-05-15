@@ -7,10 +7,12 @@ import { environment } from "src/environments/environment";
   providedIn: "root",
 })
 export class ApiService {
-  API_URL: string = ""
+  API_URL: string = "";
 
   constructor(private http: HttpClient) {
-    this.API_URL = environment.PRODUCTION ? environment.API_PROD_URL : environment.API_DEV_URL
+    this.API_URL = environment.PRODUCTION
+      ? environment.API_PROD_URL
+      : environment.API_DEV_URL;
   }
 
   // Lifecycle
@@ -98,6 +100,17 @@ export class ApiService {
         }),
       }
     );
+  }
+
+  public deleteAccount(password: string, userId: string): Observable<any> {
+    return this.http.delete<any>(`${this.API_URL}/user/${userId}`, {
+      headers: new HttpHeaders({
+        "api-key": environment.API_KEY,
+      }),
+      body: {
+        password: password,
+      },
+    });
   }
 
   // Words
