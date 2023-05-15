@@ -26,6 +26,7 @@ import { ScoresComponent } from "./scores/scores.component";
 import { AccountComponent } from "./account/account.component";
 import { ResetPasswordComponent } from "./reset-password/reset-password.component";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatListModule } from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     MatButtonModule,
     HttpClientModule,
     MatMenuModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatListModule,
   ],
   providers: [PrefsService],
   bootstrap: [AppComponent],

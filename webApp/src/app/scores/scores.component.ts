@@ -19,6 +19,7 @@ export class ScoresComponent {
   wordleTimestamp: number = 0;
   scores: Score[] = [];
   personalScore?: Score;
+  wordleDate: Date = new Date();
 
   ngOnInit() {
     this._route.params.subscribe((params) => {
@@ -34,7 +35,7 @@ export class ScoresComponent {
       .subscribe((data) => {
         this.scores = data["best_scores"];
         this.personalScore = data["personal_score"];
-        console.log(data)
+        console.log(data);
         this.prefsService.setIsLoading(false);
       });
   }

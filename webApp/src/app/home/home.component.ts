@@ -7,7 +7,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../services/api.service";
 import { PrefsService } from "../services/prefs.service";
 import * as confetti from "canvas-confetti";
-import { date } from "yup";
 
 @Component({
   selector: "home-component",
