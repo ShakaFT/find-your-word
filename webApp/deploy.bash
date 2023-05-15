@@ -1,23 +1,7 @@
 # This script deploys web application
 
-function reset {
-    git reset --hard
-    exit 1
-}
-
-# Check if repo has been committed
-if [[ -n $(git status --porcelain) ]]; then
-    echo "Exit, you didn't commit your files"
-    exit 1
-fi
-
-# Reset git if user use CTRL+C
-trap reset SIGINT
-
-# Active environment variables in .env file (useful if we run the script locally)
-if [ -f '.env' ]; then
-    export $(cat .env | xargs) >/dev/null 2>&1
-fi
+# Set environment variables
+export DEPLOYMENT_DISCORD_WEBHOOK=`echo `grep 'DEPLOYMENT_DISCORD_WEBHOOK' 'src/environments/environment.ts'` | sed -E 's/.*"(.+)".*/\1/'`
 
 # Replace dev API url by prod url
 sed -i '' 's;PRODUCTION:.*;PRODUCTION: true;' src/environments/environment.ts
