@@ -9,7 +9,6 @@
 .login-card {
   font-family: "Brice", sans-serif;
   width: 40em;
-  height: 30em;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -26,7 +25,19 @@
     transform: scale(1.05) rotate(0deg);
   }
 
+  .back-button {
+    width: fit-content;
+    cursor: pointer;
+    align-self: flex-start;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
   .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     text-align: center;
     h1 {
       font-size: 3rem;

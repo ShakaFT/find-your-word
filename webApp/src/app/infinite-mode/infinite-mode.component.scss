@@ -14,6 +14,7 @@
     align-items: center;
     justify-content: center;
     flex-grow: 1;
+    font-family: 'Brice', sans-serif;
 
     .row_board_game {
       display: flex;
@@ -46,7 +47,7 @@
       width: 100%;
 
       .keyboard-key {
-        font-family: "Roboto", sans-serif;
+        font-family: 'Brice', sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -95,4 +96,13 @@
   display: flex;
   flex-direction: column;
   width: 100vw;
+}
+
+canvas {
+  height: 100%; /* we need these for full-screen effect */
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
 }

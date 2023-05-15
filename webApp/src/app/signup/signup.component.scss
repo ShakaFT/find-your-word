@@ -1,3 +1,5 @@
+@use "../../variables";
+
 .container {
   display: flex;
   place-items: center;
@@ -5,22 +7,80 @@
 }
 
 .signup-card {
-  width: fit-content;
+  font-family: "Brice", sans-serif;
+  width: 40em;
   margin: auto;
-  position: relative;
-  top: 15%;
-}
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  transform: rotate(-4deg);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  background: variables.$accent-color;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  box-shadow: 0px 0px 0px 5px #fff;
+  border: 2px solid #000;
+  border-radius: 8px;
+  &:hover {
+    transform: scale(1.05) rotate(0deg);
+  }
 
-span {
-  margin-top: 1em;
-  display: block;
-}
+  .header {
+    text-align: center;
+    h1 {
+      font-size: 2rem;
+      font-family: "Brice", sans-serif;
+    }
+  }
 
-.form-field {
-  width: 15em;
-}
+  .back-button {
+    width: fit-content;
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 
-.footer {
-  text-align: center;
-  padding-bottom: 1em;
+  button {
+    width: 100%;
+    background: variables.$accent-color;
+    box-shadow: 0.25px 0.25px #fff, 0.5px 0.5px #fff, 0.75px 0.75px #fff,
+      1px 1px #fff, 1.25px 1.25px #fff, 1.5px 1.5px #fff, 1.75px 1.75px #fff,
+      2px 2px #fff, 2.25px 2.25px #fff, 2.5px 2.5px #fff, 2.75px 2.75px #fff,
+      3px 3px #fff, 3.25px 3.25px #fff, 3.5px 3.5px #fff, 3.75px 3.75px #fff,
+      4px 4px #fff, 4.25px 4.25px #fff, 4.5px 4.5px #fff, 4.75px 4.75px #fff,
+      5px 5px #fff;
+    box-sizing: border-box;
+    border: 3px solid #fff;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    font-family: "Brice", sans-serif;
+    font-size: 1rem;
+  }
+
+  .logo-container {
+    color: white;
+  }
+
+  .form-field {
+    width: 100%;
+  }
+
+  span {
+    display: block;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 1rem;
+    a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }

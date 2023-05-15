@@ -1,4 +1,4 @@
-import { Component, HostListener, Renderer2 } from "@angular/core";
+import { Component, ElementRef, HostListener, Renderer2 } from "@angular/core";
 import { ApiService } from "../services/api.service";
 import { PrefsService } from "../services/prefs.service";
 import { Utils } from "../utils";
@@ -7,6 +7,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ModalComponent } from "../components/modal/modal.component";
+import * as confetti from "canvas-confetti";
 
 @Component({
   selector: "app-infinite-mode",
@@ -20,6 +21,7 @@ export class InfiniteModeComponent {
     private _snackBar: MatSnackBar,
     private _dialog: MatDialog,
     private renderer: Renderer2,
+    private _elementRef: ElementRef,
     private _router: Router,
     private _route: ActivatedRoute
   ) {
@@ -39,6 +41,8 @@ export class InfiniteModeComponent {
   public wordToFind: string = "";
 
   public gameMatrix: Array<Array<string>> = [];
+
+  public clicked: boolean = false;
 
   public onClickKeyboard(key: string) {
     if (key === "REMOVE") {
@@ -148,6 +152,20 @@ export class InfiniteModeComponent {
     });
   }
 
+  public surprise(): void {
+    const canvas = this.renderer.createElement("canvas");
+
+    this.renderer.appendChild(this._elementRef.nativeElement, canvas);
+
+    const myConfetti = confetti.create(canvas, {
+      resize: true, // will fit all screen sizes
+    });
+
+    myConfetti();
+
+    this.clicked = true;
+  }
+
   private _checkWord() {
     if (this._getLastBox() !== this.nbLetters - 1) {
       this._snackBar.open("The word is too short...", "Close", {
@@ -181,6 +199,8 @@ export class InfiniteModeComponent {
             disableClose: true,
             panelClass: "modal-win",
           });
+
+          this.surprise();
 
           this.prefsService.setIsLoading(false);
 

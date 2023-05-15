@@ -1,4 +1,4 @@
-import { Component, HostListener, Renderer2 } from "@angular/core";
+import { Component, ElementRef, HostListener, Renderer2 } from "@angular/core";
 import { KEYBOARD } from "../constants";
 import { ModalComponent } from "../components/modal/modal.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -6,6 +6,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../services/api.service";
 import { PrefsService } from "../services/prefs.service";
+import * as confetti from "canvas-confetti";
 
 @Component({
   selector: "home-component",
@@ -19,7 +20,7 @@ export class HomeComponent {
 
   public nbLetters: number = 0;
 
-  public nbTries: number = 6;
+  public nbTries: number = 5;
 
   public wordToFind: string = "";
 
@@ -27,10 +28,13 @@ export class HomeComponent {
 
   public wordleTimestamp!: number;
 
+  public clicked: boolean = false;
+
   constructor(
     private _snackBar: MatSnackBar,
     private _dialog: MatDialog,
     private renderer: Renderer2,
+    private _elementRef: ElementRef,
     private _apiService: ApiService,
     public prefsService: PrefsService,
     private _router: Router,
@@ -170,6 +174,20 @@ export class HomeComponent {
     });
   }
 
+  public surprise(): void {
+    const canvas = this.renderer.createElement("canvas");
+
+    this.renderer.appendChild(this._elementRef.nativeElement, canvas);
+
+    const myConfetti = confetti.create(canvas, {
+      resize: true, // will fit all screen sizes
+    });
+
+    myConfetti();
+
+    this.clicked = true;
+  }
+
   private _checkWord() {
     if (this._getLastBox() !== this.nbLetters - 1) {
       this._snackBar.open("The word is too short...", "Close", {
@@ -179,6 +197,8 @@ export class HomeComponent {
     }
 
     let currentWord: string = this._getWord();
+
+    this.surprise();
 
     this.prefsService.setIsLoading(true);
     this._apiService
@@ -197,10 +217,9 @@ export class HomeComponent {
         if (currentWord == this.wordToFind) {
           const dialogRef = this._dialog.open(ModalComponent, {
             data: {
-              title: "You win !!!",
+              title: "You win !",
               content: `The word was ${this.wordToFind}`,
             },
-            disableClose: true,
             panelClass: "modal-win",
           });
 

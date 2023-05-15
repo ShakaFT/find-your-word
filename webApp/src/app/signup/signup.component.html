@@ -1,7 +1,12 @@
 <div class="container">
   <mat-card class="signup-card">
-    <mat-card-header>
-      <mat-card-title>Signup</mat-card-title>
+    <mat-card-header class="header">
+      <button mat-button class="back-button" routerLink="/home">
+        <mat-icon>home</mat-icon>
+      </button>
+      <mat-card-title>
+        <h1>Create your account 🚀</h1>
+      </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="signup" class="form">
@@ -55,13 +60,13 @@
             mat-raised-button
             (click)="onClickSignup()"
           >
-            Signup
+            Signup ! 🎮
           </button>
         </span>
       </form>
     </mat-card-content>
     <mat-card-footer class="footer">
-      <a href="/login">I already have account</a>
+      <a href="/login">I already have an account 🤩</a>
     </mat-card-footer>
   </mat-card>
   <div class="spinner-container" *ngIf="prefsService.getIsLoading()">
