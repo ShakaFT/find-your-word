@@ -28,5 +28,7 @@
       <menu mat-menu-item *ngIf="isLogged" (click)="goToAccount()">Account</menu>
       <menu mat-menu-item *ngIf="isLogged" (click)="logout()">Logout</menu>
     </mat-menu>
+    <p *ngIf="!isLogged">Not Logged</p>
+    <p *ngIf="isLogged">{{prefsService.getUser().username}}</p>
   </div>
 </div>

@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../services/api.service";
 import { PrefsService } from "../services/prefs.service";
 import * as confetti from "canvas-confetti";
+import { date } from "yup";
 
 @Component({
   selector: "home-component",
@@ -27,6 +28,8 @@ export class HomeComponent {
   public nbTries: number = 5;
 
   public wordToFind: string = "";
+
+  public wordleDate: string = "";
 
   public gameMatrix: Array<Array<string>> = [];
 
@@ -108,6 +111,8 @@ export class HomeComponent {
     if (this.wordToFind) {
       this.goToScoreIfAlreadyDid();
 
+      this.wordleDate = new Date(this.wordleTimestamp).toLocaleDateString();
+
       this.nbLetters = this.wordToFind.length;
 
       // Refresh matrix
@@ -126,6 +131,8 @@ export class HomeComponent {
       this.wordToFind = data.daily_words[this.prefsService.getLang()][0].word;
       this.wordleTimestamp =
         data.daily_words[this.prefsService.getLang()][0].timestamp;
+      this.wordleDate = new Date(this.wordleTimestamp).toLocaleDateString();
+
       this.nbLetters = this.wordToFind.length;
 
       this.goToScoreIfAlreadyDid();
