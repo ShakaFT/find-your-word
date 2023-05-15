@@ -8,6 +8,7 @@ import { WordleListComponent } from './wordle-list/wordle-list.component';
 import { ScoresComponent } from './scores/scores.component';
 import { AccountComponent } from './account/account.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { DeleteAccountComponent } from './delete-account/delete-account.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,9 @@ const routes: Routes = [
   },
   {
     path: 'reset-password', component: ResetPasswordComponent
+  },
+  {
+    path: 'delete-account', component: DeleteAccountComponent
   },
   {
     path: 'signup', component: SignupComponent
