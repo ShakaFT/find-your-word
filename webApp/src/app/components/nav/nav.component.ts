@@ -38,6 +38,10 @@ export class NavComponent {
     this._router.navigate(["/infinite"]);
   }
 
+  home() {
+    this._router.navigate(["/home"]);
+  }
+
   login() {
     this._router.navigate(["/login"]);
   }

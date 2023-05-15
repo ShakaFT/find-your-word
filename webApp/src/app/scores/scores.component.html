@@ -1,4 +1,15 @@
-{{wordleTimestamp}}
+<app-nav></app-nav>
+
+<h1 class="leaderboard-title">Leaderboard</h1>
+
+<mat-card *ngFor="let score of scores">{{score.username}} : {{score.tries}} tries</mat-card>
+<mat-card *ngIf="scores.length == 0">Nobody has complete this daily wordle </mat-card>
+
+<h1 class="leaderboard-title">Personal Score</h1>
+
+<mat-card *ngIf="personalScore">{{personalScore.username}} : {{personalScore.tries}} tries</mat-card>
+<mat-card *ngIf="personalScore == undefined">You have not played to this daily wordle</mat-card>
+
 <div class="spinner-container" *ngIf="prefsService.getIsLoading()">
     <mat-spinner></mat-spinner>
 </div>

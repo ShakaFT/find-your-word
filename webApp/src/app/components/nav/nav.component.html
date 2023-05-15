@@ -7,8 +7,9 @@
       <mat-icon>calendar_today</mat-icon>
     </button>
     <mat-menu #settingsMenu>
-      <menu mat-menu-item (click)="infinite()">Infinite mode</menu>
-      <menu mat-menu-item (click)="scores()">Scores</menu>
+      <menu *ngIf="timestamp != undefined" mat-menu-item (click)="infinite()">Infinite mode</menu>
+      <menu *ngIf="timestamp == undefined" mat-menu-item (click)="home()">Daily wordle</menu>
+      <menu *ngIf="timestamp != undefined" mat-menu-item (click)="scores()">Scores</menu>
     </mat-menu>
   </div>
   <div class="nav-center">

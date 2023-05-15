@@ -18,7 +18,7 @@ export class ApiService {
       },
       {
         headers: new HttpHeaders({
-          'api-key': environment.API_KEY,
+          "api-key": environment.API_KEY,
         }),
       }
     );
@@ -38,7 +38,7 @@ export class ApiService {
       },
       {
         headers: new HttpHeaders({
-          'api-key': environment.API_KEY,
+          "api-key": environment.API_KEY,
         }),
       }
     );
@@ -48,7 +48,7 @@ export class ApiService {
     email: string,
     password: string,
     username: string,
-    userId: string,
+    userId: string
   ): Observable<any> {
     return this.http.put<any>(
       `${environment.API_URL}/user/${userId}/profile`,
@@ -59,21 +59,18 @@ export class ApiService {
       },
       {
         headers: new HttpHeaders({
-          'api-key': environment.API_KEY,
+          "api-key": environment.API_KEY,
         }),
       }
     );
   }
 
-  public random(
-    lang: string,
-    length: number,
-  ): Observable<any> {
+  public random(lang: string, length: number): Observable<any> {
     return this.http.get<any>(
       `${environment.API_URL}/word/random?lang=${lang}&length=${length}`,
       {
         headers: new HttpHeaders({
-          'api-key': environment.API_KEY,
+          "api-key": environment.API_KEY,
         }),
       }
     );
@@ -92,54 +89,65 @@ export class ApiService {
       },
       {
         headers: new HttpHeaders({
-          'api-key': environment.API_KEY,
+          "api-key": environment.API_KEY,
         }),
       }
     );
   }
 
-  public wordExists(
-    lang: string,
-    word: string,
-  ): Observable<any> {
+  public wordExists(lang: string, word: string): Observable<any> {
     return this.http.get<any>(
       `${environment.API_URL}/word/exists?lang=${lang}&word=${word}`,
       {
         headers: new HttpHeaders({
-          'api-key': environment.API_KEY,
+          "api-key": environment.API_KEY,
         }),
       }
     );
   }
 
-  public dailyWordle(
-  ): Observable<any> {
-    return this.http.get<any>(
-      `${environment.API_URL}/word/daily`,
-      {
-        headers: new HttpHeaders({
-          'api-key': environment.API_KEY,
-        }),
-      }
-    );
+  public dailyWordle(): Observable<any> {
+    return this.http.get<any>(`${environment.API_URL}/word/daily`, {
+      headers: new HttpHeaders({
+        "api-key": environment.API_KEY,
+      }),
+    });
   }
+
   public start(): Observable<any> {
-    return this.http.get<any>(
-      `${environment.API_URL}/start`,
-      {
-        headers: new HttpHeaders({
-          'api-key': environment.API_KEY,
-        }),
-      }
-    );
+    return this.http.get<any>(`${environment.API_URL}/start`, {
+      headers: new HttpHeaders({
+        "api-key": environment.API_KEY,
+      }),
+    });
   }
 
-  public getScore(username: string, timestamp: number): Observable<any>{
+  public getScore(username: string, timestamp: number): Observable<any> {
     return this.http.get<any>(
       `${environment.API_URL}/score?username=${username}&timestamp=${timestamp}`,
       {
         headers: new HttpHeaders({
-          'api-key': environment.API_KEY,
+          "api-key": environment.API_KEY,
+        }),
+      }
+    );
+  }
+
+  public sendScore(
+    username: string,
+    timestamp: number,
+    tries: number
+  ): Observable<any> {
+    return this.http.post<any>(
+      `${environment.API_URL}/score`,
+      {
+        username: username,
+        timestamp: timestamp,
+        tries: tries,
+      },
+      {
+        headers: new HttpHeaders({
+          "api-key": environment.API_KEY,
         }),
       }
     );

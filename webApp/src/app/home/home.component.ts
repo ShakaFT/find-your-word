@@ -56,14 +56,6 @@ export class HomeComponent {
       this.wordToFind = params["word"];
     });
 
-    if (this.wordleTimestamp == undefined) {
-      const now = new Date();
-      this.wordleTimestamp = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate()
-      ).getTime();
-    }
     this.refresh();
   }
 
@@ -118,6 +110,8 @@ export class HomeComponent {
 
     this.prefsService.setIsLoading(true);
     if (this.wordToFind != undefined) {
+      this.goToScoreIfAlreadyDid();
+
       this.nbLetters = this.wordToFind.length;
 
       // Refresh matrix
@@ -131,10 +125,14 @@ export class HomeComponent {
       this.prefsService.setIsLoading(false);
       return;
     }
+
     this._apiService.dailyWordle().subscribe((data) => {
-      this.wordToFind =
-        data.daily_words[this.prefsService.getLang()][0].word;
+      this.wordToFind = data.daily_words[this.prefsService.getLang()][0].word;
+      this.wordleTimestamp =
+        data.daily_words[this.prefsService.getLang()][0].timestamp;
       this.nbLetters = this.wordToFind.length;
+
+      this.goToScoreIfAlreadyDid();
 
       // Refresh matrix
       this.gameMatrix = [];
@@ -210,8 +208,6 @@ export class HomeComponent {
 
     let currentWord: string = this._getWord();
 
-    this.surprise();
-
     this.prefsService.setIsLoading(true);
     this._apiService
       .wordExists(this.prefsService.getLang(), currentWord)
@@ -234,8 +230,20 @@ export class HomeComponent {
             },
             panelClass: "modal-win",
           });
-
-          this.prefsService.setIsLoading(false);
+          if (this.prefsService.isLogin()) {
+            this._apiService
+              .sendScore(
+                this.prefsService.getUser()!.username,
+                this.wordleTimestamp,
+                this.currentRow + 1
+              )
+              .subscribe((data) => {
+                console.log(data);
+                this.prefsService.setIsLoading(false);
+              });
+          } else {
+            this.prefsService.setIsLoading(false);
+          }
 
           dialogRef.afterClosed().subscribe((result) => {
             this._router.navigate([result]);
@@ -279,6 +287,22 @@ export class HomeComponent {
 
   private _removeLastLetter() {
     this.gameMatrix[this.currentRow][this._getLastBox()] = "";
+  }
+
+  goToScoreIfAlreadyDid() {
+    if (this.prefsService.isLogin()) {
+      this._apiService
+        .getScore(this.prefsService.getUser()!.username, this.wordleTimestamp)
+        .subscribe((data) => {
+          if (data["personal_score"]) {
+            this.prefsService.setIsLoading(false);
+            this._router.navigate([
+              "/scores",
+              { timestamp: this.wordleTimestamp },
+            ]);
+          }
+        });
+    }
   }
 
   private _setBackgroundColor(id: string, color: string) {
