@@ -31,7 +31,11 @@ export class ScoresComponent {
   setScores() {
     this.prefsService.setIsLoading(true);
     this._apiService
-      .getScore(this.prefsService.getUser()!.username, this.wordleTimestamp)
+      .getScore(
+        this.prefsService.getUser()!.username,
+        this.wordleTimestamp,
+        this.prefsService.getLang()
+      )
       .subscribe((data) => {
         this.scores = data["best_scores"];
         this.personalScore = data["personal_score"];

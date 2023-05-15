@@ -237,7 +237,8 @@ export class HomeComponent {
               .sendScore(
                 this.prefsService.getUser()!.username,
                 this.wordleTimestamp,
-                this.currentRow + 1
+                this.currentRow + 1,
+                this.prefsService.getLang()
               )
               .subscribe((data) => {
                 console.log(data);
@@ -295,7 +296,11 @@ export class HomeComponent {
     if (this.wordleTimestamp) {
       if (this.prefsService.isLogin()) {
         this._apiService
-          .getScore(this.prefsService.getUser()!.username, this.wordleTimestamp)
+          .getScore(
+            this.prefsService.getUser()!.username,
+            this.wordleTimestamp,
+            this.prefsService.getLang()
+          )
           .subscribe((data) => {
             if (data["personal_score"]) {
               this.prefsService.setIsLoading(false);

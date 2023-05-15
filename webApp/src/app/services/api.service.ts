@@ -147,9 +147,9 @@ export class ApiService {
 
   // Scores
 
-  public getScore(username: string, timestamp: number): Observable<any> {
+  public getScore(username: string, timestamp: number, lang: string): Observable<any> {
     return this.http.get<any>(
-      `${this.API_URL}/score?username=${username}&timestamp=${timestamp}`,
+      `${this.API_URL}/score?username=${username}&timestamp=${timestamp}&lang=${lang}`,
       {
         headers: new HttpHeaders({
           "api-key": environment.API_KEY,
@@ -161,7 +161,8 @@ export class ApiService {
   public sendScore(
     username: string,
     timestamp: number,
-    tries: number
+    tries: number,
+    lang: string
   ): Observable<any> {
     return this.http.post<any>(
       `${this.API_URL}/score`,
@@ -169,6 +170,7 @@ export class ApiService {
         username: username,
         timestamp: timestamp,
         tries: tries,
+        lang: lang,
       },
       {
         headers: new HttpHeaders({

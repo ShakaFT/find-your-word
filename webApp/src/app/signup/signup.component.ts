@@ -95,7 +95,11 @@ export class SignupComponent {
               this.prefsService.setIsLoading(false);
               return;
             }
-            this.prefsService.login(data.user);
+            this.prefsService.login({
+              username: this.usernameInput!.value,
+              email: this.emailInput!.value,
+              id: data["user_id"],
+            });
             this.prefsService.setIsLoading(false);
             this._router.navigate(["/"]);
           });
