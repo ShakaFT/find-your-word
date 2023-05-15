@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { PrefsService } from "src/app/services/prefs.service";
-import { Router } from "@angular/router";
+import { Router, NavigationExtras } from "@angular/router";
 
 @Component({
   selector: "app-nav",
@@ -54,6 +54,17 @@ export class NavComponent {
     this._router.navigate(["/scores"]);
   }
 
+  refreshPage(): void {
+    const currentUrl = this._router.url;
+    const navigationExtras: NavigationExtras = {
+      queryParamsHandling: 'preserve',
+      preserveFragment: true
+    };
+  
+    this._router.navigateByUrl('/', navigationExtras)
+      .then(() => this._router.navigateByUrl(currentUrl, navigationExtras));
+  }
+
   onLangClick() {
     if (this.prefsService.getLang() === this.prefsService.getLangs()[0]) {
       this.prefsService.setLang(this.prefsService.getLangs()[1]);
@@ -61,6 +72,6 @@ export class NavComponent {
       this.prefsService.setLang(this.prefsService.getLangs()[0]);
     }
     this.lang = this.prefsService.getLang();
-    this._router.navigate(["/home"]);
+    this.refreshPage();
   }
 }

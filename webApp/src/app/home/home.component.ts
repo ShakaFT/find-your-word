@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, Renderer2 } from "@angular/core";
-import { KEYBOARD } from "../constants";
+import { AZERTY_KEYBOARD, QWERTY_KEYBOARD } from "../constants";
 import { ModalComponent } from "../components/modal/modal.component";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -14,7 +14,11 @@ import * as confetti from "canvas-confetti";
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent {
-  public keyboard = KEYBOARD;
+  public frKeyboard = AZERTY_KEYBOARD;
+
+  public enKeyboard = QWERTY_KEYBOARD;
+
+  public keyboard = this.frKeyboard;
 
   public currentRow: number = 0;
 
@@ -39,7 +43,12 @@ export class HomeComponent {
     public prefsService: PrefsService,
     private _router: Router,
     private _route: ActivatedRoute
-  ) {}
+  ) {
+    console.log("HomeComponent constructor");
+    this._route.params.subscribe((_) => {
+      this.refresh();
+    });
+  }
 
   ngOnInit() {
     this._route.params.subscribe((params) => {
@@ -94,6 +103,9 @@ export class HomeComponent {
   public refresh() {
     // Refresh currentRow
     this.currentRow = 0;
+
+    // select keyboard
+    this.keyboard = this.prefsService.getLang() === "fr" ? this.frKeyboard : this.enKeyboard;
 
     // Refresh keyboard background color
     this.keyboard.forEach((row) => {

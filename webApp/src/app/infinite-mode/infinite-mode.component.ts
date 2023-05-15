@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener, Renderer2 } from "@angular/core";
 import { ApiService } from "../services/api.service";
 import { PrefsService } from "../services/prefs.service";
 import { Utils } from "../utils";
-import { KEYBOARD } from "../constants";
+import { QWERTY_KEYBOARD, AZERTY_KEYBOARD } from "../constants";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -30,7 +30,11 @@ export class InfiniteModeComponent {
     });
   }
 
-  public keyboard = KEYBOARD;
+  public frKeyboard = AZERTY_KEYBOARD;
+
+  public enKeyboard = QWERTY_KEYBOARD;
+
+  public keyboard = this.frKeyboard;
 
   public currentRow: number = 0;
 
@@ -80,6 +84,9 @@ export class InfiniteModeComponent {
   public refresh() {
     // Refresh currentRow
     this.currentRow = 0;
+
+    // select keyboard
+    this.keyboard = this.prefsService.getLang() === "fr" ? this.frKeyboard : this.enKeyboard;
 
     // Refresh keyboard background color
     this.keyboard.forEach((row) => {
