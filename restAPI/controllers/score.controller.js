@@ -1,13 +1,18 @@
 const constants = require('../constants')
+const iso = require('iso-639-1')
 const Score = require('../models/score.model')
 const utils = require('../utils')
 
 function createScore(req, res) {
-    let { timestamp, tries, username } = req.body
+    let { lang, timestamp, tries, username } = req.body
     timestamp = parseInt(timestamp)
     tries = parseInt(tries)
 
     // Error handling
+    if (!iso.validate(lang) || !constants.ALLOWED_LANGS.includes(lang)) {
+        utils.bad_request(res, "`lang` must follow ISO 3166-1 alpha-2 format.")
+        return
+    }
     if (isNaN(timestamp)) {
         utils.bad_request(res, "`timestamp` should be integer")
         return
@@ -24,26 +29,31 @@ function createScore(req, res) {
     Score.findOne({
         $and: [
             { dailyTimestamp: timestamp },
+            { lang: lang },
             { username: username }
         ]
     })
         .then(score => {
             if (score) {
-                utils.bad_request(res, `Timestamp ${timestamp} already exist for user ${username}`)
+                utils.bad_request(res, `Timestamp ${timestamp} already exist for user ${username} with lang ${lang}`)
                 return
             }
-            Score.create({ dailyTimestamp: timestamp, tries: tries, username: username })
-                .then(user => res.status(204).send())
+            Score.create({ dailyTimestamp: timestamp, lang: lang, tries: tries, username: username })
+                .then(res.status(204).send())
                 .catch(error => utils.internal_server(res, error))
         })
         .catch(error => utils.internal_server(res, error))
 }
 
 function getScore(req, res) {
-    let { timestamp, username } = req.query
+    let { lang, timestamp, username } = req.query
     timestamp = parseInt(timestamp)
 
     // Error handling
+    if (!iso.validate(lang) || !constants.ALLOWED_LANGS.includes(lang)) {
+        utils.bad_request(res, "`lang` must follow ISO 3166-1 alpha-2 format.")
+        return
+    }
     if (isNaN(timestamp)) {
         utils.bad_request(res, "`timestamp` should be integer")
         return
@@ -53,7 +63,7 @@ function getScore(req, res) {
         return
     }
 
-    Score.find({ dailyTimestamp: timestamp }, { _id: 0, tries: 1, username: 1 })
+    Score.find({ dailyTimestamp: timestamp, lang: lang }, { _id: 0, tries: 1, username: 1 })
         .sort({ tries: 1 })
         .limit(constants.NB_BEST_SCORES)
         .then(bestScores => {

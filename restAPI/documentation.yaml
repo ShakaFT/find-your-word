@@ -54,6 +54,13 @@ paths:
       tags:
       - Scores
       parameters:
+      - name: lang
+        in: query
+        description: lang must matches with **ISO 3166-1 alpha-2** format.
+        required: true
+        schema:
+          type: string
+          example: fr
       - name: timestamp
         in: query
         description: timestamp of daily word.
@@ -112,6 +119,8 @@ paths:
       - Scores
       requestBody:
         description: |-
+          - `lang` must matches with **ISO 3166-1 alpha-2** format.
+
           - `timestamp` of daily word.
         required: true
         content:
@@ -119,10 +128,14 @@ paths:
             schema:
               type: object
               required:
+              - lang
               - timestamp
               - tries
               - username
               properties:
+                lang:
+                  type: string
+                  example: fr
                 timestamp:
                   type: integer
                   example: 1683756000000

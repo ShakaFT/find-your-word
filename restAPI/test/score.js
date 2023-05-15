@@ -31,6 +31,16 @@ describe('-----Test score with no API Key-----\n', () => {
 })
 
 describe('-----Test score with bad parameters-----\n', () => {
+    it('GET /score => Bad lang\n', (done) => {
+        chai.request(app)
+            .get(`/score?lang=bad_langtimestamp=${timestamp}&username=unittest`)
+            .set("api-key", apiKey)
+            .end((err, res) => {
+                test_bad_request(res)
+                done()
+            })
+    })
+
     it('GET /score => Bad timestamp\n', (done) => {
         chai.request(app)
             .get('/score?timestamp=bad_timestamp&username=unittest')
@@ -41,11 +51,22 @@ describe('-----Test score with bad parameters-----\n', () => {
             })
     })
 
+    it('POST /score => Bad lang\n', (done) => {
+        chai.request(app)
+            .post('/score')
+            .set("api-key", apiKey)
+            .send({ lang: "bad_lang", timestamp: timestamp, tries: 1, username: "unittest" })
+            .end((err, res) => {
+                test_bad_request(res)
+                done()
+            })
+    })
+
     it('POST /score => Bad timestamp\n', (done) => {
         chai.request(app)
             .post('/score')
             .set("api-key", apiKey)
-            .send({ timestamp: "bad_timestamp", tries: 1, username: "unittest" })
+            .send({ lang: "fr", timestamp: "bad_timestamp", tries: 1, username: "unittest" })
             .end((err, res) => {
                 test_bad_request(res)
                 done()
@@ -56,7 +77,7 @@ describe('-----Test score with bad parameters-----\n', () => {
         chai.request(app)
             .post('/score')
             .set("api-key", apiKey)
-            .send({ timestamp: timestamp, tries: "bad_tries", username: "unittest" })
+            .send({ lang: "fr", timestamp: timestamp, tries: "bad_tries", username: "unittest" })
             .end((err, res) => {
                 test_bad_request(res)
                 done()
@@ -67,7 +88,7 @@ describe('-----Test score with bad parameters-----\n', () => {
         chai.request(app)
             .post('/score')
             .set("api-key", apiKey)
-            .send({ timestamp: timestamp, tries: 1, username: 0 })
+            .send({ lang: "fr", timestamp: timestamp, tries: 1, username: 0 })
             .end((err, res) => {
                 test_bad_request(res)
                 done()
@@ -78,7 +99,7 @@ describe('-----Test score with bad parameters-----\n', () => {
 describe('-----Test to handle score-----\n', () => {
     it('GET /score => Get score\n', (done) => {
         chai.request(app)
-            .get(`/score?timestamp=${timestamp}&username=unittest`)
+            .get(`/score?lang=fr&timestamp=${timestamp}&username=unittest`)
             .set("api-key", apiKey)
             .end((err, res) => {
                 expect(res).to.have.status(200)

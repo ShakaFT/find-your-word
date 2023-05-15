@@ -5,6 +5,10 @@ const scoreSchema = new database.Schema({
         type: Number,
         required: true,
     },
+    lang: {
+        type: String,
+        required: true
+    },
     tries: {
         type: Number,
         required: true
