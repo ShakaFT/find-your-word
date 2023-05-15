@@ -11,11 +11,12 @@ ng build --configuration=production
 
 # deploy app
 firebase deploy
+DEPLOY_RESULT=`echo $?`
 
 # Replace dev API url by prod url
 sed -i '' 's;PRODUCTION:.*;PRODUCTION: false,;' src/environments/environment.ts
 
-if [ `echo $?` != 0 ]; then
+if [ $DEPLOY_RESULT != 0 ]; then
     echo 'An error occured during deployment of application...'
     ./discord.bash 'fail' 'Firebase failed to deploy web app'
     exit 1
