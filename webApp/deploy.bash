@@ -1,10 +1,10 @@
 # This script deploys web application
 
 # Set environment variables
-export DEPLOYMENT_DISCORD_WEBHOOK=`echo `grep 'DEPLOYMENT_DISCORD_WEBHOOK' 'src/environments/environment.ts'` | sed -E 's/.*"(.+)".*/\1/'`
+export DEPLOYMENT_DISCORD_WEBHOOK=$(echo `grep 'DEPLOYMENT_DISCORD_WEBHOOK' 'src/environments/environment.ts'` | sed -E 's/.*"(.+)".*/\1/')
 
 # Replace dev API url by prod url
-sed -i '' 's;PRODUCTION:.*;PRODUCTION: true;' src/environments/environment.ts
+sed -i '' 's;PRODUCTION:.*;PRODUCTION: true,;' src/environments/environment.ts
 
 # Build app
 ng build --configuration=production
@@ -13,7 +13,7 @@ ng build --configuration=production
 firebase deploy
 
 # Replace dev API url by prod url
-sed -i '' 's;PRODUCTION:.*;PRODUCTION: false;' src/environments/environment.ts
+sed -i '' 's;PRODUCTION:.*;PRODUCTION: false,;' src/environments/environment.ts
 
 if [ `echo $?` != 0 ]; then
     echo 'An error occured during deployment of application...'
