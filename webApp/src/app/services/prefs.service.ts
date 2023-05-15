@@ -7,6 +7,7 @@ import { ApiService } from "./api.service";
 })
 export class PrefsService {
   private langs!: string[];
+  private selectedWordle!: any;
   private isLoading: boolean = false;
 
   constructor(private apiService: ApiService) {
@@ -70,6 +71,14 @@ export class PrefsService {
 
   setIsLoading(isLoading: boolean) {
     this.isLoading = isLoading;
+  }
+
+  setSelectedWordle(dailyWordle: any) {
+    this.selectedWordle = dailyWordle;
+  }
+
+  getSelectedWordle() {
+    return this.selectedWordle;
   }
 
   getIsLoading() {

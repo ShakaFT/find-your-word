@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { PrefsService } from "../services/prefs.service";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../services/api.service";
 
 @Component({
@@ -15,16 +15,19 @@ export class WordleListComponent {
   constructor(
     public prefsService: PrefsService,
     private _router: Router,
-    private _apiService: ApiService
+    private _apiService: ApiService,
+    private _route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this._apiService.dailyWordle().subscribe((data) => {
       this.dailyWordles = data.daily_words[this.prefsService.getLang()];
       this.totalWordles = this.dailyWordles.length;
+      this.prefsService.setSelectedWordle(null)
     });
   }
   onWordleClick(dailyWordle: any) {
+    this.prefsService.setSelectedWordle(dailyWordle);
     this._router.navigate(["/"], {
       queryParams: {
         timestamp: dailyWordle.timestamp,

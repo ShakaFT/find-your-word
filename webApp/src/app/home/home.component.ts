@@ -46,17 +46,12 @@ export class HomeComponent {
   ) {
     console.log("HomeComponent constructor");
     this._route.params.subscribe((_) => {
+      if (this.prefsService.getSelectedWordle()) {
+        this.wordToFind = this.prefsService.getSelectedWordle().word;
+        this.wordleTimestamp = this.prefsService.getSelectedWordle().timestamp;
+      }
       this.refresh();
     });
-  }
-
-  ngOnInit() {
-    this._route.params.subscribe((params) => {
-      this.wordleTimestamp = params["timestamp"];
-      this.wordToFind = params["word"];
-    });
-
-    this.refresh();
   }
 
   public onClickKeyboard(key: string) {
@@ -97,7 +92,8 @@ export class HomeComponent {
     this.currentRow = 0;
 
     // select keyboard
-    this.keyboard = this.prefsService.getLang() === "fr" ? this.frKeyboard : this.enKeyboard;
+    this.keyboard =
+      this.prefsService.getLang() === "fr" ? this.frKeyboard : this.enKeyboard;
 
     // Refresh keyboard background color
     this.keyboard.forEach((row) => {
@@ -109,7 +105,7 @@ export class HomeComponent {
     });
 
     this.prefsService.setIsLoading(true);
-    if (this.wordToFind != undefined) {
+    if (this.wordToFind) {
       this.goToScoreIfAlreadyDid();
 
       this.nbLetters = this.wordToFind.length;
@@ -290,7 +286,7 @@ export class HomeComponent {
   }
 
   goToScoreIfAlreadyDid() {
-    if(this.wordleTimestamp) {
+    if (this.wordleTimestamp) {
       if (this.prefsService.isLogin()) {
         this._apiService
           .getScore(this.prefsService.getUser()!.username, this.wordleTimestamp)

@@ -26,6 +26,7 @@ export class InfiniteModeComponent {
     private _route: ActivatedRoute
   ) {
     this._route.params.subscribe((_) => {
+      this.prefsService.setSelectedWordle(null);
       this.refresh();
     });
   }
