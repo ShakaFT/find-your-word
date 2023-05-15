@@ -12,12 +12,10 @@ const scoreRouter = require("./routes/score.router")
 const userRouter = require("./routes/user.router")
 const wordRouter = require("./routes/word.router");
 
+app.use(cors({ origin: process.env.CORS_ORIGIN || "*" }))
 app.use(bodyParser.json())
-app.use(cors())
-
 
 app.get("/", (req, res) => { res.send() })
-
 
 app.use((req, res, next) => {
     res.on('finish', () => {
@@ -54,7 +52,7 @@ app.use("/word", wordRouter)
 
 if (require.main === module) {
     database.connect(process.env.DB_CONNECTION)
-        .then(() => app.listen(process.env.PORT, () => {
+        .then(() => app.listen(process.env.PORT | "8080", () => {
             console.log("REST API is ready !\n")
         }))
         .catch(err => {

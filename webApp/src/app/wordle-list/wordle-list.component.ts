@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { PrefsService } from "../services/prefs.service";
 import { Router } from "@angular/router";
 import { ApiService } from "../services/api.service";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-wordle-list",

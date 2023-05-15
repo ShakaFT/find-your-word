@@ -1,4 +1,4 @@
-# This script is used to deploy REST API by Render
+# This script is used to deploy REST API by Google App Engine
 
 function reset {
     git reset --hard
@@ -20,7 +20,6 @@ if [ -f ".env" ]; then
 fi
 
 # REST API Tests
-
 echo "Will run tests of REST API"
 npm run test
 
@@ -34,7 +33,6 @@ echo "\nAll tests passed!\n"
 echo "\nWill deploy REST API Documentation\n"
 
 # REST API Documentation Deployment
-
 DOCUMENTATION_STATUS=`curl --write-out %{http_code} --silent --output /dev/null \
     -H "Authorization: Bearer $SWAGGER_TOKEN" -H "Content-Type: application/yaml" \
     --data-binary @documentation.yaml $SWAGGER_URL`
@@ -55,12 +53,12 @@ env_variables:' app.yaml
 fi
 
 sed -i '' 's;env_variables:;&\n  API_KEY: '"$API_KEY"';' app.yaml
+sed -i '' 's;env_variables:;&\n  CORS_ORIGIN: '"$WEB_APP_URL"';' app.yaml
 sed -i '' 's;env_variables:;&\n  DB_CONNECTION: '"$DB_CONNECTION"';' app.yaml
 sed -i '' 's;env_variables:;&\n  MONITORING_DISCORD_WEBHOOK: '"$MONITORING_DISCORD_WEBHOOK"';' app.yaml
 sed -i '' 's;env_variables:;&\n  PRODUCTION: true;' app.yaml
 
 # REST API Deployment
-
 gcloud config set project $PROJECT_ID
 gcloud app deploy --quiet
 
@@ -68,9 +66,9 @@ git reset --hard
 
 if [ `echo $?` != 0 ]; then
     ./discord.bash fail "Failed to deploy REST API documentation... [Click here](https://console.cloud.google.com/logs/query?hl=fr&project='$PROJECT_ID') to see logs."
-    exit 0
+    exit 1
 fi
 
-
+echo "REST API successfully deployed !"
 ./discord.bash success
-exit 1
+exit 0

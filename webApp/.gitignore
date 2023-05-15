@@ -58,5 +58,7 @@ baseline.json
 aio/content/examples/.DS_Store
 
 /.angular/cache
+/.firebase/
 
+**/.env
 /src/environments
