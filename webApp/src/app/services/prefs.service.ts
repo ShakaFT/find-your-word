@@ -6,11 +6,6 @@ import { ApiService } from "./api.service";
   providedIn: "root",
 })
 export class PrefsService {
-  private user: User | null = null;
-  private lang: string = "en";
-  private maximumWordLength: number = 11;
-  private minimumDailyTimestamp: number = 1683756000000;
-  private minimumWordLength: number = 4;
   private langs!: string[];
   private isLoading: boolean = false;
 
@@ -18,48 +13,55 @@ export class PrefsService {
     this.isLoading = true;
     this.apiService.start().subscribe((data) => {
       this.langs = data.allowed_langs;
-      this.lang = this.langs[0];
-      this.maximumWordLength = data.maximum_word_length;
-      this.minimumDailyTimestamp = data.minimum_daily_timestamp;
-      this.minimumWordLength = data.minimum_word_length;
+      localStorage.setItem("lang", "en");
+      localStorage.setItem("maximumWordLength", data.maximum_word_length);
+      localStorage.setItem(
+        "minimumDailyTimestamp",
+        data.minimum_daily_timestamp
+      );
+      localStorage.setItem("minimumWordLength", data.minimum_word_length);
       this.isLoading = false;
     });
   }
 
   login(user: User) {
-    this.user = user;
+    localStorage.setItem("user", JSON.stringify(user));
   }
 
   logout() {
-    this.user = null;
+    localStorage.removeItem("user");
   }
 
   isLogin() {
-    return this.user !== null;
+    return localStorage.getItem("user") !== null;
   }
 
   getUser() {
-    return this.user;
+    return JSON.parse(localStorage.getItem("user")!);
   }
 
   setLang(lang: string) {
-    this.lang = lang;
+    localStorage.setItem("lang", lang);
   }
 
   setUsername(username: string) {
-    if (this.user) {
-      this.user.username = username;
+    if (localStorage.getItem("user")) {
+      let user = JSON.parse(localStorage.getItem("user")!);
+      user.username = username;
+      localStorage.setItem("user", JSON.stringify(user));
     }
   }
 
   setEmail(email: string) {
-    if (this.user) {
-      this.user.email = email;
+    if (localStorage.getItem("user")) {
+      let user = JSON.parse(localStorage.getItem("user")!);
+      user.email = email;
+      localStorage.setItem("user", JSON.stringify(user));
     }
   }
 
   getLang() {
-    return this.lang;
+    return localStorage.getItem("lang") || "en";
   }
 
   getLangs() {
@@ -75,14 +77,16 @@ export class PrefsService {
   }
 
   getMaximumWordLength() {
-    return this.maximumWordLength;
+    return parseInt(localStorage.getItem("maximumWordLength") || "11");
   }
 
   getMinimumDailyTimestamp() {
-    return this.minimumDailyTimestamp;
+    return parseInt(
+      localStorage.getItem("minimumDailyTimestamp") || "1683756000000"
+    );
   }
 
   getMinimumWordLength() {
-    return this.minimumWordLength;
+    return parseInt(localStorage.getItem("minimumWordLength") || "4");
   }
 }
