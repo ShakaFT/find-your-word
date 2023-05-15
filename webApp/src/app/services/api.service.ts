@@ -133,4 +133,15 @@ export class ApiService {
       }
     );
   }
+
+  public getScore(username: string, timestamp: number): Observable<any>{
+    return this.http.get<any>(
+      `${environment.API_URL}/score?username=${username}&timestamp=${timestamp}`,
+      {
+        headers: new HttpHeaders({
+          'api-key': environment.API_KEY,
+        }),
+      }
+    );
+  }
 }

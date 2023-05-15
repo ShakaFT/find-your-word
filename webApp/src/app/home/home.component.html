@@ -1,5 +1,5 @@
 <div class="container">
-  <app-nav></app-nav>
+  <app-nav [timestamp]="wordleTimestamp"></app-nav>
   <div class="game">
     <div class="board_game">
       <div class="row_board_game" *ngFor="let row of gameMatrix; let indexRow = index">

@@ -1,9 +1,10 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, Input, ViewChild } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { PrefsService } from "src/app/services/prefs.service";
 import { Router, NavigationExtras } from "@angular/router";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-nav",
@@ -15,8 +16,13 @@ import { Router, NavigationExtras } from "@angular/router";
 export class NavComponent {
   isLogged = false;
   lang = this.prefsService.getLang();
+  @Input() timestamp!: number;
 
-  constructor(public prefsService: PrefsService, private _router: Router) {
+  constructor(
+    public prefsService: PrefsService,
+    private _router: Router,
+    private _snackBar: MatSnackBar
+  ) {
     this.isLogged = this.prefsService.isLogin();
   }
 
@@ -51,7 +57,17 @@ export class NavComponent {
   }
 
   scores() {
-    this._router.navigate(["/scores"]);
+    if (this.isLogged) {
+      console.log(this.timestamp)
+      this._router.navigate(["/scores", {timestamp: this.timestamp}]
+        // queryParams: {timestamp: this.timestamp },
+      );
+    } else {
+      this._router.navigate(["/login"]);
+      this._snackBar.open("Log you first...", "Close", {
+        duration: 3000,
+      });
+    }
   }
 
   refreshPage(): void {

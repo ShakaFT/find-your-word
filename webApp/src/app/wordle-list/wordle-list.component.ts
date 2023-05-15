@@ -27,7 +27,10 @@ export class WordleListComponent {
   onWordleClick(dailyWordle: any) {
     this._router.navigate([
       "/home",
-      { timestamp: dailyWordle.timestamp, word: dailyWordle.word },
+      {
+        timestamp: dailyWordle.timestamp,
+        word: dailyWordle.word,
+      },
     ]);
   }
 }
