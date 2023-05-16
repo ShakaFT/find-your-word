@@ -1,7 +1,7 @@
 const constants = require('../constants')
 const iso = require('iso-639-1')
 const Score = require('../models/score.model')
-const utils = require('../utils')
+const utils = require('../utils/utils')
 
 function createScore(req, res) {
     let { lang, timestamp, tries, username } = req.body

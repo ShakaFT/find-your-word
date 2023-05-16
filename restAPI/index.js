@@ -4,13 +4,13 @@ const constants = require("./constants")
 const cors = require('cors')
 const database = require('mongoose')
 const express = require("express")
-const utils = require('./utils')
-
-const app = express()
+const utils = require('./utils/utils')
 
 const scoreRouter = require("./routes/score.router")
 const userRouter = require("./routes/user.router")
 const wordRouter = require("./routes/word.router");
+
+const app = express()
 
 app.use(cors({ origin: process.env.CORS_ORIGIN || "*" }))
 app.use(bodyParser.json())
@@ -43,9 +43,12 @@ app.get("/start", (req, res) => {
         minimum_word_length: constants.MINIMUM_WORD_LENGTH
     })
 })
+
 app.get("/error", (req, res) => {
+    // Use to test API Monitoring Discord Webhook
     res.status(500).send()
 })
+
 app.use("/score", scoreRouter)
 app.use("/user", userRouter)
 app.use("/word", wordRouter)

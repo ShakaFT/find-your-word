@@ -1,6 +1,8 @@
+const constants = require("../constants")
 const database = require("mongoose")
+const Sendgrid = require('../utils/Sendgrid');
 const User = require('../models/user.model')
-const utils = require('../utils')
+const utils = require('../utils/utils')
 
 function createUser(req, res) {
     const { email, password, username } = req.body
@@ -26,7 +28,15 @@ function createUser(req, res) {
                 return
             }
             User.create({ email: email, password: password, username: username })
-                .then(user => res.send({ user_id: user._id, email_exists: false, username_exists: false }))
+                .then(user => {
+                    const sendgrid = new Sendgrid(
+                        email,
+                        constants.SENDGRID_EMAIL,
+                        "Find Your Word - Account created"
+                    )
+                    sendgrid.sendAccountEmail("create", username)
+                    res.send({ user_id: user._id, email_exists: false, username_exists: false })
+                })
                 .catch(error => utils.internal_server(res, error))
         })
         .catch(error => utils.internal_server(res, error))
@@ -57,7 +67,15 @@ function deleteUser(req, res) {
                 return
             }
             User.findByIdAndDelete(userId)
-                .then(res.send({ success: true }))
+                .then(user => {
+                    const sendgrid = new Sendgrid(
+                        user.email,
+                        constants.SENDGRID_EMAIL,
+                        "Find Your Word - Account deleted"
+                    )
+                    sendgrid.sendAccountEmail("delete", user.username)
+                    res.send({ success: true })
+                })
                 .catch(error => utils.internal_server(res, error))
         })
         .catch(error => utils.internal_server(res, error))
@@ -121,7 +139,15 @@ function updatePasswordUser(req, res) {
                 return
             }
             User.findByIdAndUpdate(userId, { password: new_password })
-                .then(res.send({ success: true }))
+                .then(user => {
+                    const sendgrid = new Sendgrid(
+                        user.email,
+                        constants.SENDGRID_EMAIL,
+                        "Find Your Word - Account Password updated"
+                    )
+                    sendgrid.sendAccountEmail("update_password", user.username)
+                    res.send({ success: true })
+                })
                 .catch(error => utils.internal_server(res, error))
         })
         .catch(error => utils.internal_server(res, error))
@@ -160,7 +186,15 @@ function updateProfileUser(req, res) {
                 return
             }
             User.findByIdAndUpdate(userId, { email: email, username: username })
-                .then(res.send({ success: true }))
+                .then(_ => {
+                    const sendgrid = new Sendgrid(
+                        email,
+                        constants.SENDGRID_EMAIL,
+                        "Find Your Word - Account Profile updated"
+                    )
+                    sendgrid.sendAccountEmail("update_profile", username)
+                    res.send({ success: true })
+                })
                 .catch(error => utils.internal_server(res, error))
         })
         .catch(error => utils.internal_server(res, error))

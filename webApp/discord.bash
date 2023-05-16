@@ -1,7 +1,7 @@
 # This script send a message on Discord webhook
 # First parameter : 'success' or 'fail'
 # Second parameter : Message
-echo $DEPLOYMENT_DISCORD_WEBHOOK
+
 TITLE="Find Your Word - Web App Deployment"
 if [ $1 == "success" ]; then
     COLOR=65280 # green

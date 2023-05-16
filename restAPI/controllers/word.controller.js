@@ -1,7 +1,7 @@
 const constants = require("../constants")
 const iso = require('iso-639-1')
 const { getWordModel } = require('../models/word.model')
-const utils = require('../utils')
+const utils = require('../utils/utils')
 
 function existsWord(req, res) {
     const wordRegex = /^[a-zA-Z]+$/
