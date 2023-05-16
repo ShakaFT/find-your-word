@@ -3,7 +3,7 @@
 
   <div class="game">
     <div class="board_game">
-      <h1 class="date">{{wordleDate}}</h1>
+      <h2 class="date">{{wordleDate}}</h2>
       <div class="row_board_game" *ngFor="let row of gameMatrix; let indexRow = index">
         <div id="boxRow{{indexRow}}Col{{indexCol}}" class="box" *ngFor="let letter of row; let indexCol = index">{{
           letter }}</div>

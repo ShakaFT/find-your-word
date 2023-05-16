@@ -137,7 +137,8 @@ export class HomeComponent {
       this.wordleTimestamp =
         data.daily_words[this.prefsService.getLang()][0].timestamp;
         
-      this.wordleDate = new Date().toLocaleDateString();
+      const date = new Date().toLocaleDateString();
+      this.wordleDate = `Wordle of ${date}`;
 
       this.nbLetters = this.wordToFind.length;
 
