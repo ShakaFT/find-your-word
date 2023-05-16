@@ -238,7 +238,7 @@ export class HomeComponent {
         if (currentWord == this.wordToFind) {
           const dialogRef = this._dialog.open(ModalComponent, {
             data: {
-              title: "You win !",
+              title: "You win ! 🎉",
               content: `The word was ${this.wordToFind}`,
             },
             panelClass: "modal-win",
@@ -269,9 +269,10 @@ export class HomeComponent {
         if (this.currentRow == this.nbTries - 1) {
           const dialogRef = this._dialog.open(ModalComponent, {
             data: {
-              title: "You lose ...",
+              title: "You lose ... 😢",
               content: `The word was ${this.wordToFind}`,
             },
+            panelClass: "modal-lose",
             disableClose: true,
           });
 

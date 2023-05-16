@@ -210,7 +210,7 @@ export class InfiniteModeComponent {
         if (currentWord == this.wordToFind) {
           const dialogRef = this._dialog.open(ModalComponent, {
             data: {
-              title: "You win !!!",
+              title: "You win ! 🎉",
               content: `The word was ${this.wordToFind}`,
             },
             disableClose: true,
@@ -235,10 +235,11 @@ export class InfiniteModeComponent {
         if (this.currentRow == this.nbTries - 1) {
           const dialogRef = this._dialog.open(ModalComponent, {
             data: {
-              title: "You lose ...",
+              title: "You lose ... 😢",
               content: `The word was ${this.wordToFind}`,
             },
             disableClose: true,
+            panelClass: "modal-lose",
           });
 
           this.prefsService.setIsLoading(false);
