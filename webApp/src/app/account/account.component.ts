@@ -71,6 +71,7 @@ export class AccountComponent {
                 this._snackBar.open("Username already taken...", "Close", {
                   duration: 3000,
                 });
+                this.prefsService.setIsLoading(false);
                 return;
               }
 
@@ -78,6 +79,7 @@ export class AccountComponent {
                 this._snackBar.open("Email already taken...", "Close", {
                   duration: 3000,
                 });
+                this.prefsService.setIsLoading(false);
                 return;
               }
 
