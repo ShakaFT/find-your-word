@@ -16,16 +16,16 @@ class Sendgrid {
         let html = ""
         switch (action) {
             case "create":
-                html = this._accountHTML("Account Created", `Welcome ${username} to Find Your Word! Your account has been successfully created.`)
+                html = this._accountHTML("Account Created", `Welcome ${username} to Find Your Word! Your account has been successfully created.`, "/account")
                 break
             case "delete":
-                html = this._accountHTML("Account Removed", `Good by ${username}... Your account has been successfully deleted.`)
+                html = this._accountHTML("Account Removed", `Good by ${username}... Your account has been successfully deleted.`, "/")
                 break
             case "update_password":
-                html = this._accountHTML("Account Password Updated", `Welcome ${username} to Find Your Word! Your password has been successfully updated.`)
+                html = this._accountHTML("Account Password Updated", `Welcome ${username} to Find Your Word! Your password has been successfully updated.`, "/account")
                 break
             case "update_profile":
-                html = this._accountHTML("Account Profile Updated", `Welcome ${username} to Find Your Word! Your profiles has been successfully updated.`)
+                html = this._accountHTML("Account Profile Updated", `Welcome ${username} to Find Your Word! Your profiles has been successfully updated., "/account"`)
                 break
             default:
                 throw Error(`Unexisting action : ${action}`)
@@ -39,7 +39,7 @@ class Sendgrid {
         })
     }
 
-    _accountHTML(title, content) {
+    _accountHTML(title, content, route) {
         return `
         <html lang="en">
         <head>
@@ -88,7 +88,7 @@ class Sendgrid {
             <div class="container">
                 <h1>${title}</h1>
                 <p>${content}</p>
-                <a class="cta-button" href="#">Accéder à mon compte</a>
+                <a class="cta-button" href="${process.env.WEB_APP_URL}${route}">Access the app</a>
             </div>
         </body>
         </html>
