@@ -16,7 +16,11 @@ export class AccountComponent {
     public prefsService: PrefsService,
     private _apiService: ApiService,
     private _router: Router
-  ) {}
+  ) {
+    if(!this.prefsService.isLogin()) {
+      this._router.navigate(["/"])
+    }
+  }
 
   account: FormGroup = new FormGroup({
     email: new FormControl(this.prefsService.getUser()?.email, [

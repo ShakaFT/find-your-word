@@ -16,7 +16,11 @@ export class SignupComponent {
     public prefsService: PrefsService,
     private _apiService: ApiService,
     private _router: Router
-  ) {}
+  ) {
+    if(this.prefsService.isLogin()) {
+      this._router.navigate(["/"])
+    }
+  }
 
   signup: FormGroup = new FormGroup({
     username: new FormControl("", [Validators.required]),
