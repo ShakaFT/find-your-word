@@ -25,7 +25,7 @@ class Sendgrid {
                 html = this._accountHTML("Account Password Updated", `Welcome ${username} to Find Your Word! Your password has been successfully updated.`, "/account")
                 break
             case "update_profile":
-                html = this._accountHTML("Account Profile Updated", `Welcome ${username} to Find Your Word! Your profiles has been successfully updated., "/account"`)
+                html = this._accountHTML("Account Profile Updated", `Welcome ${username} to Find Your Word! Your profiles has been successfully updated.`, "/account")
                 break
             default:
                 throw Error(`Unexisting action : ${action}`)
