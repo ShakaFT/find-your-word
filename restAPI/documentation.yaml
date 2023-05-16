@@ -406,15 +406,25 @@ paths:
       responses:
         '200':
           description: |-
+            - `email_exists` is set to `true` if email is already used by another user.
+
             - `success` is set to `false` if password is invalid.
+
+            - `username_exists` is set to `true` if username is already used by another user.
           content:
             application/json:
               schema:
                 type: object
                 properties:
+                  email_exists:
+                    type: boolean
+                    default: false
                   success:
                     type: boolean
                     default: true
+                  username_exists:
+                    type: boolean
+                    default: false
 
         '400':
           description: Invalid payload
