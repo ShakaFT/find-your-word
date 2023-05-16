@@ -44,7 +44,6 @@ export class ScoresComponent {
       .subscribe((data) => {
         this.scores = data["best_scores"];
         this.personalScore = data["personal_score"];
-        console.log(data);
         this.prefsService.setIsLoading(false);
       });
   }

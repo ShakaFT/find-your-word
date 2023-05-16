@@ -48,7 +48,6 @@ export class HomeComponent {
     private _router: Router,
     private _route: ActivatedRoute
   ) {
-    console.log("HomeComponent constructor");
     this._route.params.subscribe((_) => {
       if (this.prefsService.getSelectedWordle()) {
         this.wordToFind = this.prefsService.getSelectedWordle().word;
@@ -262,7 +261,6 @@ export class HomeComponent {
                 this.prefsService.getLang()
               )
               .subscribe((data) => {
-                console.log(data);
                 this.prefsService.setIsLoading(false);
               });
           } else {
