@@ -55,5 +55,11 @@
     .logged-p {
       margin: 0;
     }
+    .separator {
+      margin: 0 0.5rem;
+      display: flex;
+      place-items: center;
+      flex-direction: column;
+    }
   }
 }

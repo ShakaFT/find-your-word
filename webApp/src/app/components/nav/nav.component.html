@@ -47,17 +47,21 @@
         class="fi fi-gb fis"
       ></span>
     </button>
-    <button type="button" [matMenuTriggerFor]="accountMenu">
-      <mat-icon>account_circle</mat-icon>
-    </button>
-    <mat-menu #accountMenu>
-      <menu mat-menu-item *ngIf="!isLogged" (click)="login()">Login</menu>
-      <menu mat-menu-item *ngIf="isLogged" (click)="goToAccount()"
-        >Account</menu
-      >
-      <menu mat-menu-item *ngIf="isLogged" (click)="logout()">Logout</menu>
-    </mat-menu>
-    <p *ngIf="!isLogged" class="logged-p">not logged</p>
-    <p *ngIf="isLogged" class="logged-p">{{ prefsService.getUser().username }}</p>
+    <div class="separator">
+      <button type="button" [matMenuTriggerFor]="accountMenu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #accountMenu>
+        <menu mat-menu-item *ngIf="!isLogged" (click)="login()">Login</menu>
+        <menu mat-menu-item *ngIf="isLogged" (click)="goToAccount()"
+          >Account</menu
+        >
+        <menu mat-menu-item *ngIf="isLogged" (click)="logout()">Logout</menu>
+      </mat-menu>
+      <p *ngIf="!isLogged" class="logged-p">not logged</p>
+      <p *ngIf="isLogged" class="logged-p">
+        {{ prefsService.getUser().username }}
+      </p>
+    </div>
   </div>
 </div>
