@@ -16,7 +16,11 @@ export class ResetPasswordComponent {
     public prefsService: PrefsService,
     private _apiService: ApiService,
     private _router: Router
-  ) {}
+  ) {
+    if(!this.prefsService.isLogin()) {
+      this._router.navigate(["/"])
+    }
+  }
 
   resetPassword: FormGroup = new FormGroup({
     oldPassword: new FormControl("", [Validators.required, Validators.min(3)]),

@@ -17,7 +17,11 @@ export class LoginComponent {
     public prefsService: PrefsService,
     private _apiService: ApiService,
     private _router: Router
-  ) {}
+  ) {
+    if(this.prefsService.isLogin()) {
+      this._router.navigate(["/"])
+    }
+  }
 
   login: FormGroup = new FormGroup({
     email: new FormControl("", [Validators.email, Validators.required]),

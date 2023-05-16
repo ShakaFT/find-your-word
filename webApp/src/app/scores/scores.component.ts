@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { PrefsService } from "../services/prefs.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Score } from "../interfaces/score";
 import { ApiService } from "../services/api.service";
 
@@ -13,8 +13,13 @@ export class ScoresComponent {
   constructor(
     public prefsService: PrefsService,
     private _apiService: ApiService,
-    private _route: ActivatedRoute
-  ) {}
+    private _route: ActivatedRoute,
+    private _router: Router
+  ) {
+    if(!this.prefsService.isLogin()) {
+      this._router.navigate(["/"])
+    }
+  }
 
   wordleTimestamp: number = 0;
   scores: Score[] = [];
