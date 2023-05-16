@@ -185,15 +185,23 @@ function updateProfileUser(req, res) {
                 res.send({ success: false })
                 return
             }
-            User.findByIdAndUpdate(userId, { email: email, username: username })
-                .then(_ => {
-                    const sendgrid = new Sendgrid(
-                        email,
-                        constants.SENDGRID_EMAIL,
-                        "Find Your Word - Account Profile updated"
-                    )
-                    sendgrid.sendAccountEmail("update_profile", username)
-                    res.send({ success: true })
+            User.findOne({ $or: [{ email: email }, { username: username }] })
+                .then(user => {
+                    if (user) {
+                        res.send({ email_exists: user.email === email, username_exists: user.username === username, success: true })
+                        return
+                    }
+                    User.findByIdAndUpdate(userId, { email: email, username: username })
+                        .then(_ => {
+                            const sendgrid = new Sendgrid(
+                                email,
+                                constants.SENDGRID_EMAIL,
+                                "Find Your Word - Account Profile updated"
+                            )
+                            sendgrid.sendAccountEmail("update_profile", username)
+                            res.send({ success: true })
+                        })
+                        .catch(error => utils.internal_server(res, error))
                 })
                 .catch(error => utils.internal_server(res, error))
         })
