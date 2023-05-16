@@ -217,6 +217,8 @@ export class InfiniteModeComponent {
             panelClass: "modal-win",
           });
 
+          this.surprise();
+
           this.prefsService.setIsLoading(false);
 
           dialogRef.afterClosed().subscribe((result) => {
@@ -226,6 +228,7 @@ export class InfiniteModeComponent {
               this._router.navigate([result]);
             }
           });
+
           return;
         }
 

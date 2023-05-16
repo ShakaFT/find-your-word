@@ -207,6 +207,10 @@ export class HomeComponent {
     this.clicked = true;
   }
 
+  public removeSurprise(): void {
+    this.clicked = false;
+  }
+
   private _checkWord() {
     if (this._getLastBox() !== this.nbLetters - 1) {
       this._snackBar.open("The word is too short...", "Close", {
@@ -239,6 +243,7 @@ export class HomeComponent {
             },
             panelClass: "modal-win",
           });
+          this.surprise();
           if (this.prefsService.isLogin()) {
             this._apiService
               .sendScore(
@@ -254,7 +259,7 @@ export class HomeComponent {
           } else {
             this.prefsService.setIsLoading(false);
           }
-
+          
           dialogRef.afterClosed().subscribe((result) => {
             this._router.navigate([result]);
           });
