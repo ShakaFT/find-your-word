@@ -2,7 +2,7 @@
   <app-nav></app-nav>
   <div class="cards">
     <mat-card
-      (click)="onWordleClick(dailyWordle)"
+      (click)="onWordleClick(dailyWordle, indexWordle)"
       *ngFor="let dailyWordle of dailyWordles; let indexWordle = index"
       class="daily-wordle-card"
     >

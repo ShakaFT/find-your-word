@@ -24,16 +24,12 @@ export class WordleListComponent {
     this._apiService.dailyWordle().subscribe((data) => {
       this.dailyWordles = data.daily_words[this.prefsService.getLang()];
       this.totalWordles = this.dailyWordles.length;
-      this.prefsService.setSelectedWordle(null)
+      this.prefsService.setSelectedWordle(null);
     });
   }
-  onWordleClick(dailyWordle: any) {
+  onWordleClick(dailyWordle: any, index: number) {
+    dailyWordle["index"] = this.totalWordles - index;
     this.prefsService.setSelectedWordle(dailyWordle);
-    this._router.navigate(["/"], {
-      queryParams: {
-        timestamp: dailyWordle.timestamp,
-        word: dailyWordle.word,
-      },
-    });
+    this._router.navigate(["/"]);
   }
 }

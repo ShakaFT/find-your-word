@@ -30,6 +30,8 @@ export class HomeComponent {
 
   public wordleDate: string = "";
 
+  public wordIndex: number = 0;
+
   public gameMatrix: Array<Array<string>> = [];
 
   public wordleTimestamp!: number;
@@ -51,6 +53,7 @@ export class HomeComponent {
       if (this.prefsService.getSelectedWordle()) {
         this.wordToFind = this.prefsService.getSelectedWordle().word;
         this.wordleTimestamp = this.prefsService.getSelectedWordle().timestamp;
+        this.wordIndex = this.prefsService.getSelectedWordle().index;
       }
     });
   }
@@ -113,13 +116,7 @@ export class HomeComponent {
     if (this.wordToFind) {
       this.goToScoreIfAlreadyDid();
 
-      // Set a number for each wordle date, the Wordle number "1" was the 11/05/2023
-      let firstWordle = new Date("2023-05-11").getTime();
-      let currentWordle = new Date(this.wordleTimestamp).getTime();
-      let diff = currentWordle - firstWordle;
-      let diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
-
-      this.wordleDate = `Wordle #${diffDays}`;
+      this.wordleDate = `Wordle #${this.wordIndex}`;
 
       this.nbLetters = this.wordToFind.length;
 
@@ -139,13 +136,8 @@ export class HomeComponent {
       this.wordToFind = data.daily_words[this.prefsService.getLang()][0].word;
       this.wordleTimestamp =
         data.daily_words[this.prefsService.getLang()][0].timestamp;
-      // Set a number for each wordle date, the Wordle number "1" was the 11/05/2023
-      let firstWordle = new Date("2023-05-11").getTime();
-      let currentWordle = new Date(this.wordleTimestamp).getTime();
-      let diff = currentWordle - firstWordle;
-      let diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
-
-      this.wordleDate = `Wordle #${diffDays}`;
+        
+      this.wordleDate = new Date().toLocaleDateString();
 
       this.nbLetters = this.wordToFind.length;
 
