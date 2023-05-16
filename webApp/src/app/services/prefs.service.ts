@@ -18,10 +18,6 @@ export class PrefsService {
         localStorage.setItem("lang", "en");
       }
       localStorage.setItem("maximumWordLength", data.maximum_word_length);
-      localStorage.setItem(
-        "minimumDailyTimestamp",
-        data.minimum_daily_timestamp
-      );
       localStorage.setItem("minimumWordLength", data.minimum_word_length);
       this.isLoading = false;
     });
@@ -89,12 +85,6 @@ export class PrefsService {
 
   getMaximumWordLength() {
     return parseInt(localStorage.getItem("maximumWordLength") || "11");
-  }
-
-  getMinimumDailyTimestamp() {
-    return parseInt(
-      localStorage.getItem("minimumDailyTimestamp") || "1683756000000"
-    );
   }
 
   getMinimumWordLength() {
