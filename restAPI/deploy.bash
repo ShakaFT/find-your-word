@@ -57,7 +57,9 @@ sed -i '' 's;env_variables:;&\n  CORS_ORIGIN: '"$WEB_APP_URL"';' app.yaml
 sed -i '' 's;env_variables:;&\n  DB_CONNECTION: '"$DB_CONNECTION"';' app.yaml
 sed -i '' 's;env_variables:;&\n  MONITORING_DISCORD_WEBHOOK: '"$MONITORING_DISCORD_WEBHOOK"';' app.yaml
 sed -i '' 's;env_variables:;&\n  PRODUCTION: true;' app.yaml
+sed -i '' 's;env_variables:;&\n  PROJECT_ID: '"$PROJECT_ID"';' app.yaml
 sed -i '' 's;env_variables:;&\n  SENDGRID_API_KEY: '"$SENDGRID_API_KEY"';' app.yaml
+sed -i '' 's;env_variables:;&\n  WEB_APP_URL: '"$WEB_APP_URL"';' app.yaml
 
 # REST API Deployment
 gcloud config set project $PROJECT_ID
