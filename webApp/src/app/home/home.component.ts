@@ -136,7 +136,7 @@ export class HomeComponent {
       this.wordToFind = data.daily_words[this.prefsService.getLang()][0].word;
       this.wordleTimestamp =
         data.daily_words[this.prefsService.getLang()][0].timestamp;
-        
+
       const date = new Date().toLocaleDateString();
       this.wordleDate = `Wordle of ${date}`;
 
@@ -178,19 +178,27 @@ export class HomeComponent {
         return;
       }
 
+      let found = false;
       for (let findIndex = 0; findIndex < this.wordToFind.length; findIndex++) {
         if (letter == this.wordToFind[findIndex] && !attribution[findIndex]) {
-          if (
-            document.getElementById(letter)?.style.backgroundColor != "green"
-          ) {
-            this._setBackgroundColor(letter, "orange"); // keyboard
+          if (!found) {
+            if (
+              document.getElementById(letter)?.style.backgroundColor != "green"
+            ) {
+              this._setBackgroundColor(letter, "orange"); // keyboard
+            }
+            found = true;
+            attribution[findIndex] = true;
           }
           this._setBackgroundColor(id, "orange"); // box
-          return;
         }
       }
 
-      this._setBackgroundColor(letter, "gray");
+      if (!found && this.wordToFind.indexOf(letter) > -1) {
+        this._setBackgroundColor(letter, "gray"); // keyboard
+      } else if (!found) {
+        this._setBackgroundColor(letter, "gray"); // keyboard
+      }
     });
   }
 
@@ -260,7 +268,7 @@ export class HomeComponent {
           } else {
             this.prefsService.setIsLoading(false);
           }
-          
+
           dialogRef.afterClosed().subscribe((result) => {
             this._router.navigate([result]);
           });
