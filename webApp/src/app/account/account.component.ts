@@ -17,8 +17,8 @@ export class AccountComponent {
     private _apiService: ApiService,
     private _router: Router
   ) {
-    if(!this.prefsService.isLogin()) {
-      this._router.navigate(["/"])
+    if (!this.prefsService.isLogin()) {
+      this._router.navigate(["/"]);
     }
   }
 
@@ -67,6 +67,20 @@ export class AccountComponent {
           )
           .subscribe((data) => {
             if (data.success) {
+              if (data.username_exists) {
+                this._snackBar.open("Username already taken...", "Close", {
+                  duration: 3000,
+                });
+                return;
+              }
+
+              if (data.email_exists) {
+                this._snackBar.open("Email already taken...", "Close", {
+                  duration: 3000,
+                });
+                return;
+              }
+
               this.prefsService.setEmail(this.emailInput?.value);
               this.prefsService.setUsername(this.usernameInput?.value);
 
