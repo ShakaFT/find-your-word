@@ -187,7 +187,7 @@ function updateProfileUser(req, res) {
             }
             User.findOne({ $or: [{ email: email }, { username: username }] })
                 .then(user => {
-                    if (user) {
+                    if (user && user._id != userId) {
                         res.send({ email_exists: user.email === email, username_exists: user.username === username, success: true })
                         return
                     }
